@@ -1,30 +1,28 @@
-body {
-    background-color: #FBF8F3;
-  }
-  
-  a, .nav-link{
-    color: #000000;
-  }
-  
-  .navbar-brand{
-    font-weight: 700;
-  }
-  
-  .cta__secondary{
-    background-color: transparent;
-    border: none;
-    padding: 12px 24px;
-  }
-  
-  .cta__primary{
-    background-color: #4D13D1;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    color: white;
-    font-weight: 500;
-  }
-  
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
+@import "styles/style.css";
+
+
+
+*{
+  background-image: none !important;
+}
+
+.postarea{
+  height: 1000px;
+  gap: 40px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  margin-top: 50px;
+
+}
+
+#editbutton{
+  color:blue;
+  margin-left: 100px;
+  margin-top: -50px;
+}

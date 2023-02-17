@@ -1,39 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Post;
-use Illuminate\Http\Request;
-use App\Providers\RouteServiceProvider;
-use ErrorException;
 
-class PostController extends Controller
+use Illuminate\Http\Request;
+
+class TopicController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $title, $description;
-
     public function index()
     {
-        $posts = Post::all();
-        return view("posts.home", compact("posts"));
+        //
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        return view("posts.create");
-
-    }
-
-    private function resetInputField(){
-        $this->title = "";
-        $this->description = "";
+        //
     }
 
     /**
@@ -44,21 +34,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedDate = $request->validate([
-            'title' => 'required',
-            'description' => 'required'
-        ]);
-    
-            
-        Post::create($validatedDate);
-        
-        $this->resetInputField();
-        session()->flash("succes post created succesfully");
-        return redirect("posts");
-        
-       
-        
-        
+        //
     }
 
     /**

@@ -42,16 +42,9 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            
+            "role" => User::ADMIN,
         ]);
-        User::factory()->create([
-            "role" => "user",
-            "user_image" => "",
-                
-        ]);
-
-       
-
+        
         event(new Registered($user));
 
         Auth::login($user);
@@ -59,18 +52,5 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function index(): JsonResponse{
-        return response()->json(
-            User::query()
-            ->select("id", "name", "email", "user_image", "role")
-            ->latest()
-            ->withCount("posts")
-            ->paginate(), 200
-
-            
-        );
-
-
-
-    }
 }
+

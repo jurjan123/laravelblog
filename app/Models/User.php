@@ -18,6 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
+     public const EDITOR = 2;
+     public const USER = 1;
+     public const ADMIN = 3;
+
+
     protected $table = "blog_users";
 
     protected $fillable = [
@@ -43,5 +48,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        "role" => User::USER,
     ];
 }
