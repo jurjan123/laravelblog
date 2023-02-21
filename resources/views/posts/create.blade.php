@@ -21,6 +21,14 @@
     <br>
     <input type="submit" name="submit" value="submit" id="submitbtn">
     </form>
+    @php
+    if($_SERVER["REQUEST_URI"] === "/posts/edit"){
+        echo "<div>";
+        echo "<button id='savebutton'>save</button>";
+        echo "<button id='cancelbutton'>cancel</button>";
+        echo "</div>";
+    }
+    @endphp
     </div>
 
    

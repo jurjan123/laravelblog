@@ -62,11 +62,12 @@ ul{
     position: absolute;
     margin-left: 900px;
     background-color: orange;
+    height: 60px;
     border-radius: 5px;
     width: 100px;
     color: white;
     /* height: 30px; */
-    margin-top: -20px;
+    margin-top: 25px;
 }
 
 .textarea{
@@ -98,3 +99,27 @@ ul{
     /* height: 30px; */
     margin-top: -20px;
 }
+
+#savebutton{
+    background-color: blue;
+    border-radius: 5px;
+    width: 100px;
+    color: white;
+    height: 30px;
+    margin-top: -25px;
+    position: absolute;
+    margin-left: 370px;
+}
+
+#cancelbutton{
+    background-color: red;
+    border-radius: 5px;
+    width: 100px;
+    color: white;
+    height: 30px;
+    margin-top: -25px;
+    position: absolute;
+    margin-left: 260px;
+}
+
+

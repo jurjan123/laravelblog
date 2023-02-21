@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string("role");
-            $table->text("user_image");
+            $table->string("user_image")->default("preset.png");
             $table->rememberToken();
             $table->timestamps();
            

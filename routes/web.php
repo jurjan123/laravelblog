@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Livewire\ProductsSearch;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +39,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get("/posts", [PostController::class, "index"])->name("posts");
+
+    Route::get("/posts/users", [PostController::class, "index"]);
     Route::get("/posts/create", [PostController::class, "create"])->name("create");
     Route::post("/posts/store", [PostController::class, "store"])->name("store");
     Route::get("/posts/edit", [PostController::class, "edit"])->name("edit");
    
+    Route::get('/products', [ProductsSearch::class])->name('products');
 });
+   
+   
+ 
+
+
+Route::view("/practice", "practice");
 
 
 

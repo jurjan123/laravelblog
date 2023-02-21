@@ -1,0 +1,7 @@
+@livewire("product-search")
+      
+      
+      
+      
+      
+      

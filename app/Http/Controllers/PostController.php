@@ -13,7 +13,8 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $title, $description;
+    public $posts, $title, $description, $post_id;
+    public $updateMode = false;
 
     public function index()
     {
@@ -49,15 +50,11 @@ class PostController extends Controller
             'description' => 'required'
         ]);
     
-            
         Post::create($validatedDate);
         
         $this->resetInputField();
         session()->flash("succes post created succesfully");
         return redirect("posts");
-        
-       
-        
         
     }
 
@@ -80,7 +77,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $this->post_id = $id;
+        $this->title = $post->title;
+        $this->description = $post->description;
+
+        return view("posts.home");
+        $this->updateMode = true;
     }
 
     /**
@@ -92,7 +95,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        return view("posts.create");
     }
 
     /**
