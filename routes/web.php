@@ -25,12 +25,16 @@ Route::get('/', function () {
     return view('index');
 })->middleware("guest");
 
-
-//Route::get("/navbar", [UserController::class, "index"]);
+Route::get("/welcome", function(){
+    return view("welcome");
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts");
 
 
 Route::middleware('auth')->group(function () {
@@ -39,13 +43,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get("/posts", [PostController::class, "index"])->name("posts");
-
-    Route::get("/posts/users", [PostController::class, "index"]);
     Route::get("/posts/create", [PostController::class, "create"])->name("create");
     Route::post("/posts/store", [PostController::class, "store"])->name("store");
     Route::get("/posts/edit", [PostController::class, "edit"])->name("edit");
+    Route::delete('/posts/delete', [App\Http\Controllers\PostController::class, 'delete'])->name('delete');
    
-    Route::get('/products', [ProductsSearch::class])->name('products');
+    Route::get("/users", [PostController::class, "index"])->name("users");
+    Route::get("/projects", [PostController::class, "index"])->name("projects");
+
+    Route::get("/practice", function(){
+        return view("practice");
+    });
 });
    
    

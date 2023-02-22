@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use ErrorException;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Providers\RouteServiceProvider;
-use ErrorException;
 
 class PostController extends Controller
 {
@@ -19,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view("posts.home", compact("posts"));
+        return view("posts.index", compact("posts"));
     }
     /**
      * Show the form for creating a new resource.
@@ -49,10 +50,12 @@ class PostController extends Controller
             'title' => 'required',
             'description' => 'required'
         ]);
-    
+        
+        
         Post::create($validatedDate);
         
         $this->resetInputField();
+        
         session()->flash("succes post created succesfully");
         return redirect("posts");
         
@@ -75,15 +78,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $post = Post::findOrFail($id);
-        $this->post_id = $id;
-        $this->title = $post->title;
-        $this->description = $post->description;
-
-        return view("posts.home");
-        $this->updateMode = true;
+       
     }
 
     /**
@@ -105,8 +102,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        $id = $request->get("id");
+        DB::delete('DELETE FROM posts WHERE id = '.$id,);
+        echo ("User Record deleted successfully.");
+        return redirect()->route('posts');
+        
     }
 }

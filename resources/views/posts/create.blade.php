@@ -1,35 +1,24 @@
 <x-app-layout>
-    
-        
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight " >
-            {{ __('Dashboard') }}
-            
-        </h2>
-    </x-slot>
-    
-    <div class="textarea">
-        <form action="{{route("store")}}" method="post">
-            @csrf
-        
-        <label for="title" name="title" id="title">title</label><br>
-        <input type="text" name="title" /><br><br>
-        <label for="w3review">description</label>
-
-    <textarea id="w3review" name="description" rows="4" cols="50" placeholder="leave a description">
-    </textarea>
-    <br>
-    <input type="submit" name="submit" value="submit" id="submitbtn">
-    </form>
-    @php
-    if($_SERVER["REQUEST_URI"] === "/posts/edit"){
-        echo "<div>";
-        echo "<button id='savebutton'>save</button>";
-        echo "<button id='cancelbutton'>cancel</button>";
-        echo "</div>";
-    }
-    @endphp
+    <div class="row">
+        <div class="col-md-6 mx-10">
+            <h1>Nieuwe post toevoegen</h1>
+        <div class="card p-3">
+            <form action="{{route("store")}}" method="post">
+                @csrf
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>    
     </div>
+        
 
-   
 </x-app-layout>

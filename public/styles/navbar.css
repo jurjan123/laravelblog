@@ -36,6 +36,12 @@
   margin-left:100px;
 }
 
+#deletebutton{
+  color: red;
+  position: absolute;
+    margin-left: -20px;
+}
+
 
 #sidebar{
   display: flex;
