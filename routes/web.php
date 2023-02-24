@@ -25,16 +25,12 @@ Route::get('/', function () {
     return view('index');
 })->middleware("guest");
 
-Route::get("/welcome", function(){
-    return view("welcome");
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts");
+//Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts");
 
 
 Route::middleware('auth')->group(function () {
@@ -42,28 +38,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    Route::get("/posts", [PostController::class, "index"])->name("posts");
-    Route::get("/posts/create", [PostController::class, "create"])->name("create");
-    Route::post("/posts/store", [PostController::class, "store"])->name("store");
-    Route::get("/posts/edit", [PostController::class, "edit"])->name("edit");
-    Route::delete('/posts/delete', [App\Http\Controllers\PostController::class, 'delete'])->name('delete');
-   
+    
+    
+    Route::get("/posts", [PostController::class, "index"])->name("posts.index"); 
+    Route::get("/posts/create", [PostController::class, "create"])->name("posts.create");
+    Route::post("/posts/store", [PostController::class, "store"])->name("posts.store");
+    
+
+    Route::post("posts/{value}/edit", [PostController::class, "edit"])->name("posts.edit");
+    Route::put('/posts/{value}', [Postcontroller::class, 'update']);
+
+    Route::post('/posts/{value}/delete', [PostController::class, 'delete'])->name('posts.delete');
+    
     Route::get("/users", [PostController::class, "index"])->name("users");
     Route::get("/projects", [PostController::class, "index"])->name("projects");
 
-    Route::get("/practice", function(){
-        return view("practice");
-    });
 });
-   
-   
- 
-
+    
 
 Route::view("/practice", "practice");
-
-
-
-
 
 require __DIR__.'/auth.php';

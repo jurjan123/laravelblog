@@ -47,9 +47,9 @@
             @endif
         </div>
         <div>
-            <x-input-label for="image" :value="__('change image')" />
+           <!-- <x-input-label for="image" :value="__('change image')" />
             <x-text-input id="image" name="image" placeholder="change image" type="file" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-error class="mt-2" :messages="$errors->get('name')" />-->
         </div>
 
         <div class="flex items-center gap-4">

@@ -1,27 +1,27 @@
 <x-app-layout>
-    
-        
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight " >
-            {{ __('Dashboard') }}
+    <div class="row">
+        <div class="col-md-6 my-5">
+            <h1>post bewerken</h1>
             
-        </h2>
-    </x-slot>
-    
-    <div class="textarea">
-        <form action="{{route("edit")}}" method="post">
-            @csrf
-        
-        <label for="title" name="title" id="title">title</label>
-        <input type="text" name="title" />
-        <label for="w3review">description</label>
+        <div class="card p-3">
+            <form action="/posts/{{$id}}" method="post">
+                @method("PUT")
+                @csrf
 
-    <textarea id="w3review" name="description" rows="4" cols="50" placeholder="leave a description">
-    </textarea>
-    
-    <input type="submit" name="submit" value="submit">
-    </form>
+                <div class="mb-3">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">title</span>
+                        <input type="text" value="{{($title)}}" name="title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                    <label for="exampleFormControlTextarea1" name="description" class="form-label">description</label>
+                    <textarea class="form-control" value="" name="description" id="exampleFormControlTextarea1" rows="3">{{$description}}</textarea>
+                    </div>
+                <input type="submit" name="submit" class="btn btn-primary">
+            </form>
+        </div>    
     </div>
+    </div>
+        
 
-   
 </x-app-layout>
