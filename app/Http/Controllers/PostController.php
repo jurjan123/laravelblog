@@ -5,20 +5,29 @@ use ErrorException;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Database\Query\Builder;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostController extends Controller
 {
 
+    
     public $posts, $title, $description, $post_id;
     public $updateMode = false;
 
     //show index with posts
     public function index()
     {
-        $posts = Post::all();
-        return view("posts.index", compact("posts"));
+
+       
+        $posts = Post::latest()->paginate(6);
+       
+        return view("posts.index", [
+            "posts" => $posts
+        ]); 
     }
 
     // show create post page
@@ -65,6 +74,7 @@ class PostController extends Controller
         ]);
     }
     
+
     public function update(Request $request, Post $value)
     {
         $validatedDate = $request->validate([

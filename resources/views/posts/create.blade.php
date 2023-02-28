@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="row">
-        <div class="col-md-6 my-5">
+        <div class="col-md-6 my-5 position-sticky ">
             <h1>Nieuwe post toevoegen</h1>
             
         <div class="card p-3">
@@ -21,6 +21,7 @@
         </div>    
     </div>
     </div>
+    
         
 
 </x-app-layout>

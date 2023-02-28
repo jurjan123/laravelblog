@@ -3,7 +3,7 @@
         <ul class="menu">
             <li><span class="dropdown-item-text">Menu</span></li>
             <li><a class="dropdown-item" href="/posts">Posts</a></li>
-            <li><a class="dropdown-item" href="/users">Users</a></li>
+            <li><a class="dropdown-item" href="{{route("users.index")}}">Users</a></li>
             <li><a class="dropdown-item" href="/projects">Projects</a></li>
           </ul>
     </div>

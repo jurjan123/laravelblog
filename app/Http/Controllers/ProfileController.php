@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Database\Eloquent\Model;
 
 class ProfileController extends Controller
 {

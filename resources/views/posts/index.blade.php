@@ -29,13 +29,17 @@
                             
                             
                     
-                            <td " class=" d-flex px-3 border-b py-2" style="gap:5px"><form action="{{route("posts.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" role="button">delete</button></form>
+                            <td class=" d-flex px-3 border-b py-2" style="gap:5px"><form action="{{route("posts.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" role="button">delete</button></form>
                                 <form action="{{route("posts.edit", $value)}}" method="post">@csrf<button type="submit" class="btn btn-info" role="button">edit</button></form>
                             </td>
                         </tr>
+                        
                     @endforeach
+                    
                     </tbody>
+                   
                 </table>
+                {{$posts->links()}}
             </div>
         </div>
     </div>

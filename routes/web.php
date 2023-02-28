@@ -43,15 +43,19 @@ Route::middleware('auth')->group(function () {
     Route::get("/posts", [PostController::class, "index"])->name("posts.index"); 
     Route::get("/posts/create", [PostController::class, "create"])->name("posts.create");
     Route::post("/posts/store", [PostController::class, "store"])->name("posts.store");
-    
-
     Route::post("posts/{value}/edit", [PostController::class, "edit"])->name("posts.edit");
     Route::put('/posts/{value}', [Postcontroller::class, 'update']);
-
     Route::post('/posts/{value}/delete', [PostController::class, 'delete'])->name('posts.delete');
     
-    Route::get("/users", [PostController::class, "index"])->name("users");
-    Route::get("/projects", [PostController::class, "index"])->name("projects");
+
+    Route::get("users", [UserController::class, "users"])->name("users.index");
+    
+    //Route::get("/users/create", [UserController::class, "create"])->name("admin.create");
+    Route::post("/users/{user}/edit", [UserController::class, "edit"])->name("admin.edit");
+    Route::put("/users/{user}", [UserController::class, "update"]);
+    Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("admin.delete");
+
+    Route::get("/projects", [ProjectController::class, "index"])->name("projects");
 
 });
     
