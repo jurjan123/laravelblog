@@ -2,13 +2,14 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\ProductsSearch;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Livewire\ProductsSearch;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +52,12 @@ Route::middleware('auth')->group(function () {
     Route::get("users", [UserController::class, "users"])->name("users.index");
     
     //Route::get("/users/create", [UserController::class, "create"])->name("admin.create");
-    Route::post("/users/{user}/edit", [UserController::class, "edit"])->name("admin.edit");
-    Route::put("/users/{user}", [UserController::class, "update"]);
-    Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("admin.delete");
+    
+        Route::match(["get", "post"], "/users/{user}/edit", [UserController::class, "edit"])->name("admin.edit");
+        Route::put("/users/{user}", [UserController::class, "update"]);
+        Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("admin.delete");
+
+   
 
     Route::get("/projects", [ProjectController::class, "index"])->name("projects");
 

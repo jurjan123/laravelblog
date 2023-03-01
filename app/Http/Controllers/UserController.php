@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Rules\Password;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Hashing\BcryptHasher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Hashing\BcryptHasher;
 
 class UserController extends Controller
 {
@@ -42,17 +46,33 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user){
+
+        
         $validatedDate = $request->validate([
-            "name" => "nullable|min:6",
-            "email" => "nullable",
-            'password' => 'required|confirmed|min:6',
-            "password_repeat" => 'required_with:password|same:password|min:6'
-            
+            "name" => ["required", "string", "max:255"],
+            "email" => ["max:255", "email", Rule::unique(User::class)->ignore($user->id),/*'unique:'.User::class*/],
+            "password" => ["required"],
+            "new_password" => ["required", /*"min:6", "confirmed",*/ Rules\Password::defaults()],
+            "password_confirmation" => 'required_with:new_password|same:new_password' 
         ]);
 
-        $user->update($validatedDate);
 
-        return redirect()->route("users.index");
+        if(password_verify($validatedDate["password"], Auth::user()->password) && $validatedDate["new_password"] != $validatedDate["password"] ){
+            $validatedDate["password"] = Hash::make($validatedDate["new_password"]);
+
+            $user->update($validatedDate);
+            return redirect()->route("users.index");
+        
+        } else{
+            return redirect()->route("admin.edit", $user);
+        }
+
+        
+        
+        
+        
+         
+        
     }
     
 

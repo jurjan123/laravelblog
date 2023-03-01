@@ -15,45 +15,47 @@
                         </div>
                         <input type="text" name="name" class="form-control" value="{{$name}}" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-                    @error('name')
+                    @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
-
+            
                     <div class="mb-3">
                       <label for="exampleInputEmail1"  class="form-label">Email address</label>
-                      <input type="email" name="email" value="{{$email}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <input type="email" name="email" value="{{old('email', $email)}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                       <div id="emailHelp" class="form-text">uw email wordt met niemand anders gedeeld</div>
                     </div>
-                    @error('email')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">type uw oude wachtwoord</label>
-                        <input type="password" name="oldpassword" class="form-control" id="exampleInputPassword1">
-                      </div>
-                      @error('oldpassword')
-                      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                      @enderror
-
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">nieuw wachtwoord</label>
-                      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    @error('password')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-
-
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">wachtwoord herhalen</label>
-                        <input type="password" name="password_repeat" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    @error('password_repeat')
+                    @error("email")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                   
+                    <div class="form-floating">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <label for="floatingPassword">type je oude wachtwoord</label>
+                    </div>
+                    @error("password")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+
+                
+                    <div class="form-floating">
+                        <input type="password" style="margin-top:10px" name="new_password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <label for="floatingPassword">type je nieuwe wachtwoord</label>
+                    </div>
+                    @error("new_password")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+                   
+                    
+                    <div class="form-floating">
+                        <input type="password" style="margin-top:10px" name="password_confirmation" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <label for="floatingPassword">herhaal nieuwe wachtwoord</label>
+                    </div>
+                    @error("password_confirmation")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+
+                    <button type="submit" class="btn btn-primary" style="margin-top:10px">Submit</button>
                 </form>
                 
                 

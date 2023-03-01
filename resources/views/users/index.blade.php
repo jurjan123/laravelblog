@@ -36,5 +36,7 @@
             </div>
         </div>
     </div>
+
+    {{Auth::user()->password}}
     
 </x-app-layout>
