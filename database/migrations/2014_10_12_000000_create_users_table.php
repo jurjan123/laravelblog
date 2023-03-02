@@ -17,13 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
-            $table->string("admin")->default("0");
+            $table->boolean("isAdmin")->default(0);
             $table->string("user_image")->default("preset.png");
             $table->rememberToken();
-            $table->timestamps();
-           
+            $table->timestamps();    
         });
     }
 

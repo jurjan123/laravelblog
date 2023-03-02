@@ -18,10 +18,10 @@
 
             <!-- Page Content -->
             <main>
-                @if(Auth::user()->admin && $_SERVER["REQUEST_URI"] != "/dashboard" && $_SERVER["REQUEST_URI"] != "/profile")
-                <div class="container-fluid">
+                @if(Auth::user()->isAdmin && $_SERVER["REQUEST_URI"] != "/dashboard" && $_SERVER["REQUEST_URI"] != "/profile")
+                <div class="container mt-5">
                     <div class="row">
-                        <div class="col-md-3 sm-3 vertical-align-middle">
+                        <div class="col-md-2  sm-3 ">
                             @include('includes.sidebar')
                         </div>
             
@@ -34,9 +34,9 @@
                     
                 </div>
                 @else
-                <div class="container-fluid">
+                <div class="container mt-5">
                     <div class="row">
-                        <div class="col-md-9 sm-3 offset-1">
+                        <div class="col-md-9 sm-3 ">
                             {{ $slot }}
                         </div>
 

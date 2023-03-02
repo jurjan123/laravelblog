@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="row">
-        <div class="col-md-6 my-5">
+        <div class="container">
             <h1>post bewerken</h1>
             
-        <div class="card p-3">
+        <div class="card p-3 md-9">
             <form action="/posts/{{$id}}" method="post">
                 @method("PUT")
                 @csrf

@@ -46,18 +46,26 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user){
-
+           
         
         $validatedDate = $request->validate([
             "name" => ["required", "string", "max:255"],
             "email" => ["max:255", "email", Rule::unique(User::class)->ignore($user->id),/*'unique:'.User::class*/],
+            'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             "password" => ["required"],
             "new_password" => ["required", /*"min:6", "confirmed",*/ Rules\Password::defaults()],
             "password_confirmation" => 'required_with:new_password|same:new_password' 
         ]);
 
-
+        
         if(password_verify($validatedDate["password"], Auth::user()->password) && $validatedDate["new_password"] != $validatedDate["password"] ){
+            $image_name = time().'.'.$request->user_image->extension();  
+       
+            $request->user_image->move(public_path('images'), $image_name);
+    
+            
+            $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
+            $user->user_image= $image_name;
             $validatedDate["password"] = Hash::make($validatedDate["new_password"]);
 
             $user->update($validatedDate);
