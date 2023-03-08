@@ -15,9 +15,21 @@
                 
                 <!-- Navigation Links -->
                 
-                    <div class="container row-flex py-3" style="gap:30px; margin-left: 30px;">
-                   <a style="text-decoration:none; font-size:20px" href="{{ route('dashboard') }}">Dashboard</a>
-                    <a style="text-decoration:none; font-size:20px"  href="{{ route('posts.index') }}">Posts</a>
+                    <div class="container text-left row-flex justify-content-between py-3" style="gap:50px; margin-left: 30px;">
+                    <div class="row w-70">
+                        <div class="col">
+                            <a style="text-decoration:none; font-size:20px" href="{{ route('dashboard') }}">Dashboard</a>
+                        </div>
+                       <div class="col">
+                        <a style="text-decoration:none; font-size:20px"  href="{{ route('posts.index') }}">Posts</a>
+                       </div>
+                       <div class="col">
+                        <a style="text-decoration:none; font-size:20px"  href="{{ route('projects.index') }}">Projects</a>
+                       </div>
+                        
+                       
+                    </div>
+                  
                     </div>
         
             

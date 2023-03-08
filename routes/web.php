@@ -2,17 +2,15 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Livewire\ProductsSearch;
-
+use Illuminate\support\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Http\Middleware\AdminRoutes;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Middleware\AdminRoutes;
-use Illuminate\Support\Facades\Date;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,25 +48,25 @@ Route::middleware('auth')->group(function () {
     Route::post("posts/{value}/edit", [PostController::class, "edit"])->name("posts.edit");
     Route::put('/posts/{value}', [Postcontroller::class, 'update']);
     Route::post('/posts/{value}/delete', [PostController::class, 'delete'])->name('posts.delete');
-    
-
 
     Route::middleware(AdminRoutes::class)->group(function(){
         Route::get("users", [UserController::class, "users"])->name("users.index");
         Route::match(["get", "post"], "/users/{user}/edit", [UserController::class, "edit"])->name("admin.edit");
         Route::put("/users/{user}", [UserController::class, "update"]);
         Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("admin.delete");
-    
     });
     
     //Route::get("/users/create", [UserController::class, "create"])->name("admin.create");
    
-   
-    Route::get("/projects", [ProjectController::class, "index"])->name("projects");
+    Route::get("/projects/create", [ProjectController::class, "create"])->name("projects.create");
+    Route::post("projects/{value}/edit", [ProjectController::class, "edit"])->name("projects.edit");
+    Route::put("/projects/{value}", [ProjectController::class, "update"]);
+    Route::post("/projects/store", [ProjectController::class, "store"])->name("projects.store");
+    Route::post('/projects/{value}/delete', [ProjectController::class, 'delete'])->name('projects.delete');
+    Route::get("/projects", [ProjectController::class, "index"])->name("projects.index");
 
-    Route::get("/show", function(){
-        $created = Auth::user()->created_at;
-        return $created;
+    Route::get("/show", function(Request $request){
+        return "<h1>hello world<h1>";
     });
 });
     

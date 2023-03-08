@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use ErrorException;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -22,12 +24,13 @@ class PostController extends Controller
     public function index()
     {
 
+        
        
         $posts = Post::latest()->paginate(6);
        
         return view("posts.index", [
             "posts" => $posts
-        ]); 
+        ]);
     }
 
     // show create post page
@@ -45,16 +48,20 @@ class PostController extends Controller
     //store the post
     public function store(Request $request)
     {
+        
         $validatedDate = $request->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ]);
         
-        $this->title = $validatedDate["title"];
-        $this->description = $validatedDate["description"];
-
+        $validatedDate["title"] = strip_tags($validatedDate["title"]);
+        $validatedDate["description"] = strip_tags($validatedDate["description"]);
+        $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
+        $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
+        $validatedDate += array("user_id" => auth()->id());
         
         Post::create($validatedDate);
+       
         
         $this->resetInputField();
         
@@ -70,18 +77,23 @@ class PostController extends Controller
         return view("posts.edit", [
             "id" => $value->id,
             "title" => $value->title,
-            "description" => $value->description
+            "description" => $value->description,
         ]);
     }
     
 
     public function update(Request $request, Post $value)
     {
+    
         $validatedDate = $request->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            
         ]);
 
+        $validatedDate["title"] = strip_tags($validatedDate["title"]);
+        $validatedDate["description"] = strip_tags($validatedDate["description"]);
+        
         $value->update($validatedDate);
 
         return redirect()->route("posts.index");

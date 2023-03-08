@@ -31,7 +31,7 @@ class UserController extends Controller
     */
 
     public function users(){
-       $users = User::latest()->paginate(6);
+       $users = User::with("posts")->paginate(6);
        return view("users.index", compact("users")); 
     }
 
@@ -60,27 +60,18 @@ class UserController extends Controller
         
         if(password_verify($validatedDate["password"], Auth::user()->password) && $validatedDate["new_password"] != $validatedDate["password"] ){
             $image_name = time().'.'.$request->user_image->extension();  
-       
             $request->user_image->move(public_path('images'), $image_name);
-    
-            
             $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
             $user->user_image= $image_name;
+            
             $validatedDate["password"] = Hash::make($validatedDate["new_password"]);
 
             $user->update($validatedDate);
             return redirect()->route("users.index");
         
         } else{
-            return redirect()->route("admin.edit", $user);
+            return redirect()->route("admin.edit", $user)->with('status', 'profile-updated');
         }
-
-        
-        
-        
-        
-         
-        
     }
     
 

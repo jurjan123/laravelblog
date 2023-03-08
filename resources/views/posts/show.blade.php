@@ -1,0 +1,1 @@
+<h1>Post detial</h1>

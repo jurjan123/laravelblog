@@ -11,14 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Post extends Model
+class Projects extends Model
 {
     use HasFactory;
 
+    protected $table = "projects";
 
-    public $incrementing = false;
-    protected $keyType = 'string';
-    
     protected $fillable = [
         "title",
         "description",

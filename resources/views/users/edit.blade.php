@@ -63,13 +63,26 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
-                    <input type="submit">
+                    <!--<input type="submit">-->
 
-                    <!--<button type="submit" class="btn btn-primary" style="margin-top:10px">Submit</button>-->
+                    <button type="submit" class="btn btn-primary" style="margin-top:10px">submit</button
+                       
+                        @if (session('status') === 'profile-updated')
+                        <p
+                        <a   onclick="this.blur()" aria-label="Save" class="btn btn-success btn-block font-weight-bold mt-0">
+                            
+                        </a>
+                           
+                        {{ __('Saved.') }}</p>
+                    @endif
             </form>
                 
                 
         </div>
         
-
+        <!--x-data="{ show: true }"
+        x-show="show"
+        x-transition
+        x-init="setTimeout(() => show = false, 2000)"
+        class="text-sm text-gray-600"-->
 </x-app-layout>
