@@ -12,13 +12,13 @@
                 <div class="mb-3">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">title</span>
-                        <input type="text" value="{{($title)}}" name="title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="exampleFormControlTextarea1" name="title"  class="form-label">title</label><br><br>
+                        <input type="text" value={{$title}}  name="title" class="form-control ml-5 mt-4 w-100 position-absolute" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label">description</label>
-                    <textarea class="form-control" value="" id="editor" name="description" id="exampleFormControlTextarea1" rows="3">{{$description}}</textarea>
+                    <textarea class="form-control" value="" id="editor" id="field" name="description" id="exampleFormControlTextarea1" rows="10">{{$description}}{{str_repeat("<br>", 15)}}</textarea>
                     </div>
-                <input type="submit" name="submit" class="btn btn-primary">
+                <input type="submit" value="opslaan" name="submit" class="btn btn-primary">
             </form>
             @include("includes.ckeditor")
         </div>    

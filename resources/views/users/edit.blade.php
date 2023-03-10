@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="row">
         <div class="col-md-9 my-5">
-            <h1>gebruiker bewerken</h1>
+            <h1>Gebruiker bewerken</h1>
             
         <div class="card p-4">
             <form action="/users/{{$id}}" method="post" enctype="multipart/form-data" >
@@ -11,7 +11,7 @@
             
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">change username</span>
+                          <span class="input-group-text" id="basic-addon1">Wijzig gebruikersnaam</span>
                         </div>
                         <input type="text" name="name" class="form-control" value="{{$name}}" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
@@ -20,7 +20,7 @@
                     @enderror
             
                     <div class="mb-3">
-                      <label for="exampleInputEmail1"  class="form-label">Email address</label>
+                      <label for="exampleInputEmail1"  class="form-label">Email adres</label>
                       <input type="email" name="email" value="{{old('email', $email)}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                       <div id="emailHelp" class="form-text">uw email wordt met niemand anders gedeeld</div>
                     </div>
@@ -28,8 +28,17 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">kies rol</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="role">
+                          <option value="1">Contributor</option>
+                          <option value="2">Editor</option>
+                          <option value="3">Admin</option>
+                        </select><br>
+                      </div>
+
                     <div class="mb-3">
-                        <label for="formFile"  class="form-label">kies je profielfoto</label>
+                        <label for="formFile"  class="form-label">Kies je profielfoto</label>
                         <input class="form-control" name="user_image" type="file" id="formFile">
                     </div>
                     @error("user_image")
@@ -39,7 +48,7 @@
                    
                     <div class="form-floating">
                         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">type je oude wachtwoord</label>
+                        <label for="floatingPassword">Type je oude wachtwoord</label>
                     </div>
                     @error("password")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -48,7 +57,7 @@
                 
                     <div class="form-floating">
                         <input type="password" style="margin-top:10px" name="new_password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">type je nieuwe wachtwoord</label>
+                        <label for="floatingPassword">Type je nieuwe wachtwoord</label>
                     </div>
                     @error("new_password")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -57,7 +66,7 @@
                     
                     <div class="form-floating">
                         <input type="password" style="margin-top:10px" name="password_confirmation" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">herhaal nieuwe wachtwoord</label>
+                        <label for="floatingPassword">Herhaal nieuwe wachtwoord</label>
                     </div>
                     @error("password_confirmation")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -65,16 +74,9 @@
 
                     <!--<input type="submit">-->
 
-                    <button type="submit" class="btn btn-primary" style="margin-top:10px">submit</button
+                    <button type="submit"  class="btn btn-primary" style="margin-top:10px">opslaan</button
                        
-                        @if (session('status') === 'profile-updated')
-                        <p
-                        <a   onclick="this.blur()" aria-label="Save" class="btn btn-success btn-block font-weight-bold mt-0">
-                            
-                        </a>
-                           
-                        {{ __('Saved.') }}</p>
-                    @endif
+                    
             </form>
                 
                 

@@ -2,6 +2,7 @@
 <script>
     ClassicEditor
         .create(document.querySelector('#editor'))
+        ClassicEditor.resizeTo(400,400 )
         .catch(error => {
             console.error(error);
         });

@@ -14,24 +14,31 @@
                 
                 
                 <!-- Navigation Links -->
-                
+                @if(Auth::user()->role === 3)
                     <div class="container text-left row-flex justify-content-between py-3" style="gap:50px; margin-left: 30px;">
-                    <div class="row w-70">
-                        <div class="col">
-                            <a style="text-decoration:none; font-size:20px" href="{{ route('dashboard') }}">Dashboard</a>
+                    <div class="row w-20">
+                        <div class="col" >
+                            <a style="text-decoration:none; color:black; font-size:20px" href="{{ route('dashboard') }}">Dashboard</a>
                         </div>
-                       <div class="col">
-                        <a style="text-decoration:none; font-size:20px"  href="{{ route('posts.index') }}">Posts</a>
-                       </div>
-                       <div class="col">
-                        <a style="text-decoration:none; font-size:20px"  href="{{ route('projects.index') }}">Projects</a>
-                       </div>
-                        
-                       
+                
                     </div>
-                  
-                    </div>
-        
+                @else
+                   
+
+                    <div class="container text-left row-flex justify-content-between py-3" style="gap:50px; margin-left: 30px;">
+                        <div class="row w-70">
+                           <div class="col">
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="{{ route('posts.index') }}">Posts</a>
+                           </div>
+                           <div class="col">
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="{{ route('projects.index') }}">Projects</a>
+                           </div>
+                            
+                           
+                        </div>
+                      
+                        </div>
+                @endif
             
 
            
@@ -40,7 +47,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6" style="margin-left:790px">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">
 
                             <div class="ml-1">

@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
 
      public const EDITOR = 2;
-     public const USER = 1;
+     public const CONTRIBUTOR = 1;
      public const ADMIN = 3;
 
 
@@ -30,6 +30,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "role"
     ];
 
     /**
@@ -49,7 +50,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        "role" => User::USER,
+        //"role" => User::USER,
     ];
 
 

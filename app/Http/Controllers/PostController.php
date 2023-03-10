@@ -23,11 +23,17 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
-
-        
-       
+        $posts = Post::latest()->with("User")->get();
         $posts = Post::latest()->paginate(6);
-       
+        /*foreach($posts as $result){
+            return $result->User->name. "<br>";
+        }*/
+        
+        
+        //$posts = User::with("posts")->paginate(6);
+        
+        //$posts = Post::latest()->paginate(6);
+        //$user = Auth::user()->name;
         return view("posts.index", [
             "posts" => $posts
         ]);
@@ -84,15 +90,18 @@ class PostController extends Controller
 
     public function update(Request $request, Post $value)
     {
+        
     
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            
         ]);
 
+        $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
+        $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
         $validatedDate["description"] = strip_tags($validatedDate["description"]);
+   
         
         $value->update($validatedDate);
 

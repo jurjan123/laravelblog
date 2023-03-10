@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class lAdminRoutes
+class AdminRoutes
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class lAdminRoutes
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->isAdmin == 1){
+        if($request->user()->role === 3){
             return $next($request);
 
         }else{

@@ -50,13 +50,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{value}/delete', [PostController::class, 'delete'])->name('posts.delete');
 
     Route::middleware(AdminRoutes::class)->group(function(){
-        Route::get("users", [UserController::class, "users"])->name("users.index");
-        Route::match(["get", "post"], "/users/{user}/edit", [UserController::class, "edit"])->name("admin.edit");
-        Route::put("/users/{user}", [UserController::class, "update"]);
-        Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("admin.delete");
+
+        Route::get("users", [UserController::class, "users"])->name("index");
+            Route::match(["get", "post"], "/users/{user}/edit", [UserController::class, "edit"])->name("edit");
+            Route::put("/users/{user}", [UserController::class, "update"]);
+            Route::post("/users/{user}/delete", [UserController::class, "delete"])->name("delete");
+            Route::get("/show", [UserController::class, "show"]);
+        /*Route::prefix("admin")->group(function(){
+            
+        });*/
     });
-    
-    //Route::get("/users/create", [UserController::class, "create"])->name("admin.create");
    
     Route::get("/projects/create", [ProjectController::class, "create"])->name("projects.create");
     Route::post("projects/{value}/edit", [ProjectController::class, "edit"])->name("projects.edit");
@@ -65,9 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/projects/{value}/delete', [ProjectController::class, 'delete'])->name('projects.delete');
     Route::get("/projects", [ProjectController::class, "index"])->name("projects.index");
 
-    Route::get("/show", function(Request $request){
-        return "<h1>hello world<h1>";
-    });
+   
 });
     
 
