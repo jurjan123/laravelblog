@@ -11,6 +11,8 @@
 <body>
     <nav class="navbar navbar-expand-sm position-relative justify-content-between navbar-light bg-light py-3">
         <a style="padding-left: 30px" class="navbar-brand" id="naam">movieBlog <img src="{{url("images/mblogo.png")}}" height="36" width="36" alt=""></a>
+        <a href="{{route("posts.index")}}" style="padding-left: 30px" class="navbar-brand" id="naam">posts</a>
+        <a href="{{route("projects.index")}}" style="padding-left: 20px" class="navbar-brand" id="naam">projecten </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

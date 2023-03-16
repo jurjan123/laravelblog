@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Query\Builder;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
 class PostController extends Controller
@@ -25,24 +26,20 @@ class PostController extends Controller
     {
         $posts = Post::latest()->with("User")->get();
         $posts = Post::latest()->paginate(6);
-        /*foreach($posts as $result){
-            return $result->User->name. "<br>";
-        }*/
         
-        
-        //$posts = User::with("posts")->paginate(6);
-        
-        //$posts = Post::latest()->paginate(6);
-        //$user = Auth::user()->name;
-        return view("posts.index", [
+        return view("admin.posts.index", [
             "posts" => $posts
         ]);
+    }
+
+    public function adminIndex(){
+        return view("admin.index");
     }
 
     // show create post page
     public function create()
     {
-        return view("posts.create");
+        return view("admin.posts.create");
 
     }
 
@@ -54,12 +51,23 @@ class PostController extends Controller
     //store the post
     public function store(Request $request)
     {
-        
+       
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "created_at" => "required"
         ]);
+
         
+        if($request->image){
+        $image_name = time().'.'.$request->image->extension();  
+        $request->image->move(public_path('images'), $image_name);
+        $image_name = time().'.'.$request->image->getClientOriginalExtension(); #Pakt de naam van de image
+        
+        $validatedDate["image"] = $image_name;
+        }
+
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
         $validatedDate["description"] = strip_tags($validatedDate["description"]);
         $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
@@ -70,17 +78,15 @@ class PostController extends Controller
        
         
         $this->resetInputField();
-        
-        session()->flash("succes post created succesfully");
-        
-        return redirect("posts");
+    
+        return redirect()->route("admin.posts.index")->with("message", "Post is gemaakt!");
     }
 
     // edit existing post
     public function edit(Request $request, Post $value)
     {
 
-        return view("posts.edit", [
+        return view("admin.posts.edit", [
             "id" => $value->id,
             "title" => $value->title,
             "description" => $value->description,
@@ -101,16 +107,26 @@ class PostController extends Controller
         $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
         $validatedDate["description"] = strip_tags($validatedDate["description"]);
-   
+       
         
         $value->update($validatedDate);
-
-        return redirect()->route("posts.index");
+        return redirect()->route("admin.posts.index")->with("editmessage", "de Post is succesvol bewerkt!");
+        
     }
 
     public function delete(Request $request, Post $value)
     {
         $value->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route("admin.posts.index")->with("deletemessage", "Post is verwijderd!");
     }
+
+    public function show(string $id):View
+    {
+        return view("admin.users.show", [
+            "posts" => Post::all()
+        ]);
+    }
+
+    
 }
+

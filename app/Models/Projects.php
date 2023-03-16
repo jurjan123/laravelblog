@@ -20,7 +20,9 @@ class Projects extends Model
     protected $fillable = [
         "title",
         "description",
-        "user_id"
+        "created_at",
+        "user_id",
+        "image"
     ];
 
     public function user():Belongsto

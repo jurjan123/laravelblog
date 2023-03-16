@@ -23,11 +23,11 @@ class UserController extends Controller
     public function users(){
        $users = User::latest()->paginate(6);
 
-       return view("users.index", compact("users")); 
+       return view("admin.users.index", compact("users")); 
     }
 
     public function edit(Request $request, User $user){
-        return view("users.edit", [
+        return view("admin.users.edit", [
             "id" => $user->id,
             "email" => $user->email,
             "user_image" => $user->user_image,
@@ -73,17 +73,17 @@ class UserController extends Controller
             $validatedDate["password"] = Hash::make($validatedDate["new_password"]);
 
             $user->update($validatedDate);
-            return redirect()->route("users.index");
+            return redirect()->route("admin.users.index");
         
         } else{
-            return redirect()->route("admin.edit", $user)->with('status', 'profile-updated');
+            return redirect()->route("admin.users.edit", $user)->with('status', 'profile-updated');
         }
     }
 
     public function show(Request $request)
     {
        
-       return view("users.show");
+       return view("admin.users.show");
         
     }
     

@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            
+            $table->unsignedBigInteger("user_id");
             $table->text("title");
             $table->text("description");
-            $table->unsignedBigInteger("user_id");
+            $table->string("image")->default("Monkey-Puppet.png");
             $table->foreign("user_id")->references("id")->on("blog_users")->onUpdate("cascade")->onDelete("cascade");
-            //$table->foreignId("user_id")->nullable()->constrained();
             $table->timestamps();
             
         });

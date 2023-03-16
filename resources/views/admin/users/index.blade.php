@@ -26,8 +26,10 @@
                             <td class="py-2 px-3 border-b">{{$user->email}} </td>
                             <td class="py-2 px-3 border-b">{{$user->password}}</td>
 
-                            <td class="d-flex px-3 border-b py-2" style="gap:5px"><form action="{{route("admin.delete", $user)}}" method="post">@csrf<button type="submit"  role="button"><i class="fa fa-trash" style="width:50px;height:50px;"></i></button></form>
-                                <form action="{{route("admin.edit", $user)}}" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" style="width:50px;height:50px;"></i></button></form>
+                            <td class="d-flex px-3 border-b py-2" style="gap:5px">
+                                
+                                <form action="{{route("admin.users.delete", $user)}}" method="post">@csrf<button type="submit"  role="button"><i class="fa fa-trash" style="width:50px;height:50px;"></i></button></form>
+                                <form action="{{route("admin.users.edit", $user)}}" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" style="width:50px;height:50px;"></i></button></form>
                             </td>
                         @endforeach
                             

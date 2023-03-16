@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <div class="card w-50 h-100 mt-5 offset-2">
+        <div class="row">
+            <div class="col-6 mt-5 offset-2">
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +52,8 @@
             </x-primary-button>
         </div>
     </form>
+    </div>
+    </div>
+</div>
+
 </x-guest-layout>

@@ -29,10 +29,6 @@
                         </div>
                       
                         </div>
-     
-            
-
-                        <h3 class="offset-7 cursor-pointer mt-3 position-absolute"><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6" style="margin-left:890px">
@@ -40,7 +36,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">
+                            <div>@if(Auth::check()){{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">@else @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -49,27 +45,29 @@
                             </div>
                         </button>
                     </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('your posts') }}
-                        </x-dropdown-link>
-                        
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                    
+                    
+                    
+                       
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('login')">
+                                {{ __('inloggen') }}
                             </x-dropdown-link>
-                        </form>
-
+    
+                            <!-- Authentication -->
+                            <x-dropdown-link :href="route('register')">
+                                {{ __('registreren') }}
+                            </x-dropdown-link>
+                            
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+        
+                                <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
                        
                     </x-slot>
                 </x-dropdown>
@@ -98,8 +96,8 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-gray-800">@if(Auth::check()){{ Auth::user()->name }}</div>@else @endif
+                <div class="font-medium text-sm text-gray-500">@if(Auth::check()){{ Auth::user()->email }}</div>@else @endif
             </div>
 
             <div class="mt-3 space-y-1">

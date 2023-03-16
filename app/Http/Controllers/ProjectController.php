@@ -19,7 +19,7 @@ class ProjectController extends Controller
         $projects = Projects::latest()->paginate(6);
 
         
-        return view("projects.index", [
+        return view("admin.projects.index", [
             "projects" => $projects
         ]);
     }
@@ -27,7 +27,7 @@ class ProjectController extends Controller
     // show create post page
     public function create()
     {
-        return view("projects.create");
+        return view("admin.projects.create");
 
     }
 
@@ -39,10 +39,21 @@ class ProjectController extends Controller
     //store the post
     public function store(Request $request)
     {
+
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
+            "created_at" => "required"
         ]);
+
+        if($request->image){
+            $image_name = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('images'), $image_name);
+            $image_name = time().'.'.$request->image->getClientOriginalExtension(); #Pakt de naam van de image
+            
+            $validatedDate["image"] = $image_name;
+        }
 
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
         $validatedDate["description"] = strip_tags($validatedDate["description"]);
@@ -54,16 +65,14 @@ class ProjectController extends Controller
         
         $this->resetInputField();
         
-        session()->flash("succes project created succesfully");
-        
-        return redirect("projects");
+        return redirect()->route("admin.projects.index")->with("message", "Project is gemaakt!");
     }
 
     // edit existing post
     public function edit(Projects $value)
     {
 
-        return view("projects.edit", [
+        return view("admin.projects.edit", [
             "id" => $value->id,
             "title" => $value->title,
             "description" => $value->description
@@ -88,12 +97,12 @@ class ProjectController extends Controller
 
         $value->update($validatedDate);
 
-        return redirect()->route("projects.index");
+        return redirect()->route("admin.projects.index")->with("editmessage", "Project is succesvol bewerkt");
     }
 
     public function delete(Request $request, Projects $value)
     {
         $value->delete();
-        return redirect()->route('projects.index');
+        return redirect()->route('admin.projects.index')->with("deletemessage", "Project is verwijderd");
     }
 }
