@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('posts.index') }}">
+                    <a href="/">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                    
@@ -22,7 +22,7 @@
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
                            </div>
                            <div class="col">
-                            <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projects</a>
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
                            </div>
                             
                            
@@ -51,27 +51,28 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('your posts') }}
+                        <x-dropdown-link :href="route('login')">
+                            {{ __('Inloggen') }}
                         </x-dropdown-link>
                         
+                        <!-- Authentication -->
+                        <x-dropdown-link :href="route('register')">
+                            {{ __('Registreren') }}
+                        </x-dropdown-link>
+                      
+                        @auth
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
+    
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Uitloggen') }}
                             </x-dropdown-link>
                         </form>
-
-                       
-                    </x-slot>
+                        @endauth
+                   
+                </x-slot>
                 </x-dropdown>
             </div>
 

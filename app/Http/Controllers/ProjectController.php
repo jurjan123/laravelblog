@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -17,7 +19,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Projects::latest()->paginate(6);
-
+        
         
         return view("admin.projects.index", [
             "projects" => $projects
@@ -43,10 +45,12 @@ class ProjectController extends Controller
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required"
         ]);
 
+        
         if($request->image){
             $image_name = time().'.'.$request->image->extension();  
             $request->image->move(public_path('images'), $image_name);
@@ -63,19 +67,24 @@ class ProjectController extends Controller
         
         Projects::create($validatedDate);
         
+        
         $this->resetInputField();
         
         return redirect()->route("admin.projects.index")->with("message", "Project is gemaakt!");
     }
 
     // edit existing post
-    public function edit(Projects $value)
+    public function edit(Request $request, Projects $value)
     {
+        //dd($value->image);
 
         return view("admin.projects.edit", [
             "id" => $value->id,
             "title" => $value->title,
-            "description" => $value->description
+            "description" => $value->description,
+            "intro" => $value->intro,
+            "image" => $value->image,
+            "created_at" => $value->created_at
         ]);
     }
     
@@ -86,7 +95,9 @@ class ProjectController extends Controller
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            
+            "intro" => "required",
+            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "created_at" => "required"
         ]);
 
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
@@ -94,6 +105,10 @@ class ProjectController extends Controller
         $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
         $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
 
+        $image_name = time() . '.' . $request->image->extension();
+        
+            $request->image->move(public_path('/images'), $image_name);
+            $validatedDate["image"] = $image_name;
 
         $value->update($validatedDate);
 
@@ -104,5 +119,12 @@ class ProjectController extends Controller
     {
         $value->delete();
         return redirect()->route('admin.projects.index')->with("deletemessage", "Project is verwijderd");
+    }
+
+    public function show(string $id):View
+    {
+        return view("projects.show", [
+            "project" => Projects::findOrFail($id)
+        ]);
     }
 }

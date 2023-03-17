@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 use ErrorException;
 use App\Models\Post;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Query\Builder;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
+use Symfony\Component\HttpFoundation\File\File;
 
 class PostController extends Controller
 {
@@ -55,6 +58,7 @@ class PostController extends Controller
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
             "created_at" => "required"
         ]);
@@ -85,29 +89,43 @@ class PostController extends Controller
     // edit existing post
     public function edit(Request $request, Post $value)
     {
+        
 
         return view("admin.posts.edit", [
             "id" => $value->id,
             "title" => $value->title,
             "description" => $value->description,
+            "intro" => $value->intro,
+            "image" => $value->image,
+            "created_at" => $value->created_at
         ]);
     }
     
 
     public function update(Request $request, Post $value)
-    {
-        
-    
+    { 
         $validatedDate = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            "intro" => "required",
+            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "created_at" => "required"
         ]);
 
+
+
+        $image_name = time() . '.' . $request->image->extension();
+        
+            $request->image->move(public_path('/images'), $image_name);
+            $validatedDate["image"] = $image_name;
+
+        
         $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
         $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
         $validatedDate["title"] = strip_tags($validatedDate["title"]);
         $validatedDate["description"] = strip_tags($validatedDate["description"]);
-       
+        
+        
         
         $value->update($validatedDate);
         return redirect()->route("admin.posts.index")->with("editmessage", "de Post is succesvol bewerkt!");
@@ -122,8 +140,8 @@ class PostController extends Controller
 
     public function show(string $id):View
     {
-        return view("admin.users.show", [
-            "posts" => Post::all()
+        return view("posts.show", [
+            "post" => Post::findOrFail($id)
         ]);
     }
 

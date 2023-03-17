@@ -1,14 +1,4 @@
 <x-app-layout>
-    <head>
-        <script>
-            $(function(){
-                $("#datepicker").datepicker();
-                $("#format").on("#change", function(){
-                    $("#datepicker").datepicker("option", "dateFormat", $(this).val());
-                });
-            });
-        </script>
-    </head>
     <div class="row">
         <div class="container ">
             <h1>Nieuw project toevoegen</h1>
@@ -25,6 +15,14 @@
                         <input type="text"  name="title" class="form-control ml-5 mt-4 w-100 position-absolute" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     @error("title")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+
+                    <div class="input-group mb-3  py-2 ">
+                        <label for="exampleFormControlTextarea1" name="intro"  class="form-label">Intro</label><br><br>
+                        <input type="text"  name="intro" class="form-control ml-5 mt-4 w-100 position-absolute" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                      @error("intro")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
@@ -52,19 +50,5 @@
     </div>
     </div>
     
-        
-
 </x-app-layout>
 
-<!--<p>Date: <input type="text" id="datepicker" size="30"></p>
-
-<p>Format options:<br>
-    <select id="format">
-        <option value="mm/dd/yy">Default - mm/dd/yy</option>
-        <option value="yy-mm-dd">ISO 8601 - yy/mm/dd</option>
-        <option value="d M, y">Short - d M, y</option>
-        <option value="d MM, y">Medium - d MM, y</option>
-        <option value="DD, d MM, yy">Full - DD, d, MM, yy</option>
-        <option value="&apos;day&apos; d &apos; MM &apos;in the year&apos; yy">Default - mm/dd/yy</option>
-    </select>
-</p>-->

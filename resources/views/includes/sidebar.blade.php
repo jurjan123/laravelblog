@@ -7,6 +7,7 @@
     <li class="list-group-item"><a href="{{route("admin.posts.index")}}">posts</a></li>
     <li class=" list-group-item "><a href="{{route("admin.users.index")}}">gebruikers</a></li>
     <li class="list-group-item"><a href="{{route("admin.projects.index")}}">projecten</a></li>
+    <li class="list-group-item"><a href="{{route("admin.projects.index")}}">Rollen</a></li>
   </ul>
 </div>
 

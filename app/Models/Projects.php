@@ -20,6 +20,7 @@ class Projects extends Model
     protected $fillable = [
         "title",
         "description",
+        "intro",
         "created_at",
         "user_id",
         "image"

@@ -28,7 +28,7 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 Route::get('/', function () {
     return view('index');
-})->middleware("guest");
+});
 
 
 Route::get("/posts", function(){
@@ -40,15 +40,25 @@ Route::get("/posts", function(){
     
 })->name("posts.index");
 
+
+Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
+Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
+
 Route::get("/projects", function(){
     $projects = Projects::latest()->with("User")->get();
     $projects = Projects::latest()->paginate(6);
+    
     return view("projects.index", [
         "projects" => $projects
     ]);
 })->name("projects.index");
 
+
+
     Route::middleware("auth")->group(function(){
+        Route::get('/', function () {
+            return view('index');
+        });
     
     Route::get("/admin/users", [UserController::class, "users"])->name("admin.users.index");
     Route::match(["get", "post"], "/admin/users/{user}/edit", [UserController::class, "edit"])->name("admin.users.edit");
@@ -57,12 +67,12 @@ Route::get("/projects", function(){
     Route::get("/show", [UserController::class, "show"]);
 
     
-    Route::get("/admin/index", [PostController::class, "adminIndex"])->name("admin.index");
+    Route::get("/admin", [PostController::class, "adminIndex"])->name("admin.index");
 
     Route::get("/admin/posts", [PostController::class, "index"])->name("admin.posts.index");
     Route::get("/admin/posts/create", [PostController::class, "create"])->name("admin.posts.create");
     Route::post("/posts/store", [PostController::class, "store"])->name("posts.store");
-    Route::post("/admin/posts/{value}/edit", [PostController::class, "edit"])->name("admin.posts.edit");
+    Route::match(["post","get"],"/admin/posts/{value}/edit", [PostController::class, "edit"])->name("admin.posts.edit");
     Route::put('/posts/{value}', [Postcontroller::class, 'update']);
     Route::post('/posts/{value}/delete', [PostController::class, 'delete'])->name('admin.posts.delete');
     Route::get("/admin/posts/show/{id}", [PostController::class, "show"]);

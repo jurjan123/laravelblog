@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('posts.index') }}">
+                    <a href="/">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                    
@@ -22,13 +22,14 @@
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
                            </div>
                            <div class="col">
-                            <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projects</a>
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
                            </div>
                             
                            
                         </div>
                       
                         </div>
+                        <h3 class="offset-7 cursor-pointer mt-3 position-absolute"><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6" style="margin-left:890px">
@@ -48,16 +49,18 @@
                     
                     
                     
-                       
+                        
                         <x-slot name="content">
                             <x-dropdown-link :href="route('login')">
-                                {{ __('inloggen') }}
+                                {{ __('Inloggen') }}
                             </x-dropdown-link>
-    
+                            
                             <!-- Authentication -->
                             <x-dropdown-link :href="route('register')">
-                                {{ __('registreren') }}
+                                {{ __('Registreren') }}
                             </x-dropdown-link>
+                          
+                            
                             
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -65,9 +68,11 @@
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Uitloggen') }}
                                 </x-dropdown-link>
                             </form>
+                           
+                            
                        
                     </x-slot>
                 </x-dropdown>

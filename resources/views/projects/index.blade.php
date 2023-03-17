@@ -7,9 +7,9 @@
                 <img src="{{url("images/". $project->image)}}" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{$project->title}}</h5>
-                  <p class="card-text">{{$project->description}}</p>
+                  <p class="card-text">{{$project->intro}}</p>
                   <p class="card-text">Datum: {{$project->created_at}} <br>Auteur: {{$project->User->name}}</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <a href="{{route("projects.show", $project->id)}}" class="btn btn-primary">bekijk project</a>
                 </div>
               </div>
         </div>

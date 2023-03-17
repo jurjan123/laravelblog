@@ -1,8 +1,20 @@
 <x-app-layout>
     <head><link rel="stylesheet" href="styles/style.css"></head>
     <div class="row pt-5 pb-4">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <h1>Projecten</h1>
+            
+        </div>
+        <div class="col-md-3">
+            <ul class="nav  position-absolute " style="font-size:25px">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#">Participanten</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Rollen</a>
+                </li>
+                
+            </ul>
         </div>
         <div class="col-md-6 text-right">
             <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light " role="button">Project toevoegen</a>
@@ -44,8 +56,12 @@
                                     </div>
                                   </div>
                                   
-                                  <button type="submit" role="button" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash" style="gap:10px" ></i></button>
+                                  <div class="col-6 d-flex">
+                                    <button type="submit" role="button" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button>
                                 <form action="{{route("admin.projects.edit", $value)}}" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
+
+                                  </div>
+                                  
                             </td>
                                 
                         </tr>

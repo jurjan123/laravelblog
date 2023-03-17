@@ -18,6 +18,14 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
+                    <div class="input-group mb-3  py-2 ">
+                        <label for="exampleFormControlTextarea1" name="intro"  class="form-label">Intro</label><br><br>
+                        <input type="text"  name="intro" class="form-control ml-5 mt-4 w-100 position-absolute" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                      @error("intro")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+
                     <x-input-label for="image" :value="__('change image')" />
                     <x-text-input id="image" name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
