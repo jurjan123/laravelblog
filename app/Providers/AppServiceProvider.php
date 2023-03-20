@@ -7,6 +7,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Pagination\Paginator as PaginationPaginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Macros\DuskBrowserMacros;
 
 class AppServiceProvider extends ServiceProvider
 {

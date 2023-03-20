@@ -30,5 +30,12 @@ class ProjectRequest extends FormRequest
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required"
         ];
+
+        $messages = [
+            'title.required' => '',
+            'size' => 'The :attribute must be exactly :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in' => 'The :attribute must be one of the following types: :values',
+        ];
     }
 }

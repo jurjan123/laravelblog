@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h1>Projects</h1>
+    <h1>Projecten</h1>
     <div class="row gy-4 w-100">
         @foreach($projects as $project)
         <div class="col-4  w-30">

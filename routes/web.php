@@ -27,8 +27,9 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 */
 
 Route::get('/', function () {
+
     return view('index');
-});
+})->middleware("guest");
 
 
 Route::get("/posts", function(){
@@ -57,9 +58,11 @@ Route::get("/projects", function(){
 
     Route::middleware("auth")->group(function(){
         Route::get('/', function () {
+          
             return view('index');
         });
     
+       
     Route::get("/admin/users", [UserController::class, "users"])->name("admin.users.index");
     Route::match(["get", "post"], "/admin/users/{user}/edit", [UserController::class, "edit"])->name("admin.users.edit");
     Route::put("/users/{user}", [UserController::class, "update"]);
@@ -79,7 +82,7 @@ Route::get("/projects", function(){
 
     Route::get("/admin/projects", [ProjectController::class, "index"])->name("admin.projects.index");
     Route::get("/admin/projects/create", [ProjectController::class, "create"])->name("admin.projects.create");
-    Route::post("/admin/projects/{value}/edit", [ProjectController::class, "edit"])->name("admin.projects.edit");
+    Route::match(["post", "get"], "/admin/projects/{value}/edit", [ProjectController::class, "edit"])->name("admin.projects.edit");
     Route::put("/projects/{value}", [ProjectController::class, "update"]);
     Route::post("/admin/projects/store", [ProjectController::class, "store"])->name("projects.store");
     Route::post('/projects/{value}/delete', [ProjectController::class, 'delete'])->name('projects.delete');

@@ -22,8 +22,15 @@
 
             <!-- Page Content -->
             <main>
+                <div class="container-fluid text-center">
+                    @include("includes.messages")
+                </div>
                
+                
                 <div class="container mt-5  ">
+                    <div class="row">
+                        
+                    </div>
                     <div class="row">
                         <div class="col-md-2 mr-5 mt-5 fs-4 px-4 py-4 sm-3  " >
                             @include('includes.sidebar')

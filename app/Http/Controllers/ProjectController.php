@@ -43,7 +43,7 @@ class ProjectController extends Controller
     {
 
         $validatedDate = $request->validate([
-            'title' => 'required',
+            'title' => 'required|min:3',
             'description' => 'required',
             "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
@@ -93,7 +93,7 @@ class ProjectController extends Controller
     {
     
         $validatedDate = $request->validate([
-            'title' => 'required',
+            'title' => 'required|min:3',
             'description' => 'required',
             "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
@@ -105,10 +105,12 @@ class ProjectController extends Controller
         $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
         $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
 
-        $image_name = time() . '.' . $request->image->extension();
+            if(request()->hasFile("image")){
+            $image_name = time() . '.' . $request->image->extension();
         
             $request->image->move(public_path('/images'), $image_name);
             $validatedDate["image"] = $image_name;
+            };
 
         $value->update($validatedDate);
 
