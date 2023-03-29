@@ -1,7 +1,11 @@
 <x-guest-layout>
     <div class="offset-1 col-8">
         <div class="card h-100 w-80" >
-            <img src="{{url("images/". $project->image)}}" class="card-img-top h-100 w-50" alt="...">
+          @if($project->image != "Monkey-Puppet.png")
+          <img src="{{url("images/".$project->User->id. "/". $project->image)}}" class="card-img-top w-50" alt="...">
+          @else
+          <img src="{{url("images/".$project->image)}}" class="card-img-top w-50" alt="...">
+          @endif
             <div class="card-body">
               <h5 class="card-title">{{$project->title}}</h5>
               <p class="card-text">{{$project->intro}}</p>

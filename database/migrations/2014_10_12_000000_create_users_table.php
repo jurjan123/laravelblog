@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blog_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean("role");
+            $table->boolean("is_admin")->default(false);
             $table->string("user_image")->default("preset.png");
             $table->rememberToken();
             $table->timestamps();    

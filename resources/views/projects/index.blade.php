@@ -4,7 +4,12 @@
         @foreach($projects as $project)
         <div class="col-4  w-30">
             <div class="card h-100">
-                <img src="{{url("images/". $project->image)}}" alt="...">
+              @if($project->image != "Monkey-Puppet.png")
+              <img src="{{url("images/".$project->User->id. "/". $project->image)}}" class="card-img-top w-100" alt="...">
+              @else
+              <img src="{{url("images/".$project->image)}}" class="card-img-top w-100" alt="...">
+              @endif
+
                 <div class="card-body">
                   <h5 class="card-title">{{$project->title}}</h5>
                   <p class="card-text">{{$project->intro}}</p>

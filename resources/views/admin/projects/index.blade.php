@@ -1,34 +1,26 @@
 <x-app-layout>
-    <head><link rel="stylesheet" href="styles/style.css"></head>
-    <div class="row pt-5 pb-4">
-        <div class="col-md-3">
+    
+    <div class="row  ">
+        <div class="col-md-6">
             <h1>Projecten</h1>
             
         </div>
-        <div class="col-md-3">
-            <ul class="nav  position-absolute " style="font-size:25px">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">Participanten</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Rollen</a>
-                </li>
-                
-            </ul>
-        </div>
+       
         <div class="col-md-6 text-right">
             <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light " role="button">Project toevoegen</a>
         </div> 
     </div>
     <div class="row">
         
-        <div class="col-md-12">
-            <div class="col-md-12 sm-6 card">
+        <div class="col">
+            <div class=" card">
                 <table class="table ">
                     <thead>
                     <tr>
                         <th class="py-2 px-3 border-b">Titel</th>
-                        <th class="py-2 px-3 border-b">Beschrijving</th>
+        
+                        <th class="py-2 px-3 border-b">Datum</th>
+                        <th class="py-2 px-3 border-b">Auteur</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
                     </thead>
@@ -36,8 +28,8 @@
                         @foreach($projects as $value)
                         <tr>
                             <td class="py-2 px-3 border-b">{{$value->title}} </td>
-                            <td class="py-2 px-3 border-b">{{$value->description}}</td>
-                            
+                            <td class="py-2 px-3 border-b">{{substr($value->created_at, 0,10)}}</td>
+                            <td class="py-2 px-3 border-b">{{$value->User->name}}</td>
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -50,7 +42,7 @@
                                          Weet u zeker dat u dit project wilt verwijderen?
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{route("projects.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>
+                                            <form action="{{route("admin.projects.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>
                                         </div>
                                       </div>
                                     </div>
@@ -58,7 +50,7 @@
                                   
                                   <div class="col-6 d-flex">
                                     <button type="submit" role="button" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button>
-                                <form action="{{route("admin.projects.edit", $value)}}" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
+                                <form action="{{route("admin.projects.edit", $value)}}" class="offset-3" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
 
                                   </div>
                                   

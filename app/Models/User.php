@@ -18,19 +18,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
-     public const EDITOR = 2;
-     public const CONTRIBUTOR = 1;
-     public const ADMIN = 3;
-
-
-    protected $table = "blog_users";
+    
+    protected $table = "users";
+    
 
     protected $fillable = [
         'name',
         'email',
-        'password',
-        "role"
+        "user_image",
+        "is_admin",
+        "password",
     ];
 
     /**
@@ -57,6 +54,11 @@ class User extends Authenticatable
     public function posts():HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function projects():HasMany
+    {
+        return $this->hasMany(Projects::class);
     }
 
     

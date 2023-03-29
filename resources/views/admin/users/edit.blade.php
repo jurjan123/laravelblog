@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="row">
-        <div class="col-md-9 my-5">
+        <div class="col-10">
             <h1>Gebruiker bewerken</h1>
             
         <div class="card p-4">
-            <form action="/users/{{$id}}" method="post" enctype="multipart/form-data" >
+            <form action="/admin/users/{{$id}}" method="post" enctype="multipart/form-data" >
                 @method("PUT")
                 @csrf
 
@@ -13,7 +13,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">Wijzig gebruikersnaam</span>
                         </div>
-                        <input type="text" name="name" class="form-control" value="{{$name}}" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="name" class="form-control  @error("name")is-invalid @enderror" value="{{$name}}" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -21,7 +21,7 @@
             
                     <div class="mb-3">
                       <label for="exampleInputEmail1"  class="form-label">Email adres</label>
-                      <input type="email" name="email" value="{{old('email', $email)}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <input type="email" name="email" value="{{old('email', $email)}}" class="form-control  @error("name")is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
                       <div id="emailHelp" class="form-text">uw email wordt met niemand anders gedeeld</div>
                     </div>
                     @error("email")
@@ -30,16 +30,16 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">kies rol</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="role">
-                          <option value="1">Contributor</option>
-                          <option value="2">Editor</option>
-                          <option value="3">Admin</option>
+                        <select class="form-control  @error("is_admin")is-invalid @enderror" id="exampleFormControlSelect1" name="is_admin">
+                          <option value="0">Gebruiker</option>
+                          <option value="1">Admin</option>
+                        
                         </select><br>
                       </div>
 
                     <div class="mb-3">
                         <label for="formFile"  class="form-label">Kies je profielfoto</label>
-                        <input class="form-control" name="user_image" type="file" id="formFile">
+                        <input class="form-control  @error("user_image")is-invalid @enderror" value="{{$user_image}} "name="user_image" type="file" id="formFile">
                     </div>
                     @error("user_image")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -47,7 +47,7 @@
                     
                    
                     <div class="form-floating">
-                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <input type="password" name="password" class="form-control  @error("password")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
                         <label for="floatingPassword">Type je oude wachtwoord</label>
                     </div>
                     @error("password")
@@ -56,7 +56,7 @@
 
                 
                     <div class="form-floating">
-                        <input type="password" style="margin-top:10px" name="new_password" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <input type="password" style="margin-top:10px" name="new_password" class="form-control  @error("new_password")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
                         <label for="floatingPassword">Type je nieuwe wachtwoord</label>
                     </div>
                     @error("new_password")
@@ -65,7 +65,7 @@
                    
                     
                     <div class="form-floating">
-                        <input type="password" style="margin-top:10px" name="password_confirmation" class="form-control" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
+                        <input type="password" style="margin-top:10px" name="password_confirmation" class="form-control  @error("password_confirmation")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
                         <label for="floatingPassword">Herhaal nieuwe wachtwoord</label>
                     </div>
                     @error("password_confirmation")

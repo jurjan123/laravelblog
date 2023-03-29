@@ -24,6 +24,7 @@
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
                            </div>
+                          
                             
                            
                         </div>
@@ -104,12 +105,7 @@
                 <div class="font-medium text-base text-gray-800">@if(Auth::check()){{ Auth::user()->name }}</div>@else @endif
                 <div class="font-medium text-sm text-gray-500">@if(Auth::check()){{ Auth::user()->email }}</div>@else @endif
             </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
+            
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

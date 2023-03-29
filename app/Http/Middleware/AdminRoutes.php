@@ -17,11 +17,12 @@ class AdminRoutes
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->role === 3){
+        /*if($request->user()->is_admin === 1){
             return $next($request);
 
         }else{
             abort(403);
         };
+        */
     }
 }

@@ -1,26 +1,12 @@
-<head>
-  <style>a:hover, a:active, a:visited, a:link{text-decoration: none; color:black}</style>
-</head>
-<div class="card mt-5   h-80"  style="width: 12rem; ">
+<div class="card  fs-5">
+  
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a >menu</a></li>
-    <li class="list-group-item"><a href="{{route("admin.posts.index")}}">posts</a></li>
-    <li class=" list-group-item "><a href="{{route("admin.users.index")}}">gebruikers</a></li>
-    <li class="list-group-item"><a href="{{route("admin.projects.index")}}">projecten</a></li>
-    <li class="list-group-item"><a href="{{route("admin.projects.index")}}">Rollen</a></li>
+    <li class="list-group-item"><a class="nav-link active">menu</a></li>
+    <li class="list-group-item"><a class="nav-link" href="{{route("admin.posts.index")}}">posts</a></li>
+    <li class=" list-group-item "><a class="nav-link"  href="{{route("users.index")}}">gebruikers</a></li>
+    <li class="list-group-item"><a class="nav-link" href="{{route("admin.projects.index")}}">projecten</a></li>
+    <li class="list-group-item"><a class="nav-link" aria-current="page" href="{{route("admin.roles.index")}}">Rollen</a></li>
   </ul>
 </div>
 
 
-<!--<div id="sidebar" class="card v-100 mt-5"> 
-    <div class="py-5  ">
-        <ul class="menu mt-5">
-            <li><span class="dropdown-item-text">Menu</span></li>
-            <li><a class="dropdown-item" >Posts</a></li>
-            <li><a class="dropdown-item" href="">Users</a></li>
-            <li><a class="dropdown-item" href="">Projects</a></li>
-          </ul>
-    </div>
-    
-
-</div>-->

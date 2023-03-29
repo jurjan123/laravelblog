@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\ProjectRequest;
+use Illuminate\Http\RedirectResponse;
 
 class ProjectController extends Controller
 {
@@ -18,7 +19,7 @@ class ProjectController extends Controller
     //show index with posts
     public function index()
     {
-        $projects = Projects::latest()->paginate(6);
+        $projects = Projects::latest()->paginate(15);
         
         
         return view("admin.projects.index", [
@@ -39,34 +40,22 @@ class ProjectController extends Controller
     }
 
     //store the post
-    public function store(Request $request)
+    public function store(ProjectRequest $request): RedirectResponse
     {
+       $project = new Projects;
+       $project->title = $request->title;
+       $project->description = strip_tags($request->description);
+       $project->intro = $request->intro;
+       $project->created_at = $request->created_at;
+       $project->user_id = Auth::user()->id;
 
-        $validatedDate = $request->validate([
-            'title' => 'required|min:3',
-            'description' => 'required',
-            "intro" => "required",
-            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
-            "created_at" => "required"
-        ]);
-
-        
-        if($request->image){
-            $image_name = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('images'), $image_name);
-            $image_name = time().'.'.$request->image->getClientOriginalExtension(); #Pakt de naam van de image
-            
-            $validatedDate["image"] = $image_name;
+       if($request->hasFile("image")){
+        $image_name = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+        $project->image = $image_name;
         }
-
-        $validatedDate["title"] = strip_tags($validatedDate["title"]);
-        $validatedDate["description"] = strip_tags($validatedDate["description"]);
-        $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
-        $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
-        $validatedDate += array("user_id" => auth()->id());
         
-        Projects::create($validatedDate);
-        
+        $project->save();
         
         $this->resetInputField();
         
@@ -89,38 +78,29 @@ class ProjectController extends Controller
     }
     
 
-    public function update(Request $request, Projects $value)
+    public function update(ProjectRequest $request, Projects $value)
     {
-    
-        $validatedDate = $request->validate([
-            'title' => 'required|min:3',
-            'description' => 'required',
-            "intro" => "required",
-            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
-            "created_at" => "required"
-        ]);
-
-        $validatedDate["title"] = strip_tags($validatedDate["title"]);
-        $validatedDate["description"] = strip_tags($validatedDate["description"]);
-        $validatedDate["title"] = htmlspecialchars_decode($validatedDate["title"]);
-        $validatedDate["description"] = htmlspecialchars_decode($validatedDate["description"]);
-
-            if(request()->hasFile("image")){
-            $image_name = time() . '.' . $request->image->extension();
+       $value->title = $request->title;
+       $value->description = strip_tags($request->description);
+       $value->intro = $request->intro;
+       $value->created_at = $request->created_at;
+       $value->user_id = Auth::user()->id;
+       
+       if($request->hasFile("image")){
+        $image_name = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+        $value->image = $image_name;
+        }
         
-            $request->image->move(public_path('/images'), $image_name);
-            $validatedDate["image"] = $image_name;
-            };
-
-        $value->update($validatedDate);
-
-        return redirect()->route("admin.projects.index")->with("editmessage", "Project is succesvol bewerkt");
+        $value->save();
+        
+        return redirect()->route("admin.projects.index")->with("message", "Project is succesvol bewerkt");
     }
 
     public function delete(Request $request, Projects $value)
     {
         $value->delete();
-        return redirect()->route('admin.projects.index')->with("deletemessage", "Project is verwijderd");
+        return redirect()->route('admin.projects.index')->with("message", "Project is verwijderd");
     }
 
     public function show(string $id):View
