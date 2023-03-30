@@ -22,15 +22,15 @@
                     <div class="mb-3">
                       <label for="exampleInputEmail1"  class="form-label">Email adres</label>
                       <input type="email" name="email" value="{{old('email', $email)}}" class="form-control  @error("name")is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">uw email wordt met niemand anders gedeeld</div>
+                      <div id="emailHelp" class="form-text">Je email wordt met niemand anders gedeeld</div>
                     </div>
                     @error("email")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">kies rol</label>
-                        <select class="form-control  @error("is_admin")is-invalid @enderror" id="exampleFormControlSelect1" name="is_admin">
+                        <label for="exampleFormControlSelect1">Kies rol</label>
+                        <select class="form-control  @error("is_admin")is-invalid @enderror" value="{{old("is_admin")}}" id="exampleFormControlSelect1" name="is_admin">
                           <option value="0">Gebruiker</option>
                           <option value="1">Admin</option>
                         
@@ -46,35 +46,39 @@
                     @enderror
                     
                    
-                    <div class="form-floating">
-                        <input type="password" name="password" class="form-control  @error("password")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">Type je oude wachtwoord</label>
-                    </div>
-                    @error("password")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
+                    <div class="">
+                        <label for="exampleFormControlTextarea1" class="form-label ">Type je oude wachtwoord</label>
+                          <input type="password" name="password" class="form-control @error("passsword")is-invalid @enderror" id="floatingPassword" >
+                          
+                     
+                      @error("password")
+                      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                      @enderror
 
-                
-                    <div class="form-floating">
-                        <input type="password" style="margin-top:10px" name="new_password" class="form-control  @error("new_password")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">Type je nieuwe wachtwoord</label>
-                    </div>
-                    @error("new_password")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
+                    
+                        <label for="exampleFormControlTextarea1" class="form-label ">Type je nieuwe wachtwoord</label>
+                          <input type="password" name="password" class="form-control @error("passsword")is-invalid @enderror" id="floatingPassword" >
+                          
+                      
+                      @error("password")
+                      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                      @enderror
                    
                     
-                    <div class="form-floating">
-                        <input type="password" style="margin-top:10px" name="password_confirmation" class="form-control  @error("password_confirmation")is-invalid @enderror" id="floatingPassword" placeholder="typ je nieuwe wachtwoord">
-                        <label for="floatingPassword">Herhaal nieuwe wachtwoord</label>
+                      
+                        <label for="exampleFormControlTextarea1" class="form-label ">Herhaal je nieuwe wachtwoord</label>
+                          <input type="password" name="password" class="form-control @error("passsword")is-invalid @enderror" id="floatingPassword" >
+                          
+                     
+                      @error("password")
+                      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                      @enderror
+
                     </div>
-                    @error("password_confirmation")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-
-                    <!--<input type="submit">-->
-
-                    <button type="submit"  class="btn btn-primary" style="margin-top:10px">opslaan</button
+                    <div class="col justify-content-around d-flex mt-3 offset-8">
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
+                        <a href="{{route("admin.posts.index")}}" class="nav-link fs-5">annuleren</a>
+                    </div>
                        
                     
             </form>

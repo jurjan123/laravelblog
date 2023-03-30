@@ -25,28 +25,23 @@ class UserController extends Controller
         return view("admin.users.create");
     }
 
-    public function store(Request $request, User $user){
+    public function store(StoreUserRequest $request, User $user){
         
-        $validatedDate = $request->validate([
-            "name" => ["required", "string", "max:255"],
-            "email" => ["max:255", "email", ],
-            'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            "is_admin" => "required",
-            "password" => ["required", Rules\Password::defaults()],
-            "password_confirmation" => 'required_with:password|same:password' 
-        ]);
-
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->is_admin = $request->is_admin;
+        $user->password = Hash::make($request->password);
        
-
-        $validatedDate["password"] = Hash::make($validatedDate["password"]);
-        $image_name = time().'.'.$request->user_image->extension();  
-        $request->user_image->move(public_path('images'), $image_name);
-        $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
-        $validatedDate["user_image"]= $image_name;
+        if($request->hasFile("user_image")){
+            $image_name = time() . '.' . $request->user_image->extension();
+            $request->user_image->move(public_path("images/"), $image_name);
+            $user->user_image = $image_name;
+            //dd($user->user_image);
+        }
         
+        $user->save();
         
-        User::create($validatedDate);
-        //$user->save($validatedDate);
         return redirect()->route("users.index")->with("message", "Gebruiker is gemaakt!");
 
         
@@ -63,30 +58,31 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user){
+    public function update(UpdateUserRequest $request, User $user){
           
-        $validatedDate = $request->validate([
-            "name" => ["required", "string", "max:255"],
-            "email" => ["max:255", "email", Rule::unique(User::class)->ignore($user->id),/*'unique:'.User::class*/],
-            'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            "is_admin" => "required",
-            "password" => ["required"],
-            "new_password" => ["required", /*"min:6", "confirmed",*/ Rules\Password::defaults()],
-            "password_confirmation" => 'required_with:new_password|same:new_password' 
-        ]);
-
-        if(password_verify($validatedDate["password"], Auth::user()->password) && $validatedDate["new_password"] != $validatedDate["password"] ){
+    
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->is_admin = $request->is_admin;
+        $user->password = $request->password;
+        //$user->password = $request->password;
+        
+        if($request->hasFile("image")){
             $image_name = time().'.'.$request->user_image->extension();  
-            $request->user_image->move(public_path('images'), $image_name);
+            $request->user_image->move(public_path('images/'.Auth::user()->id), $image_name);
             $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
             $user->user_image= $image_name;
-            
-            $validatedDate["password"] = Hash::make($validatedDate["new_password"]);
-
-            $user->update($validatedDate);
-            return redirect()->route("users.index")->with("message", "Gebruiker is gemaakt!");
-        
         }
+        
+        if(password_verify($user->password, Auth::user()->password) && $request->new_password != $request->password){
+           $user->password = Hash::make($request->new_password);
+           $user->update();
+            return redirect()->route("users.index")->with("message", "Gebruiker is bewerkt!");
+        }else{
+          
+        }
+       
+
     }
 
     public function show(Request $request)

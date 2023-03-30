@@ -28,7 +28,7 @@
                         @foreach($projects as $value)
                         <tr>
                             <td class="py-2 px-3 border-b">{{$value->title}} </td>
-                            <td class="py-2 px-3 border-b">{{substr($value->created_at, 0,10)}}</td>
+                            <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($value->created_at))}}</td>
                             <td class="py-2 px-3 border-b">{{$value->User->name}}</td>
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -39,7 +39,7 @@
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                         Weet u zeker dat u dit project wilt verwijderen?
+                                         Weet je zeker dat je dit project wilt verwijderen?
                                         </div>
                                         <div class="modal-footer">
                                             <form action="{{route("admin.projects.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>

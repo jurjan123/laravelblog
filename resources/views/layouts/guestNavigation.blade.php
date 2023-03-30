@@ -13,6 +13,7 @@
                 </div>
                 
                 
+                
                 <!-- Navigation Links -->
                 
 
@@ -24,7 +25,7 @@
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
                            </div>
-                          
+                           
                             
                            
                         </div>
@@ -38,7 +39,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>@if(Auth::check()){{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">@else @endif
+                            <div>@if(Auth::check()){{ Auth::user()->name }}</div>@if(Auth::user()->image != "preset.png")<img src="{{url("images/preset.png")}}" width="50" height="50"> @else <img src="{{url("images/".Auth::user()->id."/".Auth::user()->user_image)}}" width="50" height="50" alt="">@endif @else  @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -48,34 +49,34 @@
                         </button>
                     </x-slot>
                     
-                    
-                    
-                        
-                        <x-slot name="content">
+                   
+                    <x-slot name="content">
+                            @guest
                             <x-dropdown-link :href="route('login')">
                                 {{ __('Inloggen') }}
                             </x-dropdown-link>
+                            @endguest
                             
+                            @guest
                             <!-- Authentication -->
                             <x-dropdown-link :href="route('register')">
                                 {{ __('Registreren') }}
                             </x-dropdown-link>
-                          
+                            @endguest
                             
-                            
+                            @auth
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-        
+                                
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     {{ __('Uitloggen') }}
                                 </x-dropdown-link>
                             </form>
-                           
+                            @endauth
                             
-                       
-                    </x-slot>
+                        </x-slot>
                 </x-dropdown>
             </div>
 

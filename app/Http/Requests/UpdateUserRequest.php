@@ -30,11 +30,11 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             "name" => ["required", "string", "max:20"],
-            "email" => ["max:100", "email", Rule::unique(User::class)->ignore(Auth::user()->id)],
+            'email' => ['unique:users,email,'.Auth::user()->id, "max:100", "email"],
             'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            "role" => "required",
+            "is_admin" => "required",
             "password" => "required",
-            "new_password" => ["required", Password::defaults()],
+            "new_password" => ["required"],
             "password_confirmation" => 'required_with:new_password|same:new_password' 
         ];
     }
@@ -45,10 +45,12 @@ class UpdateUserRequest extends FormRequest
             "name.string" => "naam moeten letters zijn",
             "name.max" => "naam mag niet langer dan 20 karakters zijn",
             "email.required" => "email is verplicht",
+            "email.email" => "email is verplicht",
             "email.string" => "email moeten letters zijn",
             "email.unique" => "email is al in gebruik",
             "email.max" => "email mag niet langer dan 100 karakters zijn",
-            "rol.required" => "rol is verplicht",
+            "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
+            "user_image.max" => "De afbeelding mag niet groter zijn dan 3mb",
             "password.required" => "vul oude wachtwoord in",
             "new_password.required" => "vul nieuwe wachtwoord in",
             "password_confirmation.required" => "herhaal nieuwe wachtwoord",

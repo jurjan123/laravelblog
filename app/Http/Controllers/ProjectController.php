@@ -12,15 +12,13 @@ use Illuminate\Http\RedirectResponse;
 class ProjectController extends Controller
 {
 
-    
-    public $posts, $title, $description, $post_id;
-    public $updateMode = false;
+    public $title,$description;
+  
 
     //show index with posts
     public function index()
     {
         $projects = Projects::latest()->paginate(15);
-        
         
         return view("admin.projects.index", [
             "projects" => $projects
@@ -31,7 +29,6 @@ class ProjectController extends Controller
     public function create()
     {
         return view("admin.projects.create");
-
     }
 
     private function resetInputField(){
@@ -51,7 +48,7 @@ class ProjectController extends Controller
 
        if($request->hasFile("image")){
         $image_name = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+        $request->image->move(public_path('images/'), $image_name);
         $project->image = $image_name;
         }
         

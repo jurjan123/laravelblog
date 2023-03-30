@@ -15,28 +15,39 @@
         @if($errors->any())
         @if(Route::is("admin.posts.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>post niet kunnen bewerken</strong>
+            <strong>Post niet kunnen bewerken</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         
         @elseif(Route::is("admin.projects.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>project niet kunnen bewerken</strong>
+            <strong>Project niet kunnen bewerken</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.posts.create"))
         <div class="alert alert-danger fade show ">
-            <strong>post niet kunnen maken</strong>
+            <strong>Post niet kunnen maken</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.projects.create"))
         <div class="alert alert-danger fade show ">
-            <strong>project niet kunnen maken</strong>
+            <strong>Project niet kunnen maken</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
+        @elseif(Route::is("admin.users.create"))
+        <div class="alert alert-danger fade show ">
+            <strong>Gebruiker niet kunnen maken</strong>
+            <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+
+        @elseif(Route::is("admin.users.edit"))
+        <div class="alert alert-danger fade show ">
+            <strong>Gebruiker niet kunnen bewerken</strong>
+            <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
        
         @endif
         @endif

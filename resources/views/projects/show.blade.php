@@ -2,7 +2,7 @@
     <div class="offset-1 col-8">
         <div class="card h-100 w-80" >
           @if($project->image != "Monkey-Puppet.png")
-          <img src="{{url("images/".$project->User->id. "/". $project->image)}}" class="card-img-top w-50" alt="...">
+          <img src="{{url("images/". $project->image)}}" class="card-img-top w-50" alt="...">
           @else
           <img src="{{url("images/".$project->image)}}" class="card-img-top w-50" alt="...">
           @endif

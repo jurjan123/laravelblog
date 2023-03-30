@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     public $posts, $title, $description, $post_id;
-    public $date;
     public $updateMode = false;
 
     //show index with posts
@@ -31,9 +30,7 @@ class PostController extends Controller
     // show create post page
     public function create()
     {
-        
         return view("admin.posts.create");
-
     }
 
     private function resetInputField(){
@@ -44,7 +41,7 @@ class PostController extends Controller
     //store the post
     public function store(PostRequest $request)
     {
-        
+
         $post = new Post;
         $post->title = $request->title;
         $post->description = strip_tags($request->description);
@@ -54,7 +51,7 @@ class PostController extends Controller
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
-            $request->image->move(public_path("images/". Auth::user()->id), $image_name);
+            $request->image->move(public_path("images/"), $image_name);
             $post->image = $image_name;
         }
          
@@ -64,11 +61,6 @@ class PostController extends Controller
         $this->resetInputField();
     
         return redirect()->route("admin.posts.index")->with("message", "Post is gemaakt!");
-    }
-
-    public function message()
-    {
-        return redirect()->route("admin.posts.edit")->with("errormessage", "post niet kunnen maken");
     }
 
     // edit existing post

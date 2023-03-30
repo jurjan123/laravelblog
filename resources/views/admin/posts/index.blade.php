@@ -28,7 +28,7 @@
                         <tr class="mx-auto " >
                            
                             <td class="py-2 px-3 border-b">{{$value->title}} </td>
-                            <td class="py-2 px-3 border-b">{{substr($value->created_at, 0,10)}}</th>
+                            <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($value->created_at))}}</th>
                             <td class="py-2 px-3 border-b">{{$value->User->name}}</th>
 
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
@@ -40,7 +40,7 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                             Weet u zeker dat u deze post wilt verwijderen?
+                                             Weet je zeker dat je deze post wilt verwijderen?
                                             </div>
                                             <div class="modal-footer">
                                                 <form action="{{route("admin.posts.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>

@@ -29,10 +29,10 @@ class StoreUserRequest extends FormRequest
     {
         return [
             "name" => ["required", "string", "max:20"],
-            "email" => ["max:100", "email", Rule::unique(User::class)->ignore(Auth::user()->id)],
+            "email" => ["required", "max:100", "email"],
             'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             "is_admin" => "required",
-            "password" => ["required", Password::defaults()],
+            "password" => ["required"],
             "password_confirmation" => 'required_with:password|same:password' 
         ];
     }
@@ -46,9 +46,12 @@ class StoreUserRequest extends FormRequest
             "email.string" => "email moeten letters zijn",
             "email.unique" => "email is al in gebruik",
             "email.max" => "email mag niet langer dan 100 karakters zijn",
+            "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
+            "user_image.max" => "De afbeelding mag niet groter zijn dan 2mb",
             "rol.required" => "rol is verplicht",
             "password.required" => "vul nieuwe wachtwoord in",
             "password_confirmation.required" => "herhaal nieuwe wachtwoord",
+            
             "password_confirmation.same:new_password" => "het herhaalde wachtoord komt niet overeen met nieuwe wachtwoord",
         ];
     }
