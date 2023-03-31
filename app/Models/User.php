@@ -50,19 +50,11 @@ class User extends Authenticatable
         //"role" => User::USER,
     ];
 
-
-    public function posts():HasMany
+    public function roles():HasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Role::class);
     }
-
-    public function projects():HasMany
-    {
-        return $this->hasMany(Projects::class);
-    }
-
-    
-
+   
     public function getDefaultLocaleAttribute(): string
     {
         return config('app.locale');

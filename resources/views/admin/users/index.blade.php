@@ -1,8 +1,31 @@
 <x-app-layout>
     
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 justify-content-between d-flex">
             <h1>Gebruikers</h1>
+            <div>
+                <div class="">
+                    <div class="">
+                        <form action="{{ route('admin.users.search') }}" method="GET" role="search">
+        
+                            <div class="input-group">
+                                <a href="{{ route('users.index') }}" class=" ">
+                                    <span class="input-group-btn">
+                                        </button>
+                                    </span>
+                                </a>
+                               
+                                <input type="text" class="form-control mr-2" name="search_data" placeholder="Zoek gebruiker" id="term">
+                                <span class="input-group-btn ">
+                                    <button class="btn btn-info" type="submit" title="Zoek posts">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6 text-right">
             <a href="{{route("admin.users.create")}}" class="btn btn-primary text-light " role="button">Gebruiker toevoegen</a>

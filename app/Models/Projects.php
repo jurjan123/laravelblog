@@ -22,16 +22,8 @@ class Projects extends Model
         "description",
         "intro",
         "created_at",
-        "user_id",
         "image"
     ];
-
-    public function user():Belongsto
-    {
-        return $this->belongsTo(User::class);
-    }
-
-
 
     
 };

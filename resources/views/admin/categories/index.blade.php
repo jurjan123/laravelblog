@@ -1,14 +1,14 @@
 <x-app-layout>
     <div class="row ">
         <div class="col-md-6 justify-content-between d-flex">
-            <h1>Rollen</h1>
+            <h1>Categorieen</h1>
             <div>
                 <div class="">
                     <div class="">
-                        <form action="{{ route('admin.roles.search') }}" method="GET" role="search">
+                        <form action="{{ route('admin.categories.search') }}" method="GET" role="search">
         
                             <div class="input-group">
-                                <a href="{{ route('admin.roles.index') }}" class=" ">
+                                <a href="{{ route('admin.categories.index') }}" class=" ">
                                     <span class="input-group-btn">
                                         </button>
                                     </span>
@@ -28,7 +28,7 @@
         </div>
        
         <div class="col-md-6 text-right">
-            <a href="{{route("admin.roles.create")}}" class="btn btn-primary text-light " role="button">Rol toevoegen</a>
+            <a href="{{route("admin.categories.create")}}" class="btn btn-primary text-light " role="button">Categorie toevoegen</a>
         </div> 
     </div>
     <div class="row">
@@ -43,7 +43,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($roles as $value)
+                        @foreach($categories as $value)
                             <tr class="mx-auto " >
                            
                             <td class="py-2 px-3 border-b">{{$value->name}} </td>
@@ -58,10 +58,10 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                             Weet je zeker dat je deze rol wilt verwijderen?
+                                             Weet je zeker dat je deze Categorie wilt verwijderen?
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="{{route("admin.roles.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>
+                                                <form action="{{route("admin.categories.delete", $value)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>
                                             </div>
                                           </div>
                                         </div>
@@ -69,7 +69,7 @@
                                       
                                       <div class="col-6 d-flex">
                                         <button type="submit" role="button" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button>
-                                    <form action="{{route("admin.roles.edit", $value)}}" class="offset-1" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
+                                    <form action="{{route("admin.categories.edit", $value)}}" class="offset-1" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
     
                                       </div>
                                       

@@ -15,7 +15,7 @@
                   <h5 class="card-title">{{$post->title}}</h5>
                   <p class="card-text">{{$post->intro}}</p>
                   
-                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($post->created_at))}} <br>Auteur: {{$post->User->name}}</p>
+                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($post->created_at))}}</p>
                   <a href="{{route("posts.show", $post->id)}}" class="btn btn-primary">Bekijk post</a>
                 </div>
               </div>

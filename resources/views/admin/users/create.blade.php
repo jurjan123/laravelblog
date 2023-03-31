@@ -26,14 +26,24 @@
                     @error("email")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
-
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Kies rol</label>
-                        <select class="form-control @error("is_admin")is-invalid @enderror" id="exampleFormControlSelect1" name="is_admin">
-                          <option value="0">Gebruiker</option>
-                          <option value="1">Admin</option>
-                        </select><br>
+                    
+                    <div class="mb-3">
+                      <div class="form-check ">
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="0" type="radio" name="is_admin" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Gebruiker
+                        </label>
                       </div>
+                      <div class="form-check">
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="1" name="is_admin" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Admin
+                        </label>
+                      </div>
+                    </div>
+                    
+
+                   
 
                     <div class="mb-3">
                         <label for="formFile"  class="form-label">Kies je profielfoto</label>

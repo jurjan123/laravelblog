@@ -67,11 +67,12 @@ class UserController extends Controller
         $user->password = $request->password;
         //$user->password = $request->password;
         
-        if($request->hasFile("image")){
+        if($request->hasFile("user_image")){
             $image_name = time().'.'.$request->user_image->extension();  
-            $request->user_image->move(public_path('images/'.Auth::user()->id), $image_name);
+            $request->user_image->move(public_path('images/'), $image_name);
             $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
             $user->user_image= $image_name;
+            //$user->update(["user_image])
         }
         
         if(password_verify($user->password, Auth::user()->password) && $request->new_password != $request->password){
@@ -98,5 +99,11 @@ class UserController extends Controller
         return redirect()->route("users.index")->with("message", "Gebruiker is verwijderd!");
 
     }
+
+    public function search(Request $request){
+        $users = User::where("name", "Like", "%".$request->search_data."%")->paginate(7);
+        return view("admin.users.index", compact("users"));
+    }
+
 }
 

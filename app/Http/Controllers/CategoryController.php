@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CategoryRequest;
 
-class RoleController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +18,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::latest()->get();
-        $roles = Role::latest()->paginate(15);
+        $categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(15);
         
-        return view("admin.roles.index", [
-            "roles" => $roles
+        return view("admin.categories.index", [
+            "categories" => $categories
         ]);
     }
 
@@ -31,7 +33,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view("admin.roles.create");
+        return view("admin.categories.create");
     }
 
     /**
@@ -40,14 +42,13 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $role = new Role;
-        $role->name = $request->name;
-        
+        $category = new Category;
+        $category->name = $request->name;
 
-        $role->save();
-        return redirect()->route("admin.roles.index")->with("succesmeesage", "rol is gemaakt!");
+        $category->save();
+        return redirect()->route("admin.categories.index")->with("succesmessage", "Categorie is gemaakt!");
     }
 
     /**
@@ -67,9 +68,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $value)
+    public function edit(Category $value)
     {
-        return view("admin.roles.edit", [
+        return view("admin.categories.edit", [
             "id" => $value->id,
             "name" => $value->name,
            
@@ -83,13 +84,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequest $request, Role $value)
+    public function update(CategoryRequest $request, Category $value)
     {
         $value->name = $request->name;
        
         $value->save();
         
-        return redirect()->route("admin.roles.index")->with("message", "rol is succesvol bewerkt");
+        return redirect()->route("admin.categories.index")->with("message", "Categories is succesvol bewerkt");
     }
 
     /**
@@ -98,15 +99,16 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, Role $value)
+    public function delete(Request $request, Category $value)
     {
         
         $value->delete();
-        return redirect()->route("admin.roles.index")->with("message", "rol is verwijderd!");
+        return redirect()->route("admin.categories.index")->with("message", "Categorie is verwijderd!");
     }
 
-    public function search(Request $request){
-        $roles = Role::where("name", "Like", "%".$request->search_data."%")->paginate(7);
-        return view("admin.categories.index", compact("roles"));
+    public function search(Request $request)
+    {
+        $categories = Category::where("name", "Like", "%".$request->search_data."%")->paginate(7);
+        return view("admin.categories.index", compact("categories"));
     }
 }

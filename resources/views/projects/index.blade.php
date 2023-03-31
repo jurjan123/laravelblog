@@ -13,7 +13,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{$project->title}}</h5>
                   <p class="card-text">{{$project->intro}}</p>
-                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($project->created_at))}} <br>Auteur: {{$project->User->name}}</p>
+                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($project->created_at))}} <br>Auteur:</p>
                   <a href="{{route("projects.show", $project->id)}}" class="btn btn-primary">Bekijk project</a>
                 </div>
               </div>

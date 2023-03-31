@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->text("title");
-            $table->text("intro");
-            $table->string("image")->default("Monkey-Puppet.png");
-            $table->text("description");
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
             
-           
+            $table->foreignId("role_id")->after("is_admin")->references("id")->on("roles")->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -32,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

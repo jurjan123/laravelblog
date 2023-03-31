@@ -36,10 +36,14 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     
-                    <input type="datetime-local" class="form-control mt-3"
-                            name="created_at" step="any" value="{{old("created_at")}}">
+                    <div class="mt-3">
+                        <x-input-label for="image" :value="__('Kies datum')" />
+                    <input type="datetime-local" class="form-control "
+                        name="created_at" step="any" value="{{old("created_at")}}">
+                    </div>
+                    
                    
-                    <label for="exampleFormControlTextarea1" name="description"  class="form-label">Beschrijving</label>
+                    <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-3">Beschrijving</label>
                     <textarea class="form-control"  id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20" >{{old("description")}}</textarea>
                     </div>
                     @error("description")

@@ -1,14 +1,15 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Projects;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RoleController;
-use App\Models\Projects;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\CategoryController;
 use League\CommonMark\Extension\Table\Table;
 
 /*
@@ -27,7 +28,7 @@ Route::get('/', function () {
 })->middleware("guest");
 
 Route::get("/posts", function(){
-    $posts = Post::latest()->with("User")->get();
+    $posts = Post::latest()->get();
     $posts = Post::latest()->paginate(15);
     
     return view("posts.index", [
@@ -36,7 +37,7 @@ Route::get("/posts", function(){
 })->name("posts.index");
 
 Route::get("/projects", function(){
-    $projects = Projects::latest()->with("User")->get();
+    $projects = Projects::latest()->get();
     $projects = Projects::latest()->paginate(15);
     
     return view("projects.index", [
@@ -53,6 +54,7 @@ Route::group(["prefix" => "admin"], function(){
 
 
     Route::get("/users", [UserController::class, "users"])->name("users.index");
+    Route::get("/users/search", [UserController::class, "search"])->name("admin.users.search");
     Route::get("/users/create", [UserController::class, "create"])->name("admin.users.create");
     Route::post("/users/store", [UserController::class, "store"])->name("admin.users.store");
     Route::match(["get", "post"], "/users/{user}/edit", [UserController::class, "edit"])->name("admin.users.edit");
@@ -63,7 +65,17 @@ Route::group(["prefix" => "admin"], function(){
     
     Route::get("/", [PostController::class, "adminIndex"])->name("admin.index");
 
+
+    Route::get("/categories", [CategoryController::class, "index"])->name("admin.categories.index");
+    Route::get("/categories/search", [CategoryController::class, "search"])->name("admin.categories.search");
+    Route::get("/categories/create", [CategoryController::class, "create"])->name("admin.categories.create");
+    Route::post("/categories/store", [CategoryController::class, "store"])->name("admin.categories.store");
+    Route::match(["post", "get"], "/categories/{value}/edit", [CategoryController::class, "edit"])->name("admin.categories.edit");
+    Route::put("/categories/{value}", [CategoryController::class, "update"]);
+    Route::post("/categories/{value}/delete", [CategoryController::class, "delete"])->name("admin.categories.delete");
+
     Route::get("/posts", [PostController::class, "index"])->name("admin.posts.index");
+    Route::get("/posts/search", [PostController::class, "search"])->name("admin.posts.search");
     Route::get("/posts/create", [PostController::class, "create"])->name("admin.posts.create");
     Route::post("/posts/store", [PostController::class, "store"])->name("admin.posts.store");
     Route::match(["post","get"],"/posts/{value}/edit", [PostController::class, "edit"])->name("admin.posts.edit");
@@ -72,6 +84,7 @@ Route::group(["prefix" => "admin"], function(){
     Route::get("/posts/show/{id}", [PostController::class, "show"]);
 
     Route::get("/projects", [ProjectController::class, "index"])->name("admin.projects.index");
+    Route::get("/projects/search", [ProjectController::class, "search"])->name("admin.projects.search");
     Route::get("/projects/create", [ProjectController::class, "create"])->name("admin.projects.create");
     Route::post("/projects/store", [ProjectController::class, "store"])->name("admin.projects.store");
     Route::match(["post", "get"], "/projects/{value}/edit", [ProjectController::class, "edit"])->name("admin.projects.edit");
@@ -79,6 +92,7 @@ Route::group(["prefix" => "admin"], function(){
     Route::post('/projects/{value}/delete', [ProjectController::class, 'delete'])->name('admin.projects.delete');
     
     Route::get("/roles", [RoleController::class, "index"])->name("admin.roles.index");
+    Route::get("/roles/search", [RoleController::class, "search"])->name("admin.roles.search");
     Route::get("/roles/create", [RoleController::class, "create"])->name("admin.roles.create");
     Route::post("/roles/store", [RoleController::class, "store"])->name("admin.roles.store");
     Route::match(["post", "get"], "/roles/{value}/edit", [RoleController::class, "edit"])->name("admin.roles.edit");

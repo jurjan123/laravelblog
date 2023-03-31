@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->dateTime('email_verified_at')->nullable();
+            $table->dateTime('email_verified_at');
             $table->string('password');
             $table->boolean("is_admin")->default(false);
             $table->string("user_image")->default("preset.png");
             $table->rememberToken();
-            $table->timestamps();    
+            $table->timestamps();  
+           
         });
     }
 
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_users');
+        Schema::dropIfExists('users');
     }
 };

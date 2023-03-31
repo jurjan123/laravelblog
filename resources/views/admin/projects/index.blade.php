@@ -1,11 +1,33 @@
 <x-app-layout>
     
     <div class="row  ">
-        <div class="col-md-6">
+        <div class="col-md-6 justify-content-between d-flex">
             <h1>Projecten</h1>
-            
-        </div>
+            <div class="">
+                <div class="">
+                    <form action="{{ route('admin.projects.search') }}" method="GET" role="search">
+    
+                        <div class="input-group">
+                            <a href="{{ route('admin.posts.index') }}" class=" ">
+                                <span class="input-group-btn">
+                                    </button>
+                                </span>
+                            </a>
+                           
+                            <input type="text" class="form-control mr-2" name="search_data" placeholder="Zoek project" id="term">
+                            <span class="input-group-btn ">
+                                <button class="btn btn-info" type="submit" title="Zoek project">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
        
+        </div>
+        
+           
         <div class="col-md-6 text-right">
             <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light " role="button">Project toevoegen</a>
         </div> 
@@ -29,7 +51,7 @@
                         <tr>
                             <td class="py-2 px-3 border-b">{{$value->title}} </td>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($value->created_at))}}</td>
-                            <td class="py-2 px-3 border-b">{{$value->User->name}}</td>
+                            <td class="py-2 px-3 border-b"></td>
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">

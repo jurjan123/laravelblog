@@ -11,10 +11,10 @@ class Role extends Model
     use HasFactory;
 
     protected $table = "roles";
-    protected $fillable = ["name", "user_id"];
+    protected $fillable = ["name"];
 
 
-    public function user():BelongsTo
+    public function users():BelongsTo
     {
         return $this->belongsTo(User::class);
     }

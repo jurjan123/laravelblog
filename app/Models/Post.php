@@ -23,17 +23,14 @@ class Post extends Model
         "title",
         "description",
         "intro",
-        "user_id",
         "created_at",
         "image"
     ];
 
-    public function user():Belongsto
+    public function categories(): Belongsto
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
-
-
 
     
 };

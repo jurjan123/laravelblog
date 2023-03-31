@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\RedirectResponse;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjectController extends Controller
 {
@@ -44,8 +45,7 @@ class ProjectController extends Controller
        $project->description = strip_tags($request->description);
        $project->intro = $request->intro;
        $project->created_at = $request->created_at;
-       $project->user_id = Auth::user()->id;
-
+      
        if($request->hasFile("image")){
         $image_name = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images/'), $image_name);
@@ -106,4 +106,11 @@ class ProjectController extends Controller
             "project" => Projects::findOrFail($id)
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $projects = Projects::where("title", "Like", "%".$request->search_data."%")->paginate(7);
+        return view("admin.projects.index", compact("projects"));
+    }
+
 }

@@ -15,7 +15,7 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
-        $posts = Post::latest()->with("User")->get();
+        $posts = Post::latest()->get();
         $posts = Post::latest()->paginate(15);
         
         return view("admin.posts.index", [
@@ -47,7 +47,7 @@ class PostController extends Controller
         $post->description = strip_tags($request->description);
         $post->intro = $request->intro;
         $post->created_at = $request->created_at;
-        $post->user_id = Auth::user()->id;
+       
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
@@ -83,7 +83,7 @@ class PostController extends Controller
         $value->description = strip_tags($request->description);
         $value->intro = $request->intro;
         $value->created_at = $request->created_at;
-        $value->user_id = Auth::user()->id;
+        
        
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
@@ -108,6 +108,12 @@ class PostController extends Controller
         return view("posts.show", [
             "post" => Post::findOrFail($id)
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $posts = Post::where("title", "Like", "%".$request->search_data."%")->paginate(7);
+        return view("admin.posts.index", compact("posts"));
     }
 
 }
