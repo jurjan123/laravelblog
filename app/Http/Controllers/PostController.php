@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +17,6 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
-        $posts = Post::latest()->get();
         $posts = Post::latest()->paginate(15);
         
         return view("admin.posts.index", [
@@ -30,7 +31,10 @@ class PostController extends Controller
     // show create post page
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::latest()->get();
+        return view("admin.posts.create",[
+            "categories" => $categories
+        ]);
     }
 
     private function resetInputField(){
@@ -47,7 +51,7 @@ class PostController extends Controller
         $post->description = strip_tags($request->description);
         $post->intro = $request->intro;
         $post->created_at = $request->created_at;
-       
+        $post->category_id = $request->category_id;
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
@@ -66,13 +70,21 @@ class PostController extends Controller
     // edit existing post
     public function edit(Request $request, Post $value)
     {
+        $categories = Category::latest()->get();
+        $post_category_name = DB::table("roles")
+        ->where("id", $value->category_id)
+        ->value("name");
+        
+
         return view("admin.posts.edit", [
             "id" => $value->id,
             "title" => $value->title,
             "description" => $value->description,
             "intro" => $value->intro,
             "image" => $value->image,
-            "created_at" => $value->created_at
+            "created_at" => $value->created_at,
+            "categories" => $categories,
+            "post_category_name" => $post_category_name,
         ]);
     }
     
@@ -83,7 +95,7 @@ class PostController extends Controller
         $value->description = strip_tags($request->description);
         $value->intro = $request->intro;
         $value->created_at = $request->created_at;
-        
+        $value->category_id = $request->category_id;
        
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();

@@ -2,7 +2,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  " >
-        <div class="flex justify-between h-16">
+        <div class="flex  h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -16,13 +16,16 @@
                 <!-- Navigation Links -->
                 
 
-                    <div class="container text-left row-flex justify-content-between py-3" style="gap:50px; margin-left: 30px;">
+                    <div class="container  py-3" >
                         <div class="row w-70">
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
                            </div>
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
+                           </div>
+                           <div class="col">
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/categories">categorieen</a>
                            </div>
                             
                           

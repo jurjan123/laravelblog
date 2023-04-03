@@ -40,7 +40,8 @@
                     <tr >
                         <th class="py-2 px-3 border-b">Titel</th>
                         <th class="py-2 px-3 border-b">Datum</th>
-                        <th class="py-2 px-3 border-b">Auteur</th>
+                        <th class="py-2 px-3 border-b">Categorie</th>
+                        
                         <th class="py-2 px-3 border-b">Opties</th>
                         
                     </tr>
@@ -51,7 +52,7 @@
                            
                             <td class="py-2 px-3 border-b">{{$value->title}} </td>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($value->created_at))}}</th>
-                            <td class="py-2 px-3 border-b"></th>
+                            <td class="py-2 px-3 border-b"></td>
 
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">

@@ -1,9 +1,7 @@
 <x-guest-layout>
-  @if(!$posts)
-    <div class="container-fluid text-center"></div>
-    <h1>hier is niks te zien</h1>
-    @else
-   <h1>Posts</h1>
+    
+   
+   
     <div class="row gy-4">
         @foreach($posts as $post)
         <div class="col-4">
@@ -24,8 +22,17 @@
               </div>
         </div>
         @endforeach
-        @endif
+     
     </div>
-    {{$posts->links()}}
+    
+</x-guest-layout> 
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
-</x-guest-layout>

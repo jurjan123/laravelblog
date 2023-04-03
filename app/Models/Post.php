@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Belongsto;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -16,8 +17,8 @@ class Post extends Model
     use HasFactory;
 
 
-    public $incrementing = false;
-    protected $keyType = 'string';
+    //public $incrementing = false;
+    //protected $keyType = 'string';
     
     protected $fillable = [
         "title",
@@ -31,6 +32,10 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+   
+    
+
 
     
 };

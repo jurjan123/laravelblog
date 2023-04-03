@@ -43,6 +43,17 @@
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any" value="{{old("created_at")}}">
                     </div>
+
+                    <div class="mb-3 mt-3">
+                        <label for="formFile"  class="form-label">Kies categorie (optioneel)</label>
+                       
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                        <option selected></option>
+                          @foreach($categories as $categorie)
+                          <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                          @endforeach
+                        </select>
+                    </div>
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                     <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{old("description")}}</textarea>

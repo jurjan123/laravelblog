@@ -23,9 +23,14 @@
                           </div>
                           @error("title") <p class="text-red-500 text-xs mt-1">{{$message}}</p>@enderror
                        
-
+                          <x-input-label for="image" :value="__('Foto veranderen')" />
+                          <x-text-input id="image" name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
+                          <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                          @error("image")
+                          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                          @enderror
                          
-                          <div class="col justify-content-around d-flex offset-9">
+                          <div class="col justify-content-around mt-3 d-flex offset-9">
                             <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
                             <a href="{{route("admin.categories.index")}}" class="nav-link fs-5">annuleren</a>
                         </div>

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
@@ -22,7 +24,10 @@ class UserController extends Controller
     }
 
     public function create(){
-        return view("admin.users.create");
+        $roles = Role::latest()->get();
+        return view("admin.users.create", [
+            "roles" => $roles
+        ] );
     }
 
     public function store(StoreUserRequest $request, User $user){
@@ -31,6 +36,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
+        $user->roles_id = $request->role;
         $user->password = Hash::make($request->password);
        
         if($request->hasFile("user_image")){
@@ -44,17 +50,23 @@ class UserController extends Controller
         
         return redirect()->route("users.index")->with("message", "Gebruiker is gemaakt!");
 
-        
-
     }
     
     public function edit(Request $request, User $user){
+        
+        $roles = Role::latest()->get();
+        $user_role_name = DB::table("roles")
+        ->where("id", $user->roles_id)
+        ->value("name");
+        
         return view("admin.users.edit", [
             "id" => $user->id,
             "email" => $user->email,
             "user_image" => $user->user_image,
-            "name" => $user->name
-            
+            "name" => $user->name,
+            "user_role_name" => $user_role_name,
+            "roles" => $roles,
+        
         ]);
     }
 
@@ -66,7 +78,8 @@ class UserController extends Controller
         $user->is_admin = $request->is_admin;
         $user->password = $request->password;
         //$user->password = $request->password;
-        
+        $user->roles_id = $request->role;
+
         if($request->hasFile("user_image")){
             $image_name = time().'.'.$request->user_image->extension();  
             $request->user_image->move(public_path('images/'), $image_name);
@@ -79,11 +92,7 @@ class UserController extends Controller
            $user->password = Hash::make($request->new_password);
            $user->update();
             return redirect()->route("users.index")->with("message", "Gebruiker is bewerkt!");
-        }else{
-          
-        }
-       
-
+        } 
     }
 
     public function show(Request $request)

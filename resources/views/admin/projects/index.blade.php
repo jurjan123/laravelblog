@@ -1,10 +1,22 @@
 <x-app-layout>
     
     <div class="row  ">
-        <div class="col-md-6 justify-content-between d-flex">
+        <div class="col-md-6 justify-content-around d-flex">
             <h1>Projecten</h1>
+            <ul class="nav ">
+                <li class="nav-item">
+                  <a class="nav-link text-black active fs-4" aria-current="page" href="#">Rollen</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-black fs-4" href="#">Leden</a>
+                </li>
+                
+              </ul>
+        </div>
+        
+      <div class="col-md-6 ">
             <div class="">
-                <div class="">
+                <div class="col d-flex">
                     <form action="{{ route('admin.projects.search') }}" method="GET" role="search">
     
                         <div class="input-group">
@@ -22,14 +34,12 @@
                             </span>
                         </div>
                     </form>
+                    
+                        <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light text-left offset-2" role="button">Project toevoegen</a>
+                  
+                    
                 </div>
-            </div>
-       
-        </div>
-        
-           
-        <div class="col-md-6 text-right">
-            <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light " role="button">Project toevoegen</a>
+            
         </div> 
     </div>
     <div class="row">

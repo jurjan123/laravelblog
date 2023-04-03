@@ -27,7 +27,7 @@
                     @error("email")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
-
+                    
                     <div class="mb-3">
                       <div class="form-check ">
                         <input class="form-check-input @error("is_admin")is-invalid @enderror" value="0" type="radio" name="is_admin" name="flexRadioDefault" id="flexRadioDefault1">
@@ -41,6 +41,20 @@
                           Admin
                         </label>
                       </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="formFile"  class="form-label">Kies je rol</label>
+                      <select class="form-select" aria-label="Default select example" name="role">
+                        <option selected>{{$user_role_name}}</option>
+                        @foreach($roles as $role)
+                        @if($role->name == $user_role_name)
+                        
+                        @else
+                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endif
+                        @endforeach
+                      </select>
                     </div>
 
                     <div class="mb-3">
@@ -70,7 +84,6 @@
                       <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                       @enderror
                    
-                      
                       
                         <label for="exampleFormControlTextarea1" class="form-label ">Herhaal je nieuwe wachtwoord</label>
                           <input type="password" name="password_confirmation" class="form-control @error("passsword")is-invalid @enderror" id="floatingPassword" >

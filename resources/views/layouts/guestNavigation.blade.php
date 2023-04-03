@@ -2,7 +2,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  " >
-        <div class="flex justify-between h-16">
+        <div class="flex  h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -13,11 +13,10 @@
                 </div>
                 
                 
-                
                 <!-- Navigation Links -->
                 
 
-                    <div class="container text-left row-flex justify-content-between py-3" style="gap:50px; margin-left: 30px;">
+                    <div class="container  py-3" >
                         <div class="row w-70">
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
@@ -25,12 +24,17 @@
                            <div class="col">
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
                            </div>
-                           
+                           <div class="col">
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/categories">categorieen</a>
+                           </div>
                             
-                           
+                          
                         </div>
                       
                         </div>
+     
+            
+
                         <h3 class="offset-7 cursor-pointer mt-3 position-absolute"><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
 
             <!-- Settings Dropdown -->
@@ -39,7 +43,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            @if(Auth::check())<div>{{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">@else @endif
+                            <div>@if(Auth::check()){{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">@else @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -48,10 +52,9 @@
                             </div>
                         </button>
                     </x-slot>
-                    
-                   
+
                     <x-slot name="content">
-                            @guest
+                        @guest
                             <x-dropdown-link :href="route('login')">
                                 {{ __('Inloggen') }}
                             </x-dropdown-link>
@@ -76,7 +79,7 @@
                             </form>
                             @endauth
                             
-                        </x-slot>
+                </x-slot>
                 </x-dropdown>
             </div>
 
@@ -102,10 +105,12 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">@if(Auth::check()){{ Auth::user()->name }}</div>@else @endif
-                <div class="font-medium text-sm text-gray-500">@if(Auth::check()){{ Auth::user()->email }}</div>@else @endif
+            <div class="px-4">@if(Auth::check())
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                @else @endif
             </div>
+
             
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

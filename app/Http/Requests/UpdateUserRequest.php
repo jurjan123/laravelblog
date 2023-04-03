@@ -32,6 +32,7 @@ class UpdateUserRequest extends FormRequest
             "name" => ["required", "string", "max:20"],
             'email' => ['unique:users,email,'.Auth::user()->id, "max:100", "email"],
             'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            "role" => "required",
             "is_admin" => "required",
             "password" => "required",
             "new_password" => ["required"],

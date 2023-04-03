@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use League\CommonMark\Extension\Table\Table;
 
 /*
@@ -28,7 +29,6 @@ Route::get('/', function () {
 })->middleware("guest");
 
 Route::get("/posts", function(){
-    $posts = Post::latest()->get();
     $posts = Post::latest()->paginate(15);
     
     return view("posts.index", [
@@ -37,7 +37,6 @@ Route::get("/posts", function(){
 })->name("posts.index");
 
 Route::get("/projects", function(){
-    $projects = Projects::latest()->get();
     $projects = Projects::latest()->paginate(15);
     
     return view("projects.index", [
@@ -45,9 +44,18 @@ Route::get("/projects", function(){
     ]);
 })->name("projects.index");
 
+Route::get("/categories", function(){
+    $categories = Category::latest()->paginate(15);
+    
+    return view("categories.index", [
+        "categories" => $categories
+    ]);
+})->name("projects.index");
+
+
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
 Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
-
+Route::get("/categories/show/{id}", [CategoryController::class, "show"])->name("categories.show");
 
 
 Route::group(["prefix" => "admin"], function(){

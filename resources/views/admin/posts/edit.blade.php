@@ -43,8 +43,22 @@
                     <div class="mt-3">
                         <x-input-label for="image" :value="__('Kies datum')" />
                     <input type="datetime-local" class="form-control "
-                        name="created_at" step="any" value="{{old("created_at")}}" value="{{$created_at}}">
+                        name="created_at" step="any"  value="{{$created_at}}">
                     </div>
+                   
+                    <div class="mb-3 mt-3">
+                        <label for="formFile"  class="form-label">Kies categorie (optioneel)</label>
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                          <option selected></option>
+                          @foreach($categories as $categorie)
+                          @if($categorie->name == $post_category_name)
+                          
+                          @else
+                          <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                          @endif
+                          @endforeach
+                        </select>
+                      </div>
                
                         
                         <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>

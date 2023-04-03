@@ -42,6 +42,7 @@ class PostRequest extends FormRequest
             "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required",
+            "category_id" => "nullable"
             
         ];
 

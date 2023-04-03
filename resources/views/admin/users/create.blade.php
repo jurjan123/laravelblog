@@ -41,10 +41,15 @@
                         </label>
                       </div>
                     </div>
+                    <div class="mb-3">
+                      <label for="formFile"  class="form-label">Kies je rol</label>
+                      <select class="form-select" aria-label="Default select example" name="role">
+                        @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                      </select>
+                    </div>
                     
-
-                   
-
                     <div class="mb-3">
                         <label for="formFile"  class="form-label">Kies je profielfoto</label>
                         <input class="form-control @error("user_image")is-invalid @enderror" name="user_image" type="file" id="formFile">

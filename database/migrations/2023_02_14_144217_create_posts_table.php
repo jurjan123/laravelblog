@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("category_id");
             $table->text("title");
             $table->text("intro");
             $table->string("image")->default("Monkey-Puppet.png");
             $table->text("description");
-            $table->timestamps();
-            $table->foreign("category_id")->references("id")->on("categories")->onUpdate("cascade")->onDelete("cascade");
+            $table->timestamps();  
         });
     }
 

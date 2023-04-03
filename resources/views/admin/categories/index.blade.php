@@ -39,15 +39,17 @@
                     <thead>
                     <tr>
                         <th class="py-2 px-3 border-b">Naam</th>
+                        <th class="py-2 px-3 border-b">label</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
                     </thead>
                     <tbody>
+                        
                         @foreach($categories as $value)
                             <tr class="mx-auto " >
-                           
+                            
                             <td class="py-2 px-3 border-b">{{$value->name}} </td>
-                           
+                            <td class="py-2 px-3 border-b">{{$value->tag}} </td>
 
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
