@@ -22,7 +22,7 @@ class CategorySeeder extends Seeder
         ]);*/
 
         Category::Factory()
-        ->count(30)
+        ->count(10)
         ->create();
     }
 }

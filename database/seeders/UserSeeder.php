@@ -17,26 +17,32 @@ class UserSeeder extends Seeder
     public function run()
     {
        $ldate = date('Y-m-d H:i:s');
-       User::truncate();
-       DB::table("users")->insert([
-        [
-            "name" => "Admin",
-            "email" => "Admin@gmail.com",
-            "password" => Hash::make("Welkom123"),
-            "is_admin" => "1",
-            "user_image" => "preset.png",
-            "created_at" => $ldate,
-            "updated_at" => $ldate
-        ],
-        [
-            "name" => "user",
-            "email" => "user@gmail.com",
-            "password" => Hash::make("Welkom123"),
-            "is_admin" => "0",
-            "user_image" => "preset.png",
-            "created_at" => $ldate,
-            "updated_at" => $ldate
-        ]
-        ]);
+       //User::truncate();
+
+       
+
+       
+        DB::table("users")->insert([
+            [
+                "name" => "Admin",
+                "email" => "Admin@gmail.com",
+                "password" => Hash::make("Welkom123"),
+                "is_admin" => "1",
+                "user_image" => "preset.png",
+                "created_at" => $ldate,
+                "updated_at" => $ldate
+            ],
+            [
+                "name" => "user",
+                "email" => "user@gmail.com",
+                "password" => Hash::make("Welkom123"),
+                "is_admin" => "0",
+                "user_image" => "preset.png",
+                "created_at" => $ldate,
+                "updated_at" => $ldate
+            ]
+            ]);
+       }
+       
     }
-}
+

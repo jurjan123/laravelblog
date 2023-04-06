@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Projects;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -19,8 +22,10 @@ class ProjectController extends Controller
     //show index with posts
     public function index()
     {
-        $projects = Projects::latest()->paginate(15);
         
+        
+        $projects = Projects::latest()->paginate(15);
+       
         return view("admin.projects.index", [
             "projects" => $projects
         ]);
@@ -29,7 +34,10 @@ class ProjectController extends Controller
     // show create post page
     public function create()
     {
-        return view("admin.projects.create");
+       
+        return view("admin.projects.create",[
+            
+        ]);
     }
 
     private function resetInputField(){
@@ -60,18 +68,11 @@ class ProjectController extends Controller
     }
 
     // edit existing post
-    public function edit(Request $request, Projects $value)
+    public function edit(Request $request, Projects $project)
     {
-        //dd($value->image);
+        //dd($project);
 
-        return view("admin.projects.edit", [
-            "id" => $value->id,
-            "title" => $value->title,
-            "description" => $value->description,
-            "intro" => $value->intro,
-            "image" => $value->image,
-            "created_at" => $value->created_at
-        ]);
+        return view("admin.projects.edit", ["project" => $project]);
     }
     
 
@@ -81,7 +82,7 @@ class ProjectController extends Controller
        $value->description = strip_tags($request->description);
        $value->intro = $request->intro;
        $value->created_at = $request->created_at;
-       $value->user_id = Auth::user()->id;
+       
        
        if($request->hasFile("image")){
         $image_name = time() . '.' . $request->image->extension();
@@ -111,6 +112,73 @@ class ProjectController extends Controller
     {
         $projects = Projects::where("title", "Like", "%".$request->search_data."%")->paginate(7);
         return view("admin.projects.index", compact("projects"));
+    }
+
+    public function roleIndex(Request $request, Projects $project)
+    {
+        $roles = Role::latest()->paginate(15);
+        return view("admin.projects.roles.index",[
+            "roles" => $roles
+        ]);
+    }
+
+    public function membersIndex(Request $request, Projects $project)
+    {
+        //$users = User::latest()->paginate(15);
+        $users =  User::All();
+
+        foreach($users as $user){
+            $projects = User::with("projects")->find($user->id);
+        }
+        return view("admin.projects.members.index", [
+            "users" => $users,
+            "project" => $project,
+            "members" => $project->users,
+            "projects" => $projects
+        ]);
+    }
+
+    public function addMembersToGroup(Request $request, Projects $project)
+    {
+        $users = User::all();
+        return view("admin.projects.members.addtogroup", [
+            "users" => $users,
+            "project" => $project
+        ]);
+    }
+
+    public function storeMemberToGroup(Request $request, Projects $project)
+    {
+        
+        $validated = $request->validate([
+            "user_id" => "required"
+        ]);
+
+        $user = User::where('id', $request->user_id)->first();
+        $project->users()->attach($user->id);
+        //$project->users()->attach($request->user_id);
+
+        return back()->with("message", "lid is toegevoegd");
+
+        
+        //$project->users()
+        //->attach
+
+
+    }
+
+    public function createRole(){
+        return view("admin.projects.roles.create");
+    }
+
+    public function storeRole(RoleRequest $request)
+    {
+        $role = new Role;
+        $role->name = $request->name;
+        
+
+        $role->save();
+        return redirect()->route("admin.projects.roles.index")->with("message", "rol is gemaakt!");
     }
 
 }

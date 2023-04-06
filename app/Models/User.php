@@ -4,10 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class User extends Authenticatable
 {
@@ -49,6 +51,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         //"role" => User::USER,
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Projects::class, "project_user", "project_id", "user_id");
+    }
 
     public function roles():HasMany
     {

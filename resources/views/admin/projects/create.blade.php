@@ -1,11 +1,15 @@
 <x-app-layout>
     <div class="row">
         <div class="container ">
-            <div class="row ">
+            <div class="row justify-content-between ">
                 <div class="col-md-6">
                     <h1>Project toevoegen</h1>
-                   
-                </div>
+                    
+            </div>
+            <div class="col md-6">
+                
+            </div>
+
         <div class="card ">
            
             <form action="{{route("admin.projects.store")}}" method="post" enctype="multipart/form-data">
@@ -42,6 +46,14 @@
                         name="created_at" step="any" value="{{old("created_at")}}">
                     </div>
                     
+                    <div class="mb-3">
+                        <label for="formFile"  class="form-label">Voeg gebruiker(s) toe</label>
+                        <select class="form-select" aria-label="Default select example" name="role">
+                          
+                          <option>hoi</option>
+                          <option>hoi</option>
+                        </select>
+                      </div>
                    
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-3">Beschrijving</label>
                     <textarea class="form-control"  id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20" >{{old("description")}}</textarea>

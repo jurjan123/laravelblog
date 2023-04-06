@@ -25,5 +25,11 @@ class Projects extends Model
         "image"
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, "project_user", "project_id", "user_id")
+        ->withTimestamps();
+    }
+
     
 };

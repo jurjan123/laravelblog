@@ -41,7 +41,7 @@
     
                            
                     <div class="mt-3">
-                        <x-input-label for="image" :value="__('Kies datum')" />
+                        <x-input-label for="image" :value="__('Datum veranderen')" />
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any"  value="{{$created_at}}">
                     </div>

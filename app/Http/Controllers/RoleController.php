@@ -47,7 +47,7 @@ class RoleController extends Controller
         
 
         $role->save();
-        return redirect()->route("admin.roles.index")->with("succesmeesage", "rol is gemaakt!");
+        return redirect()->route("admin.roles.index")->with("message", "rol is gemaakt!");
     }
 
     /**
