@@ -45,14 +45,17 @@
                     </div>
 
                     <div class="mb-3 mt-3">
-                        <label for="formFile"  class="form-label">Kies categorie (optioneel)</label>
+                        <label for="formFile"  class="form-label">Kies categorie </label>
                        
-                        <select class="form-select" aria-label="Default select example" name="category_id">
-                        <option selected></option>
+                        <select class="form-select @error("category_id") is-invalid @enderror" aria-label="Default select example" name="category_id">
+                          <option selected value="">kies categorie</option>
                           @foreach($categories as $categorie)
                           <option value="{{$categorie->id}}">{{$categorie->name}}</option>
                           @endforeach
                         </select>
+                        @error("category_id")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
                     </div>
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
@@ -62,11 +65,15 @@
                     @enderror
                 </div>
 
+                
+               
+                <div class="col-12 d-flex flex-row-reverse fs-5">
+                        
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
+                    </div>
                     
-                <div class="col justify-content-around d-flex offset-9">
-                    <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                    <a href="{{route("admin.posts.index")}}" class="nav-link fs-5">annuleren</a>
-                </div>
+                
             </form>
             @include("includes.ckeditor")
         </div>    

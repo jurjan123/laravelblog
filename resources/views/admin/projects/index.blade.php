@@ -44,7 +44,7 @@
                         <th class="py-2 px-3 border-b">Titel</th>
         
                         <th class="py-2 px-3 border-b">Datum</th>
-                        <th class="py-2 px-3 border-b">Auteur</th>
+                       
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
                     </thead>
@@ -53,27 +53,11 @@
                         <tr>
                             <td class="py-2 px-3 border-b">{{$project->title}} </td>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($project->created_at))}}</td>
-                            <td class="py-2 px-3 border-b"></td>
+                            
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
-                                <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Bevestiging</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                         Weet je zeker dat je dit project wilt verwijderen?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form action="{{route("admin.projects.delete", $project)}}" method="post">@csrf<button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">toch verwijderen</button></form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  
+                                
                                   <div class="col-6 d-flex">
-                                    <button type="submit" role="button" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button>
+                                <form action="{{route("admin.projects.delete", $project)}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $project->title }} wilt verwijderen?')" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button></form>
                                 <form action="{{route("admin.projects.edit", $project)}}" class="offset-3" method="post">@csrf<button type="submit" role="button"><i class="fa fa-pencil" ></i></button></form>
 
                                   </div>

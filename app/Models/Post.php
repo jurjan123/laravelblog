@@ -30,7 +30,7 @@ class Post extends Model
 
     public function categories(): Belongsto
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, "category_id");
     }
 
    

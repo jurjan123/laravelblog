@@ -15,14 +15,17 @@
   
     </head>
     
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.guestNavigation')
+    <body class="font-sans antialiased min-screen bg-gray-100">
+        <div class="">
+                
+                    @include('layouts.guestNavigation')
+                
+                
 
             <!-- Page Content -->
             <main>
                
-                <div class="container mt-5  ">
+                <div class="container mt-4  ">
                     <div class="row">
                         
                 

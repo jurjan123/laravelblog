@@ -42,7 +42,7 @@ class PostRequest extends FormRequest
             "intro" => "required",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required",
-            "category_id" => "nullable"
+            "category_id" => "required"
             
         ];
 
@@ -58,6 +58,7 @@ class PostRequest extends FormRequest
             "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
             "image.max" => "De afbeelding mag niet groter zijn dan 3mb",
             "created_at.required" => "datum is verplicht",
+            "category_id.required" => "category is verplicht",
             'size' => 'The :attribute must be exactly :size.',
             'between' => 'The :attribute value :input is not between :min - :max.',
             'in' => 'The :attribute must be one of the following types: :values',

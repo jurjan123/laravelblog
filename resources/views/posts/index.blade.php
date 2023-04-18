@@ -1,8 +1,5 @@
 <x-guest-layout>
-  @if(!$posts)
-    <div class="container-fluid text-center"></div>
-    <h1>hier is niks te zien</h1>
-    @else
+  
    <h1>Posts</h1>
     <div class="row gy-4">
         @foreach($posts as $post)
@@ -18,13 +15,13 @@
                   <h5 class="card-title">{{$post->title}}</h5>
                   <p class="card-text">{{$post->intro}}</p>
                   
-                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($post->created_at))}}</p>
+                  <p class="card-text">Datum: {{date("d/m/Y", strtotime($post->created_at))}} <br> @if(!empty($post->category_id)) Categorie: {{$post->categories->name}}</p> @else @endif <br>
                   <a href="{{route("posts.show", $post->id)}}" class="btn btn-primary">Bekijk post</a>
                 </div>
               </div>
         </div>
         @endforeach
-        @endif
+        
     </div>
     {{$posts->links()}}
    

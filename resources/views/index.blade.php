@@ -3,7 +3,7 @@
     
     <div class="row gy-4 w-100">
         
-        <div class="col-12   w-30">
+        <div class="col-12  mt-5  w-30">
             <div class="card p-3 ">
                 <h2>Regels</h2>
                 <p>

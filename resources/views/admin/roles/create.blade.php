@@ -21,9 +21,10 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     
-                    <div class="col justify-content-around d-flex offset-9">
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                        <a href="{{route("admin.roles.index")}}" class="nav-link fs-5">annuleren</a>
+                    <div class="col-12 mt-3 d-flex flex-row-reverse  fs-5">
+                        
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                        <a href="{{route("admin.roles.index")}}" class="nav-link  ">Annuleren</a>
                     </div>
             </form>
             

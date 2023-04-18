@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
+
 
 class User extends Authenticatable
 {
@@ -30,6 +30,7 @@ class User extends Authenticatable
         "user_image",
         "is_admin",
         "password",
+        
     ];
 
     /**
@@ -52,14 +53,15 @@ class User extends Authenticatable
         //"role" => User::USER,
     ];
 
+
     public function projects()
     {
-        return $this->belongsToMany(Projects::class, "project_user", "project_id", "user_id");
+        return $this->belongsToMany(Project::class);
     }
 
-    public function roles():HasMany
+    public function roles()
     {
-        return $this->hasMany(Role::class);
+        return $this->belongsToMany(Role::class);
     }
    
     public function getDefaultLocaleAttribute(): string

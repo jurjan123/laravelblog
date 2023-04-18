@@ -17,11 +17,8 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
-        $posts = Post::latest()->paginate(15);
-        
-        return view("admin.posts.index", [
-            "posts" => $posts
-        ]);
+        $posts = Post::with("categories")->paginate(15);
+        return view("admin.posts.index", compact("posts"));
     }
 
     public function adminIndex(){
@@ -45,7 +42,7 @@ class PostController extends Controller
     //store the post
     public function store(PostRequest $request)
     {
-
+        
         $post = new Post;
         $post->title = $request->title;
         $post->description = strip_tags($request->description);
@@ -58,13 +55,14 @@ class PostController extends Controller
             $request->image->move(public_path("images/"), $image_name);
             $post->image = $image_name;
         }
+        $succesmessage = "Succes! Post: ". $request->title. " is gemaakt";
          
         $post->save();
         
        
         $this->resetInputField();
     
-        return redirect()->route("admin.posts.index")->with("message", "Post is gemaakt!");
+        return redirect()->route("admin.posts.index")->with("message", $succesmessage);
     }
 
     // edit existing post
@@ -75,9 +73,7 @@ class PostController extends Controller
         ->where("id", $value->category_id)
         ->value("name");
         
-
-        return view("admin.posts.edit", [
-            "id" => $value->id,
+            /*"id" => $value->id,
             "title" => $value->title,
             "description" => $value->description,
             "intro" => $value->intro,
@@ -85,6 +81,12 @@ class PostController extends Controller
             "created_at" => $value->created_at,
             "categories" => $categories,
             "post_category_name" => $post_category_name,
+            */
+
+        return view("admin.posts.edit", [
+            "post" => $value,
+            "categories" => $categories,
+            "post_category_name" => $post_category_name
         ]);
     }
     
@@ -102,17 +104,20 @@ class PostController extends Controller
             $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
             $value->image = $image_name;
         }
+
+        $succesmessage = "Succes! Post: ". $value->title. " is bewerkt";
             
-        $value->save();
+        $value->update();
             
-        return redirect()->route("admin.posts.index")->with("message", "de Post is succesvol bewerkt!");
+        return redirect()->route("admin.posts.index")->with("message", $succesmessage);
         
     }
 
     public function delete(Request $request, Post $value)
     {
+        $succesmessage = "Succes! Post: ". $value->title. " is verwijderd";
         $value->delete();
-        return redirect()->route("admin.posts.index")->with("message", "Post is verwijderd!");
+        return redirect()->route("admin.posts.index")->with("message", $succesmessage);
     }
 
     public function show(string $id):View

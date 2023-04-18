@@ -12,10 +12,7 @@ class Role extends Model
 
     protected $table = "roles";
     protected $fillable = ["name"];
+    
+    
 
-
-    public function users():BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }

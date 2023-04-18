@@ -2,22 +2,16 @@
 
     
     <div class="row">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-md-6 g-0 ">
                     <h1>Project bewerken</h1>
+                    <ul class="nav nav-tabs">
+                        <li><a class="nav-link" href="{{route("admin.projects.edit", $project)}}">Project</a></li>
+                        <li><a class="nav-link" href="{{route("admin.projects.members.index", $project)}}">Leden</a></li>
+                    </ul>
                 </div>
                 <div class="col-md-6">
-                    <ul class="nav ">
-                        <li class="nav-item">
-                            
-                          <a class="nav-link text-black active fs-4" aria-current="page" href="">Rollen</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-black fs-4" href="/admin/projects/{{$project->id}}/members">Leden</a>
-                        </li>
-                        
-                    </ul>
                 </div>
         <div class="card">
             <form action="/admin/projects/{{$project->id}}" method="post" enctype="multipart/form-data">
@@ -65,10 +59,12 @@
                     </div>
     
                         
-                    <div class="col justify-content-around d-flex offset-9">
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                        <a href="{{route("admin.posts.index")}}" class="nav-link fs-5">annuleren</a>
+                    <div class="col-12 d-flex flex-row-reverse fs-5">
+                        
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
                     </div>
+                    
             </form>
             @include("includes.ckeditor")
         </div>    

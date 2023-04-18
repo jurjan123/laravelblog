@@ -10,8 +10,8 @@
               <h5 class="card-title">{{$post->title}}</h5>
               <p class="card-text">{{$post->intro}}</p>
               <p class="card-text">{{$post->description}}</p>
-              <p class="card-text">datum: {{substr($post->created_at, 0,10)}}</p>
-              <a href="{{route("posts.index")}}"  class="btn btn-primary">Ga terug</a>
+              <p class="card-text">datum: {{substr($post->created_at, 0,10)}} <br> @if(!empty($post->category_id)) Categorie: {{$post->categories->name}}</p> @else @endif <br>
+              <a href="{{route("posts.index")}}" class="btn btn-primary">Ga terug</a>
             </div>
           </div>
     </div>

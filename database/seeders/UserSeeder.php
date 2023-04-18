@@ -19,9 +19,6 @@ class UserSeeder extends Seeder
        $ldate = date('Y-m-d H:i:s');
        //User::truncate();
 
-       
-
-       
         DB::table("users")->insert([
             [
                 "name" => "Admin",

@@ -94,11 +94,10 @@
                       @enderror
 
                     </div>
-                    <div class="col justify-content-around d-flex mt-3 offset-8">
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                        <a href="{{route("admin.posts.index")}}" class="nav-link fs-5">annuleren</a>
-                    </div>
-                       
+                    <div class="col  d-flex mt-3 offset-9">
+                      <a href="{{route("users.index")}}" class="nav-link fs-5">Annuleren</a>
+                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-1 ">
+                  </div>
                     
             </form>
                 

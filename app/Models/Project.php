@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Projects extends Model
+class Project extends Model
 {
     use HasFactory;
 
@@ -22,14 +22,19 @@ class Projects extends Model
         "description",
         "intro",
         "created_at",
-        "image"
+        "image",
+        
     ];
 
     public function users()
     {
-        return $this->belongsToMany(User::class, "project_user", "project_id", "user_id")
-        ->withTimestamps();
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot(['role_id'])->using(ProjectUser::class);
     }
 
-    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)
+        ->withTimestamps();
+
+    }
 };

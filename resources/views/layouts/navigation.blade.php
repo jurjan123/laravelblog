@@ -1,49 +1,48 @@
 <head><link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></head>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  " >
-        <div class="flex  h-16">
-            <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="/">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                   
-                </div>
+                
                 
                 
                 <!-- Navigation Links -->
                 
 
-                    <div class="container  py-3" >
-                        <div class="row w-70">
-                           <div class="col">
+                    
+            <div class="row vertical-align-middle items-center g-0  pt-2 ">
+                
+                        <div class="col-3 offset-1 d-flex justify-content-between px-3 ">
+
+                            <a href="/">
+                                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                            </a>
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
-                           </div>
-                           <div class="col">
+                           
+                           
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
-                           </div>
-                           <div class="col">
-                            <a style="text-decoration:none; color:black; font-size:20px"  href="/categories">categorieen</a>
-                           </div>
+                           
+                           
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/categories">Categorieen</a>
+                        </div>
                             
                           
-                        </div>
-                      
-                        </div>
-     
-            
+                        
+                     
+                            <div class="col-5 text-right">
+                            <h3 class="cursor-pointer  "><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
+                            </div>
+                            <div class="col-1">
 
-                        <h3 class="offset-7 cursor-pointer mt-3 position-absolute"><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
+                            </div>
+                       
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6" style="margin-left:890px">
-                
+           
+            <div class="col-2">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">
+                            <div>@if(Auth::check()){{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" height="50" alt="">@else @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -105,9 +104,10 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
+            <div class="px-4">@if(Auth::check())
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                @else @endif
             </div>
 
             
@@ -124,4 +124,6 @@
             </div>
         </div>
     </div>
+    </div>
+</div>
 </nav>

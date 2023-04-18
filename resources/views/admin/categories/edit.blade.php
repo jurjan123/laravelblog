@@ -30,10 +30,17 @@
                           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                           @enderror
                          
-                          <div class="col justify-content-around mt-3 d-flex offset-9">
-                            <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                            <a href="{{route("admin.categories.index")}}" class="nav-link fs-5">annuleren</a>
+                          <div class="row mt-3 d-flex">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <input type="submit" value="Opslaan" name="submit" class="btn btn-primary">
+                                <a href="{{route("admin.categories.index")}}" class="nav-link">Annuleren</a>
+                            </div>
+                            
+                            
+                          </div>
                         </div>
+                        
             </form>
            
         </div>    

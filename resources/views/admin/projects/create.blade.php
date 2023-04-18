@@ -46,15 +46,7 @@
                         name="created_at" step="any" value="{{old("created_at")}}">
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="formFile"  class="form-label">Voeg gebruiker(s) toe</label>
-                        <select class="form-select" aria-label="Default select example" name="role">
-                          
-                          <option>hoi</option>
-                          <option>hoi</option>
-                        </select>
-                      </div>
-                   
+                    
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-3">Beschrijving</label>
                     <textarea class="form-control"  id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20" >{{old("description")}}</textarea>
                     </div>
@@ -62,10 +54,12 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     
-                    <div class="col justify-content-around d-flex mt-3 offset-9">
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-2">
-                        <a href="{{route("admin.posts.index")}}" class="nav-link fs-5">annuleren</a>
+                    <div class="col-12 d-flex flex-row-reverse fs-5">
+                        
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
                     </div>
+                    
             </form>
             @include("includes.ckeditor")
         </div>    

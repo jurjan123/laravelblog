@@ -77,7 +77,6 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
         $user->password = $request->password;
-        //$user->password = $request->password;
         $user->roles_id = $request->role;
 
         if($request->hasFile("user_image")){
@@ -85,7 +84,7 @@ class UserController extends Controller
             $request->user_image->move(public_path('images/'), $image_name);
             $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
             $user->user_image= $image_name;
-            //$user->update(["user_image])
+            
         }
         
         if(password_verify($user->password, Auth::user()->password) && $request->new_password != $request->password){

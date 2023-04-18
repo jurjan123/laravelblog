@@ -1,5 +1,7 @@
 <x-guest-layout>
-  
+  @if(Session::has("emptymessage"))
+  <h1>{{(Session("emptymessage"))}}</h1>
+  @else
     <h1>Categories</h1>
      <div class="row gy-4">
          @foreach($categories as $category)
@@ -19,7 +21,7 @@
                </div>
          </div>
          @endforeach
-        
+         @endif
      </div>
      {{$categories->links()}}
     

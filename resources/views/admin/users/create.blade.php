@@ -78,12 +78,10 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                    
-                    <div class="col offset-9 d-flex mt-3 ">
-                     
-                      <button type="submit" class="btn btn-primary " >Opslaan</button>
-                        <a href="{{route("users.index")}}" class="nav-link fs-5 offset-1">annuleren</a>
-                    </div>
-                    
+                    <div class="col  d-flex mt-3 offset-9">
+                      <a href="{{route("users.index")}}" class="nav-link fs-5">Annuleren</a>
+                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-1 ">
+                  </div>
                        
             </form>
             </div>
