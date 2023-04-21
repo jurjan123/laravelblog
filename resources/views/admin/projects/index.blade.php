@@ -1,40 +1,51 @@
 <x-app-layout>
     
     <div class="row  ">
-        <div class="col-md-6  d-flex">
+        <div class="col-md-6 d-flex justify-content-between">
             <h1 >Projecten</h1>
-            
-        </div>
-        
-      <div class="col-md-6 ">
-        <div class="">
-            <div class="col d-flex">
-                <form action="{{ route('admin.projects.search') }}" method="GET" role="search">
+            <form action="{{ route('admin.projects.search') }}" method="GET" role="search">
 
-                    <div class="input-group">
-                        <a href="{{ route('admin.posts.index') }}" class=" ">
-                            <span class="input-group-btn">
-                                </button>
-                            </span>
-                        </a>
-                       
-                        <input type="text" class="form-control mr-2" name="search_data" placeholder="Zoek project" id="term">
-                        <span class="input-group-btn ">
-                            <button class="btn btn-info" type="submit" title="Zoek project">
-                                <i class="bi bi-search"></i>
+                <div class="input-group  ">
+                    <a href="{{ route('admin.posts.index') }}" class=" ">
+                        <span class="input-group-btn">
                             </button>
                         </span>
-                    </div>
-                </form>
+                    </a>
+                   
+                    <input type="text" class="form-control mr-2" name="search_data" placeholder="Zoek project" id="term">
+                    <span class="input-group-btn ">
+                        <button class="btn btn-info" type="submit" title="Zoek project">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        
+      <div class="col-md-4">
+            
+        
+               
+                <select class="form-select" onchange="location = this.value" name="category"  aria-label="Default select example" name="category_id">
+                    <option value="/admin/posts" selected> zoek een gebruiker  </option>
+                    @foreach($projects as $project)
+                    @foreach($project->users as $user)
+                    <option value="/admin/projects/{{ $user->id}}">{{$user->name}}</option>
+                    @endforeach
+                    @endforeach
+                </select>
+      </div>
+                <div class="col-2 ">
+                    <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light text-left " role="button">Project toevoegen</a>
+                </div>
                 
-                        <a href="{{route("admin.projects.create")}}" class="btn btn-primary text-light text-left offset-2" role="button">Project toevoegen</a>
+                       
                   
                     
-                </div>
-            
-        </div> 
+        
     </div>
     <div class="row">
+        
         
         <div class="col">
             <div class=" card">
@@ -49,6 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                        @if(Route::is("admin.projects.index"))
                         @foreach($projects as $project)
                         <tr>
                             <td class="py-2 px-3 border-b">{{$project->title}} </td>
@@ -63,16 +75,21 @@
                                   </div>
                                   
                             </td>
-                                
+
                         </tr>
-                        
-                    @endforeach
-                    
+                       @endforeach
+
+
+                       @elseif(Route::is("admin.project.members.search"))
+
+                       {{$users}}
+                    @endif
                     </tbody>
                     
                    
                 </table>
                 {{$projects->links()}}
+            
             </div>
         </div>
     </div>

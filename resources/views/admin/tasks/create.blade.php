@@ -29,6 +29,16 @@
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any" value="">
                     </div>
+
+                    <div class="mb-3 mt-3 d-column">
+                    <label for="formFile"  class="form-label">Kies status </label>
+                    <select class="form-select "   aria-label="Default select example" name="is_open">
+                        <option selected>kies status</option>
+                        <option value="1" > Open  </option>
+                        <option value="0" > Gesloten </option>
+                        
+                    </select>
+                </div>
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                     <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{old("description")}}</textarea>

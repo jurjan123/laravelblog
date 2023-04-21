@@ -5,8 +5,7 @@
             <h1>Project Bewerken</h1>
             <ul class="nav nav-tabs">
                 <li><a class="nav-link" href="{{route("admin.projects.edit", $project)}}">Project</a></li>
-                <li><a class="nav-link" href="{{route("admin.projects.members.index", $project)}}">Leden</a></li>
-
+                <li><a class="nav-link active" href="{{route("admin.projects.members.index", $project)}}">Leden</a></li>
             </ul>
         </div>
         
@@ -103,64 +102,21 @@
                         <td class="py-2 px-3 border-b">{{$user->pivot->role->name }}</td>
 
                         <td class=" d-flex px-3 border-b py-3 gy-5 ">
-
-                        <div class="modal fade" id="exampleModalEdit" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">Gebruiker bewerken</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form action="/admin/projects/{{$id}}/members/edit" method="post">@csrf @method("PUT")
-                                               
-                                    <label for="formFile"  class="form-label">Kies gebruikers</label>
-
-                                        <select class="form-select" aria-label="Default select example" name="user_id">
-                                            <option selected>{{$user->name}}</option>
-                                            @foreach($users as $user)
-                            
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error("user_id")
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                                 
-                                                   
-                                                    
-                                        <label for="formFile" class="form-label mt-3 ">Kies gebruikersrol</label>
-                                                   
-                                            <select class="form-select" aria-label="Default select example" name="role_id">
-                                                <option selected></option>
-                                                @foreach($roles as $role)
-                                                <option value="{{$role->id}}">{{$role->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error("role_id")
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                            @enderror
-                                                     
-                                        </div>
+                    
+                                      <div class="col-6 d-flex">
+                                        <form action="{{route("admin.projects.members.delete", [$project, $user])}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
+    
                                         
-                                        <div class="modal-footer">
-                                            <!--<a href="{{route("admin.projects.members.index", $project)}}" class="nav-link  ">Annuleren</a>-->
-                                            <button type="submit" class="btn btn-primary" >Opslaan</button></form>
-                                        </div>
-                                        </div>
-                                        </div>
+                                        
+                                       
+                                        <a href="{{route("admin.projects.members.edit", [$project, $user])}}" method="get">@csrf<button type="submit" role="button"><i class="fa fa-edit"></i></button></a>
+                    
                                       </div>
                                   
     
                         
                         
-                                  <div class="col-6 d-flex">
-                                    <form action="{{route("admin.projects.members.delete", [$project, $user])}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
-
-                                    
-                                    
-                                   
-                                    <button type="submit" role="button" data-bs-target="#exampleModalEdit" data-bs-toggle="modal"><i class="fa fa-pencil"></i></button>
+                                  
                 
                                   </div>
                                   

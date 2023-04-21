@@ -13,7 +13,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">Wijzig gebruikersnaam</span>
                         </div>
-                        <input type="text" name="name" class="form-control  @error("name")is-invalid @enderror" value="{{$name}}" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="name" class="form-control  @error("name")is-invalid @enderror" value="{{old('name', $name)}}" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -30,13 +30,13 @@
                     
                     <div class="mb-3">
                       <div class="form-check ">
-                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="0" type="radio" name="is_admin" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror" type="radio" name="is_admin" value="0"  name="flexRadioDefault" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
                           Gebruiker
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="1" name="is_admin" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror"  name="is_admin" value="1" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
                         <label class="form-check-label" for="flexRadioDefault2">
                           Admin
                         </label>
@@ -45,15 +45,24 @@
                     
                     <div class="mb-3">
                       <label for="formFile"  class="form-label">Kies je rol</label>
-                      <select class="form-select" aria-label="Default select example" name="role">
-                        <option selected>{{$user_role_name}}</option>
+                      <select class="form-select" aria-label="Default select example"  name="role">
+                        
+                        @if(empty($roleName))
                         @foreach($roles as $role)
-                        @if($role->name == $user_role_name)
+                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+
+                        @else
+                        <option selected>{{$roleName->name}}</option>
+                        @foreach($roles as $role)
+                        @if($role->name == $roleName->name)
                         
                         @else
                         <option value="{{$role->id}}">{{$role->name}}</option>
                         @endif
+                        
                         @endforeach
+                        @endif 
                       </select>
                     </div>
 
@@ -66,7 +75,7 @@
                     @enderror
                     
                    
-                    <div class="">
+                    <div class="lh-lg">
                         <label for="exampleFormControlTextarea1" class="form-label ">Type je oude wachtwoord</label>
                           <input type="password" name="password" class="form-control @error("passsword")is-invalid @enderror" id="floatingPassword" >
                           
@@ -94,19 +103,15 @@
                       @enderror
 
                     </div>
-                    <div class="col  d-flex mt-3 offset-9">
-                      <a href="{{route("users.index")}}" class="nav-link fs-5">Annuleren</a>
-                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-1 ">
+                    <div class="col-12 mt-3 d-flex flex-row-reverse  fs-5">
+                        
+                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                      <a href="{{route("users.index")}}"  class="nav-link  ">Annuleren</a>
                   </div>
                     
             </form>
                 
                 
         </div>
-        
-        <!--x-data="{ show: true }"
-        x-show="show"
-        x-transition
-        x-init="setTimeout(() => show = false, 2000)"
-        class="text-sm text-gray-600"-->
+      
 </x-app-layout>

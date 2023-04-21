@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
             'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             "role" => "required",
             "is_admin" => "required",
-            "password" => ["required"],
+            "password" => ["required", "confirmed"],
             "password_confirmation" => 'required_with:password|same:password' 
         ];
     }
@@ -49,11 +49,11 @@ class StoreUserRequest extends FormRequest
             "email.max" => "email mag niet langer dan 100 karakters zijn",
             "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
             "user_image.max" => "De afbeelding mag niet groter zijn dan 2mb",
-            "rol.required" => "rol is verplicht",
+            "role.required" => "rol is verplicht",
             "password.required" => "vul nieuwe wachtwoord in",
-            "password_confirmation.required" => "herhaal nieuwe wachtwoord",
+            "password_confirmation.with:password" => "herhaal nieuwe wachtwoord",
             
-            "password_confirmation.same:new_password" => "het herhaalde wachtoord komt niet overeen met nieuwe wachtwoord",
+            "password.confirmed" => "het herhaalde wachtoord komt niet overeen met het nieuwe wachtwoord",
         ];
     }
 }

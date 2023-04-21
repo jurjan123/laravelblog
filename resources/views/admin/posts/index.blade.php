@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+   
     <div class="row ">
         <div class="col-md-6 justify-content-between d-flex">
             <h1>Posts</h1>
@@ -27,11 +27,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 text-right">
-            <a href="{{route("admin.posts.create")}}" class="btn btn-primary text-light  text-center" role="button">Post toevoegen</a>
+        <div class="col-3">
+            
+            
+            <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
+                <option value="/admin/posts" selected> zoek een categorie  </option>
+                @foreach($categories as $category)
+                <option  value="/admin/posts/category/{{ $category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
+                        
+            
+            
         </div> 
+        <div class="col-1"></div>
+        <div class="col-2 text-right">
+            <a href="{{route("admin.posts.create")}}" class="btn btn-primary text-light  text-center" role="button">Post toevoegen</a>
+        </div>
     </div>
-    <div class="row">
+    <div class="row" class="fetchval">
         <div class="col-12">
            
             <div class="card ">
@@ -75,6 +89,8 @@
                
         </div>
     </div>
+
+   
     
 </x-app-layout>
 

@@ -12,6 +12,13 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::latest()->paginate(15);
+        foreach($tasks as $task){
+            if($task->is_open == 0){
+                $task->is_open = "gesloten";
+            } else{
+                $task->is_open = "open";
+            }
+        }
         return view("admin.tasks.index",[
             "tasks" => $tasks
         ]);
@@ -26,10 +33,18 @@ class TaskController extends Controller
     
     public function store(TaskRequest $request)
     {
+        
         $task = new Task;
         $task->name = $request->name;
         $task->description = strip_tags($request->description);
         $task->created_at = $request->created_at;
+
+        if($request->is_open == "0"){
+            $task->is_open = 0;
+        } else{
+            $task->is_open = 1;
+        }
+
         $task->save();
         
         $succesmessage = "Succes! Taak: ". $request->name. " is gemaakt";
@@ -59,6 +74,7 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->description = strip_tags($request->description);
         $task->created_at = $request->created_at;
+        $task->is_open = $request->is_open;
         $task->update();
         $succesmessage = "Succes! Taak: ". $request->name. " is bewerkt";
 

@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             "name" => ["required", "string", "max:20"],
-            'email' => ['unique:users,email,'.Auth::user()->id, "max:100", "email"],
+            'email' => ["sometimes", 'unique:users,email,'.Auth::user()->id, "max:100", "email"],
             'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             "role" => "required",
             "is_admin" => "required",
@@ -45,7 +45,7 @@ class UpdateUserRequest extends FormRequest
             "name.required" => "naam is verplicht",
             "name.string" => "naam moeten letters zijn",
             "name.max" => "naam mag niet langer dan 20 karakters zijn",
-            "email.required" => "email is verplicht",
+            //"email.required" => "email is verplicht",
             "email.email" => "email is verplicht",
             "email.string" => "email moeten letters zijn",
             "email.unique" => "email is al in gebruik",

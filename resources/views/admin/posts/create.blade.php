@@ -3,7 +3,7 @@
         <div class="container ">
            
             <div class="row  ">
-                <div class="col-md-6">
+                <div class="col-md-6 g-0">
                     <h1>Post toevoegen</h1>
                    
                 </div>
@@ -44,18 +44,15 @@
                         name="created_at" step="any" value="{{old("created_at")}}">
                     </div>
 
-                    <div class="mb-3 mt-3">
+                    <div class="mb-3 mt-3 d-column">
                         <label for="formFile"  class="form-label">Kies categorie </label>
+                        <select class="js-example-basic-single " name="category_id">
+                            @foreach($categories as $categorie)
+                            <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                            @endforeach
+                          </select>
                        
-                        <select class="form-select @error("category_id") is-invalid @enderror" aria-label="Default select example" name="category_id">
-                          <option selected value="">kies categorie</option>
-                          @foreach($categories as $categorie)
-                          <option value="{{$categorie->id}}">{{$categorie->name}}</option>
-                          @endforeach
-                        </select>
-                        @error("category_id")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
+                       
                     </div>
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>

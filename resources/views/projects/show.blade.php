@@ -10,7 +10,7 @@
               <h5 class="card-title">{{$project->title}}</h5>
               <p class="card-text">{{$project->intro}}</p>
               <p class="card-text">{{$project->description}}</p>
-              <p class="card-text">Datum: {{substr($project->created_at, 0,10)}} <br>Leden: @foreach($project->users as $user) {{$user->name}}, @endforeach</p>
+              <p class="card-text">Datum: {{date("d/m/Y", strtotime($project->created_at))}} <br>Leden: @foreach($project->users as $user) {{$user->name}}, @endforeach</p>
               <a href="{{route("projects.index")}}"  class="btn btn-primary">Ga terug</a>
             </div>
           </div>

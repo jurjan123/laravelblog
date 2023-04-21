@@ -13,6 +13,15 @@ class Role extends Model
     protected $table = "roles";
     protected $fillable = ["name"];
     
+    public function projectUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
     
 
 }

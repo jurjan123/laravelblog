@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <title>MovieBlog</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="{{url('images/mblogo.png')}}">
         <!-- Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])

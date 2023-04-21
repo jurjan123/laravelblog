@@ -4,8 +4,19 @@
   @else
   
 
-    <h1>Projecten</h1>
-    <div class="row gy-4 w-100">
+    
+    <div class="row gy-4 w-100"> <div class="col-10">
+      <h1 class="mt-3">Projecten</h1>
+    </div>
+    <div class="col-2 mt-5">
+      <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
+        <option value="/admin/posts" selected> sorteer op </option>
+        <option value="/admin/posts" selected> Naam A-Z </option>
+        <option value="/admin/posts" selected> Naam Z-A </option>
+        <option value="/admin/posts" selected> Datum aflopend </option>
+    </select>
+    </div>
+      
       @foreach($projects as $project)
         <div class="col-4  w-30">
             <div class="card h-100">
@@ -24,6 +35,8 @@
                 </div>
               </div>
         </div>
+
+       
         @endforeach
         @endif
     </div>

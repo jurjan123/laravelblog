@@ -2,7 +2,7 @@
     <div class="row">
         <div class="container">
             <div class="row ">
-                <div class="col-md-6">
+                <div class="col-md-6 g-0">
                     <h1>Post bewerken</h1>
                    
                 </div>
@@ -46,20 +46,25 @@
                         name="created_at" step="any"  value="{{$post->created_at}}">
                     </div>
                    
-                    <div class="mb-3 mt-3">
-                        <label for="formFile"  class="form-label">Kies categorie (optioneel)</label>
-                        <select class="form-select" aria-label="Default select example" name="category_id">
-                          <option selected>{{$post->categories->name}}</option>
-                          @foreach($categories as $categorie)
-                          @if($categorie->name == $post_category_name)
-                          
-                          @else
-                          <option value="{{$categorie->id}}">{{$categorie->name}}</option>
-                          @endif
-                          @endforeach
-                        </select>
-                      </div>
-               
+
+                        <div class="mb-3 mt-3 d-column">
+                            <label for="formFile"  class="form-label">Kies categorie </label>
+                            <div class="mt-1">
+                                <select class="js-example-basic-single mt-5 " name="category_id">
+                                    <option value="{{$post->category_id}}" selected>@if($post->category_id != null) {{$post->categories->name}}  @else @endif</option>
+                                    @foreach($categories as $categorie)
+                                    @if($categorie->name == $post->categories->name)
+    
+                                    @else
+                                    <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                                    @endif
+                                    @endforeach
+                                  </select>
+                               
+                               
+                            </div>
+                            
+                        </div>
                         
                         <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                         <textarea class="form-control" id="editor" value="" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{$post->description}} {{old("intro")}}</textarea>

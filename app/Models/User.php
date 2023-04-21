@@ -59,10 +59,17 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class);
     }
 
-    public function roles()
+    public function projectRoles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withPivot("role_id");
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, "role_id");
+    }
+
+
    
     public function getDefaultLocaleAttribute(): string
     {

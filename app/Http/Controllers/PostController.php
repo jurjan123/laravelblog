@@ -17,8 +17,28 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
-        $posts = Post::with("categories")->paginate(15);
-        return view("admin.posts.index", compact("posts"));
+      
+     $category = DB::table('categories')
+        ->select("*")
+        ->get();
+
+        $posts = Post::with("categories")->latest()->paginate(15);
+        return view("admin.posts.index", [
+            "posts" => $posts,
+            "categories" => $category
+        ]);
+    }
+
+    public function category_search(Request $request)
+    {
+       
+        $posts = Post::where('category_id', $request->id)->latest()->paginate(6);
+        $categoryName = Category::find($request->id)->first()->value("name");
+    
+        session()->regenerate(); 
+        
+        $categories = Category::all();
+        return view('admin.posts.index', compact('posts', 'categories', "categoryName"));
     }
 
     public function adminIndex(){
@@ -69,19 +89,10 @@ class PostController extends Controller
     public function edit(Request $request, Post $value)
     {
         $categories = Category::latest()->get();
+
         $post_category_name = DB::table("roles")
         ->where("id", $value->category_id)
         ->value("name");
-        
-            /*"id" => $value->id,
-            "title" => $value->title,
-            "description" => $value->description,
-            "intro" => $value->intro,
-            "image" => $value->image,
-            "created_at" => $value->created_at,
-            "categories" => $categories,
-            "post_category_name" => $post_category_name,
-            */
 
         return view("admin.posts.edit", [
             "post" => $value,
@@ -97,8 +108,9 @@ class PostController extends Controller
         $value->description = strip_tags($request->description);
         $value->intro = $request->intro;
         $value->created_at = $request->created_at;
-        $value->category_id = $request->category_id;
-       
+        
+        $value->category_id = (int)$request->category_id;
+        
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/'.Auth::user()->id), $image_name);

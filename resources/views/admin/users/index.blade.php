@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col">
-
+            
         
             <div class=" card">
                 <table class="table  ">
@@ -42,6 +42,7 @@
                         
                         <th class="py-2 px-3 border-b">Gebruikersnaam</th>
                         <th class="py-2 px-3 border-b">Email</th>
+                        <th class="py-2 px-3 border-b">Admin</th>
                         <th class="py-2 px-3 border-b">Rol</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
@@ -53,6 +54,7 @@
                             <td class="py-2 px-3 border-b">{{$user->name}} </td>
                             <td class="py-2 px-3 border-b">{{$user->email}} </td>
                             <td class="py-2 px-3 border-b">{{$user->is_admin}}</td>
+                            <td class="py-2 px-3 border-b">{{$user->role->name}}</td>
 
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                

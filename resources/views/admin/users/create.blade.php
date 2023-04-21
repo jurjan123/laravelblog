@@ -12,7 +12,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">Gebruikersnaam</span>
                         </div>
-                        <input type="text" name="name" class="form-control @error("name")is-invalid @enderror" value="" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="name" class="form-control @error("name")is-invalid @enderror" value="{{old("name")}}" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -20,7 +20,7 @@
             
                     <div class="mb-3">
                       <label for="exampleInputEmail1"  class="form-label">Email adres</label>
-                      <input type="email" name="email" value="" class="form-control @error("email")is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <input type="email" name="email" value="{{old("email")}}" class="form-control @error("email")is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
                       <div id="emailHelp" class="form-text">Je email wordt met niemand anders gedeeld</div>
                     </div>
                     @error("email")
@@ -29,13 +29,13 @@
                     
                     <div class="mb-3">
                       <div class="form-check ">
-                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="0" type="radio" name="is_admin" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror" @if(old("is_admin") == 0) checked @else value="0" @endif type="radio" name="is_admin" name="flexRadioDefault" id="flexRadioDefault1" checked>
                         <label class="form-check-label" for="flexRadioDefault1">
                           Gebruiker
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input @error("is_admin")is-invalid @enderror" value="1" name="is_admin" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input class="form-check-input @error("is_admin")is-invalid @enderror" @if(old("is_admin") == 1) checked @else value="1" @endif name="is_admin" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
                         <label class="form-check-label" for="flexRadioDefault2">
                           Admin
                         </label>
@@ -43,16 +43,20 @@
                     </div>
                     <div class="mb-3">
                       <label for="formFile"  class="form-label">Kies je rol</label>
-                      <select class="form-select" aria-label="Default select example" name="role">
+                      <select class="form-select" aria-label="Default select example"  name="role" >
+                        
+                        <option selected></option>
                         @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        <option value="{{$role->id}}" @if(old("role") == $role->id) {{old("role") == $role->name}} selected @endif>{{$role->name}}</option>
                         @endforeach
+                        
+                       
                       </select>
                     </div>
                     
                     <div class="mb-3">
                         <label for="formFile"  class="form-label">Kies je profielfoto</label>
-                        <input class="form-control @error("user_image")is-invalid @enderror" name="user_image" type="file" id="formFile">
+                        <input class="form-control @error("user_image")is-invalid @enderror" name="user_image" value="{{old("user_image")}}" type="file" id="formFile">
                     </div>
                     @error("user_image")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -78,9 +82,10 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                    
-                    <div class="col  d-flex mt-3 offset-9">
-                      <a href="{{route("users.index")}}" class="nav-link fs-5">Annuleren</a>
-                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary offset-1 ">
+                    <div class="col-12 mt-3 d-flex flex-row-reverse  fs-5">
+                        
+                      <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                      <a href="{{route("admin.tasks.index")}}" class="nav-link  ">Annuleren</a>
                   </div>
                        
             </form>

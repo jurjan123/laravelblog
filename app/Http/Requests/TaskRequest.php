@@ -29,6 +29,7 @@ class TaskRequest extends FormRequest
             "name" => ["required", "min:3"],
             "description" => "required",
             "created_at" => "required",
+            "is_open" => "boolean"
         ];
     }
 

@@ -6,13 +6,23 @@
 
 </style>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+
+<!-- DIT IS CKEDITOR -->
 <script>
     ClassicEditor
         .create(document.querySelector('#editor'))
         var container = document.querySelector("#container")
-        container.style.height = "1000px"
+       
         .catch(error => {
             console.error(error);
         });
+</script>
+
+<!-- DIT IS SELECT2 -->
+<script>
+    $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
 </script>
 

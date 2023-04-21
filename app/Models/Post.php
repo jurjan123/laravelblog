@@ -25,7 +25,8 @@ class Post extends Model
         "description",
         "intro",
         "created_at",
-        "image"
+        "image",
+        "category_id"
     ];
 
     public function categories(): Belongsto

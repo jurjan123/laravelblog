@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProjectMemberRequest;
-
+use App\Models\ProjectUser;
 
 class ProjectController extends Controller
 {
@@ -25,9 +25,9 @@ class ProjectController extends Controller
     public function index()
     {
         
-        $projects = Project::with("users")->get();
+        $projects = Project::with("users")->latest()->paginate(15);
        
-        $projects = Project::latest()->paginate(15);
+        //$projects = Project::latest()->paginate(15);
        
         return view("admin.projects.index", [
             "projects" => $projects
@@ -74,6 +74,7 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request, Project $value)
     {
+    
        $value->title = $request->title;
        $value->description = strip_tags($request->description);
        $value->intro = $request->intro;
@@ -138,18 +139,47 @@ class ProjectController extends Controller
     public function deleteMemberFromGroup(Project $project, User $user)
     {
         $project->users()->detach($user->id);
-        return redirect()->route("admin.projects.members.index")->with("message", "lid is van groep verwijderd");
+        return redirect()->route("admin.projects.members.index", $project)->with("message", "lid is van groep verwijderd");
     }
 
-    public function updateMemberFromGroup(Request $request, Project $project)
-    {
-        $validated = $request->validate([
-            "user_id" => "required",
-            "role_id" => "required"
+    public function editMemberFromGroup(Request $request, Project $project, User $user){
+
+        $users = User::all();
+        $roles = Role::all();
+        return view("admin.projects.members.edit", [
+            "project" => $project,
+            "roles" => $roles,
+            "user" => $user,
+            
         ]);
+    }
+
+    public function updateMemberFromGroup(Request $request, Project $project, User $user)
+    {
         
-        $project->users()->updateExistingPivot($request->user_id, ["role_id" => $request->role_id]);
-        return back()->with("message", "lid is bewerkt", $project);
+        $project->users()->updateExistingPivot($user->id, ["role_id" => $request->role_id]);
+        return redirect()->route("admin.projects.members.index", $project)->with("message", "lid is bewerkt");
+    }
+
+    /*public function ProjectMemberSearch(Request $request)
+    {
+        $posts = Post::where("title", "Like", "%".$request->search_data."%")->paginate(7);
+        return view("admin.posts.index", compact("posts"));
+    }*/
+
+    public function memberProjectSearch(Request $request)
+    {
+        $users = Project::has("users")->get();
+        $projects = Project::with("users")->get();
+        
+        /*$posts = Post::where('category_id', $request->id)->latest()->paginate(6);
+        $categoryName = Category::find($request->id)->first()->value("name");
+    
+        session()->regenerate(); 
+        */
+        
+        
+        return view('admin.projects.index', compact('projects', "users" ));
     }
    
 }

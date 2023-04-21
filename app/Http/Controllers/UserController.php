@@ -18,8 +18,18 @@ class UserController extends Controller
 {
     
     public function users(){
-       $users = User::latest()->paginate(15);
-
+       $users = User::with("role")->latest()->paginate(15);
+        
+       
+       //$roles = User::with("projects")->latest();
+      // $roleName = Role::find($userRoles->roles_id);
+       foreach($users as $user){
+        if($user->is_admin == 0){
+            $user->is_admin = "nee";
+        } else{
+            $user->is_admin = "ja";
+        }
+    }
        return view("admin.users.index", compact("users")); 
     }
 
@@ -36,7 +46,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
-        $user->roles_id = $request->role;
+        $user->role_id = $request->role;
         $user->password = Hash::make($request->password);
        
         if($request->hasFile("user_image")){
@@ -46,39 +56,43 @@ class UserController extends Controller
             //dd($user->user_image);
         }
         
+        $message = "Succes! De gebruiker: ". $user->name. " is verwijderd";
         $user->save();
         
-        return redirect()->route("users.index")->with("message", "Gebruiker is gemaakt!");
+        return redirect()->route("users.index")->with("message", $message);
 
     }
     
     public function edit(Request $request, User $user){
-        
-        $roles = Role::latest()->get();
-        $user_role_name = DB::table("roles")
-        ->where("id", $user->roles_id)
-        ->value("name");
-        
-        return view("admin.users.edit", [
+        $roleName = Role::find($user->roles_id);
+        $roles = Role::all();
+        $editDataArray = [
             "id" => $user->id,
             "email" => $user->email,
             "user_image" => $user->user_image,
             "name" => $user->name,
-            "user_role_name" => $user_role_name,
+            "roleName" => $roleName,
             "roles" => $roles,
+        ];
+
+        if($user->roles_id != null){
+            $editDataArray["roleName"] = Role::find($user->roles_id);
+        } else{
+            $editDataArray["roleName"] = "";
+        }
         
-        ]);
+        
+        return view("admin.users.edit", $editDataArray);
     }
 
     public function update(UpdateUserRequest $request, User $user){
-          
-    
+        //dd($request);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
         $user->password = $request->password;
-        $user->roles_id = $request->role;
-
+        $user->role_id = $request->role;
+        
         if($request->hasFile("user_image")){
             $image_name = time().'.'.$request->user_image->extension();  
             $request->user_image->move(public_path('images/'), $image_name);
@@ -89,8 +103,9 @@ class UserController extends Controller
         
         if(password_verify($user->password, Auth::user()->password) && $request->new_password != $request->password){
            $user->password = Hash::make($request->new_password);
+           $message = "Succes! De gebruiker: ". $user->name. " is verwijderd";
            $user->update();
-            return redirect()->route("users.index")->with("message", "Gebruiker is bewerkt!");
+           return redirect()->route("users.index")->with("message", $message);
         } 
     }
 
@@ -103,8 +118,9 @@ class UserController extends Controller
     
 
     public function delete(Request $request, User $user){
+        $message = "Succes! De gebruiker: ". $user->name. " is verwijderd";
         $user->delete();
-        return redirect()->route("users.index")->with("message", "Gebruiker is verwijderd!");
+        return redirect()->route("users.index")->with("message", $message);
 
     }
 

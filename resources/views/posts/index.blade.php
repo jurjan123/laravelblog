@@ -1,7 +1,18 @@
 <x-guest-layout>
   
-   <h1>Posts</h1>
-    <div class="row gy-4">
+   
+  <div class="row gy-4 w-100"> <div class="col-10">
+    <h1 class="mt-3">Posts</h1>
+  </div>
+  <div class="col-2 mt-5">
+    <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
+      <option  selected> sorteer op </option>
+      <option value="/posts/sortbyname=ascending" selected> Naam A-Z </option>
+      <option value="/posts/sortbyname=descending" selected> Naam Z-A </option>
+      <option value="/post/sortbydate=descending" selected> Datum aflopend </option>
+  </select>
+  </div>
+    
         @foreach($posts as $post)
         <div class="col-4">
             <div class="card h-100">

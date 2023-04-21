@@ -7,8 +7,8 @@
                 <div class="col-md-6 g-0 ">
                     <h1>Project bewerken</h1>
                     <ul class="nav nav-tabs">
-                        <li><a class="nav-link" href="{{route("admin.projects.edit", $project)}}">Project</a></li>
-                        <li><a class="nav-link" href="{{route("admin.projects.members.index", $project)}}">Leden</a></li>
+                        <li><a class="nav-link active" aria-current="page" href="{{route("admin.projects.edit", $project)}}">Project</a></li>
+                        <li><a class="nav-link " aria-current="page" href="{{route("admin.projects.members.index", $project)}}">Leden</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
@@ -62,11 +62,12 @@
                     <div class="col-12 d-flex flex-row-reverse fs-5">
                         
                         <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
-                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
+                        <a href="{{route("admin.projects.index")}}" class="nav-link  ">Annuleren</a>
                     </div>
                     
             </form>
             @include("includes.ckeditor")
+            <script src="{{url("styles/script.js")}}"></script>
         </div>    
     </div>
     </div>

@@ -2,9 +2,9 @@
     <div class="row">
         <div class="container ">
            
-            <div class="row  ">
-                <div class="col-md-6">
-                    <h1>Taak toevoegen</h1>
+            <div class="row ">
+                <div class="col-md-6 g-0">
+                    <h1>Taak bewerken</h1>
                    
                 </div>
                
@@ -37,8 +37,6 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>
-
-                  
                 <div class="col-12 mt-3 d-flex flex-row-reverse  fs-5">
                         
                     <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">

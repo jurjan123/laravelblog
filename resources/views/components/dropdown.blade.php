@@ -3,14 +3,14 @@
 @php
 switch ($align) {
     case 'left':
-        $alignmentClasses = 'origin-top-right';
+        $alignmentClasses = 'origin-top-right ';
         break;
     case 'top':
         $alignmentClasses = 'origin-top';
         break;
     case 'right':
     default:
-        $alignmentClasses = 'origin-top';
+        $alignmentClasses = 'origin-top ';
         break;
 }
 
