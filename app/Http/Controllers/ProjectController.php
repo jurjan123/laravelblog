@@ -72,23 +72,23 @@ class ProjectController extends Controller
     }
     
 
-    public function update(ProjectRequest $request, Project $value)
+    public function update(ProjectRequest $request, Project $project)
     {
-    
-       $value->title = $request->title;
-       $value->description = strip_tags($request->description);
-       $value->intro = $request->intro;
-       $value->created_at = $request->created_at;
+  
+       $project->title = $request->title;
+       $project->description = strip_tags($request->description);
+       $project->intro = $request->intro;
+       $project->created_at = $request->created_at;
        
        
        if($request->hasFile("image")){
         $image_name = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
-        $value->image = $image_name;
+        $request->image->move(public_path('images/'), $image_name);
+        $project->image = $image_name;
         }
-        $succesmessage = "Succes! Project: ". $value->title. " is bewerkt";
+        $succesmessage = "Succes! Project: ". $project->title. " is bewerkt";
         
-        $value->update();
+        $project->update();
         
         return redirect()->route("admin.projects.index")->with("message", $succesmessage);
     }
@@ -116,11 +116,11 @@ class ProjectController extends Controller
     public function membersIndex(Request $request, Project $project)
     {
     
-        $users = User::all();
         $roles = Role::all();
         
         return view("admin.projects.members.index", [
             "project" => $project,
+            "projectUsers" => $project->users,
             "id" => $project->id,
             "users" => User::all(),
             "roles" => Role::all(),
@@ -143,7 +143,6 @@ class ProjectController extends Controller
     }
 
     public function editMemberFromGroup(Request $request, Project $project, User $user){
-
         $users = User::all();
         $roles = Role::all();
         return view("admin.projects.members.edit", [
@@ -161,23 +160,25 @@ class ProjectController extends Controller
         return redirect()->route("admin.projects.members.index", $project)->with("message", "lid is bewerkt");
     }
 
-    /*public function ProjectMemberSearch(Request $request)
+    public function ProjectMemberSearch(Request $request, Project $project)
     {
-        $posts = Post::where("title", "Like", "%".$request->search_data."%")->paginate(7);
-        return view("admin.posts.index", compact("posts"));
-    }*/
+        //$projects = Project::with("users")->find($project->id);
+        ///dd($project->users);
+        
+        
+        $projectUsers = User::where('name', 'like', '%' . $request->search_data.'%')->whereRelation('projects', 'project_id', $project->id)->get();        
+        //$project->users = $users;
+        
+        $roles = Role::all();
+        $users = User::all();
+        return view("admin.projects.members.index", compact("project", "roles", "projectUsers", "users"));
+    }
 
     public function memberProjectSearch(Request $request)
     {
+        
         $users = Project::has("users")->get();
         $projects = Project::with("users")->get();
-        
-        /*$posts = Post::where('category_id', $request->id)->latest()->paginate(6);
-        $categoryName = Category::find($request->id)->first()->value("name");
-    
-        session()->regenerate(); 
-        */
-        
         
         return view('admin.projects.index', compact('projects', "users" ));
     }

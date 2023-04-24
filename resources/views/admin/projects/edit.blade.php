@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                 </div>
         <div class="card">
-            <form action="/admin/projects/{{$project->id}}" method="post" enctype="multipart/form-data">
+            <form action="{{route("projects.update", $project)}}" method="post" enctype="multipart/form-data">
                 @method("PUT")
                 @csrf
 

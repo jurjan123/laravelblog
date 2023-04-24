@@ -93,9 +93,10 @@ Route::middleware("auth")->group(function(){
            
             Route::group(["prefix" => "{project}"], function(){
                 Route::match(["post", "get"], "/edit", [ProjectController::class, "edit"])->name("admin.projects.edit");
-                Route::put("/", [ProjectController::class, "update"]);
+                Route::put("/", [ProjectController::class, "update"])->name("projects.update");
                 Route::delete('/delete', [ProjectController::class, 'delete'])->name('admin.projects.delete');
                 Route::match(["get", "post"], "/members", [ProjectController::class, "membersIndex"])->name("admin.projects.members.index");
+                Route::get("/members/search", [ProjectController::class, "ProjectMemberSearch"])->name("admin.projects.members.search");
                 Route::post("/members/store", [ProjectController::class, "storeMemberToGroup"])->name("admin.projects.members.store");
                 Route::delete("/members/{user}/delete", [ProjectController::class, "deleteMemberFromGroup"])->name("admin.projects.members.delete");
                 Route::get("/members/{user}/edit", [ProjectController::class, "editMemberFromGroup"])->name("admin.projects.members.edit");

@@ -17,12 +17,6 @@ class AdminRoutes
      */
     public function handle(Request $request, Closure $next)
     {
-        /*if($request->user()->is_admin === 1){
-            return $next($request);
-
-        }else{
-            abort(403);
-        };
-        */
+        $request->user()->is_admin == 1 ? $next($request) : abort(403);
     }
 }

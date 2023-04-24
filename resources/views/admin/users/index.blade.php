@@ -54,7 +54,7 @@
                             <td class="py-2 px-3 border-b">{{$user->name}} </td>
                             <td class="py-2 px-3 border-b">{{$user->email}} </td>
                             <td class="py-2 px-3 border-b">{{$user->is_admin}}</td>
-                            <td class="py-2 px-3 border-b">{{$user->role->name}}</td>
+                            <td class="py-2 px-3 border-b">@if(!empty($user->role_id)){{$user->role->name}} @else @endif</td>
 
                             <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                

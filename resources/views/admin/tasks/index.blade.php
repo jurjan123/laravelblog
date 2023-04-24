@@ -52,7 +52,7 @@
                             <td class="py-2 px-3 border-b">{{$task->name}}</td>
                             <td class="py-2 px-3 border-b">{{$task->description}}</th>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($task->created_at))}}</td>
-                            <td class="py-2 px-3 border-b">{{$task->is_open}}</td>
+                            <td class="py-2 px-3 border-b">{{$task->active}}</td>
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                    
                                       <div class="col-6 d-flex">

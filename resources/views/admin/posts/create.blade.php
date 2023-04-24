@@ -46,12 +46,16 @@
 
                     <div class="mb-3 mt-3 d-column">
                         <label for="formFile"  class="form-label">Kies categorie </label>
+                        <div class="mt-1">
+
                         <select class="js-example-basic-single " name="category_id">
+                            <option selected>kies category</option>
                             @foreach($categories as $categorie)
                             <option value="{{$categorie->id}}">{{$categorie->name}}</option>
                             @endforeach
-                          </select>
+                        </select>
                        
+                        </div>
                        
                     </div>
                     

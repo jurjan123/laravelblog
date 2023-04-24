@@ -1,6 +1,8 @@
 <x-guest-layout>
-  
-   
+  @if(!empty($message))
+  <h1>{{$message}}</h1>
+
+  @else
   <div class="row gy-4 w-100"> <div class="col-10">
     <h1 class="mt-3">Posts</h1>
   </div>
@@ -32,6 +34,7 @@
               </div>
         </div>
         @endforeach
+        @endif
         
     </div>
     {{$posts->links()}}

@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
+            ProjectSeeder::class,
             Roleseeder::class,
             UserSeeder::class,
             PostSeeder::class,
+            PivotTableSeeder::class,
             
-            ProjectSeeder::class,
         ]);
     }
 }

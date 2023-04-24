@@ -64,23 +64,26 @@ class UserController extends Controller
     }
     
     public function edit(Request $request, User $user){
-        $roleName = Role::find($user->roles_id);
-        $roles = Role::all();
-        $editDataArray = [
-            "id" => $user->id,
-            "email" => $user->email,
-            "user_image" => $user->user_image,
-            "name" => $user->name,
-            "roleName" => $roleName,
-            "roles" => $roles,
-        ];
 
-        if($user->roles_id != null){
-            $editDataArray["roleName"] = Role::find($user->roles_id);
-        } else{
-            $editDataArray["roleName"] = "";
+        $roles = Role::all();
+        if($user->role_id != null){
+            $rolename = Role::find($user->role_id);
+            $editDataArray = [
+                "id" => $user->id,
+                "email" => $user->email,
+                "name" => $user->name,
+                "rolename" => $user->role->name,
+                "roles" => $roles,
+            ];
+        } 
+        else{
+            $editDataArray = [
+                "id" => $user->id,
+                "email" => $user->email,
+                "name" => $user->name,
+                "roles" => $roles,
+            ];
         }
-        
         
         return view("admin.users.edit", $editDataArray);
     }

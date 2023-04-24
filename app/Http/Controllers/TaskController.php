@@ -13,10 +13,10 @@ class TaskController extends Controller
     {
         $tasks = Task::latest()->paginate(15);
         foreach($tasks as $task){
-            if($task->is_open == 0){
-                $task->is_open = "gesloten";
+            if($task->active == 0){
+                $task->active = "gesloten";
             } else{
-                $task->is_open = "open";
+                $task->active = "open";
             }
         }
         return view("admin.tasks.index",[
@@ -39,10 +39,10 @@ class TaskController extends Controller
         $task->description = strip_tags($request->description);
         $task->created_at = $request->created_at;
 
-        if($request->is_open == "0"){
-            $task->is_open = 0;
+        if($request->active == "0"){
+            $task->active = 0;
         } else{
-            $task->is_open = 1;
+            $task->active = 1;
         }
 
         $task->save();
@@ -74,7 +74,7 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->description = strip_tags($request->description);
         $task->created_at = $request->created_at;
-        $task->is_open = $request->is_open;
+        $task->active = $request->active;
         $task->update();
         $succesmessage = "Succes! Taak: ". $request->name. " is bewerkt";
 

@@ -18,27 +18,22 @@ class PostController extends Controller
     public function index()
     {
       
-     $category = DB::table('categories')
-        ->select("*")
-        ->get();
+        $category = Category::all();
 
         $posts = Post::with("categories")->latest()->paginate(15);
+    
         return view("admin.posts.index", [
             "posts" => $posts,
-            "categories" => $category
+            "categories" => $category,
+            
         ]);
     }
 
     public function category_search(Request $request)
     {
-       
-        $posts = Post::where('category_id', $request->id)->latest()->paginate(6);
-        $categoryName = Category::find($request->id)->first()->value("name");
-    
-        session()->regenerate(); 
-        
+       $posts = Post::where('category_id', $request->id)->latest()->paginate(6);
         $categories = Category::all();
-        return view('admin.posts.index', compact('posts', 'categories', "categoryName"));
+        return view('admin.posts.index', compact("posts", "categories"));
     }
 
     public function adminIndex(){
@@ -89,15 +84,11 @@ class PostController extends Controller
     public function edit(Request $request, Post $value)
     {
         $categories = Category::latest()->get();
-
-        $post_category_name = DB::table("roles")
-        ->where("id", $value->category_id)
-        ->value("name");
-
+        $value->category_id != null ? $categoryname = $value->categories->name : $categoryname = "";  
         return view("admin.posts.edit", [
             "post" => $value,
             "categories" => $categories,
-            "post_category_name" => $post_category_name
+            "categoriename" => $categoryname
         ]);
     }
     
@@ -142,7 +133,8 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $posts = Post::where("title", "Like", "%".$request->search_data."%")->paginate(7);
-        return view("admin.posts.index", compact("posts"));
+        $categories = Category::all();
+        return view("admin.posts.index", compact("posts", "categories"));
     }
 
 }

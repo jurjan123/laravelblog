@@ -1,6 +1,6 @@
 <x-guest-layout>
-  @if(Session::has("emptymessage"))
-  <h1>{{(Session("emptymessage"))}}</h1>
+  @if(!empty($projects))
+  
   @else
   
 

@@ -42,7 +42,7 @@
                            
                     <div class="mt-3">
                         <x-input-label for="image" :value="__('Datum veranderen')" />
-                    <input type="datetime-local" class="form-control "
+                    <input type="datetime-local" on class="form-control "
                         name="created_at" step="any"  value="{{$post->created_at}}">
                     </div>
                    
@@ -52,14 +52,20 @@
                             <div class="mt-1">
                                 <select class="js-example-basic-single mt-5 " name="category_id">
                                     <option value="{{$post->category_id}}" selected>@if($post->category_id != null) {{$post->categories->name}}  @else @endif</option>
+                                    @if(empty($categoriename))
+                                    
+                                    <option selected></option>
                                     @foreach($categories as $categorie)
-                                    @if($categorie->name == $post->categories->name)
-    
-                                    @else
                                     <option value="{{$categorie->id}}">{{$categorie->name}}</option>
-                                    @endif
                                     @endforeach
-                                  </select>
+
+                                    @else
+                                    <option selected>{{$categoriename}}</option>
+                                    @foreach($categories as $categorie)
+                                    <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
                                
                                
                             </div>
