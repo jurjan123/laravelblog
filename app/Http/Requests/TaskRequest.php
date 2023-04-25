@@ -29,7 +29,7 @@ class TaskRequest extends FormRequest
             "name" => ["required", "min:3"],
             "description" => "required",
             "created_at" => "required",
-            "is_open" => "boolean"
+            "is_open" => ["required", "boolean"]
         ];
     }
 
@@ -37,8 +37,10 @@ class TaskRequest extends FormRequest
     {
         return [
             "name.required" => "rolnaam is verplicht",
-            "name.min" => "naam moet meer dan 3 karakters bevatten",
-            "description.required" => "beschrijving is verplicht"
+            "name.min" => "Rolnaam moet meer dan 3 karakters bevatten",
+            "created_at.required" => "Datum is verplicht",
+            "is_open.boolean" => "Kies een status",
+            "description.required" => "Beschrijving is verplicht",
         ];
     }
         

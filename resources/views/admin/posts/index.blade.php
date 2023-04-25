@@ -31,7 +31,7 @@
             
             
             <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
-                <option value="/admin/posts" selected> zoek een categorie  </option>
+                <option value="/admin/posts" selected onchange=""> zoek een categorie  </option>
                 @foreach($categories as $category)
                 <option  value="/admin/posts/category/{{ $category->id}}">{{$category->name}}</option>
                 @endforeach

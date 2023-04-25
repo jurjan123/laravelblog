@@ -109,7 +109,9 @@ class ProjectController extends Controller
 
     public function search(Request $request)
     {
-        $projects = Project::where("title", "Like", "%".$request->search_data."%")->paginate(7);
+        
+        $projects = Project::where("title", "LIKE", "%".$request->search_data."%")->paginate(5);
+       
         return view("admin.projects.index", compact("projects"));
     }
 
@@ -138,8 +140,9 @@ class ProjectController extends Controller
 
     public function deleteMemberFromGroup(Project $project, User $user)
     {
+        $message = "Succes! Lid: ".$user->name. " is van groep verwijderd";
         $project->users()->detach($user->id);
-        return redirect()->route("admin.projects.members.index", $project)->with("message", "lid is van groep verwijderd");
+        return redirect()->route("admin.projects.members.index", $project)->with("message", $message);
     }
 
     public function editMemberFromGroup(Request $request, Project $project, User $user){
@@ -162,13 +165,8 @@ class ProjectController extends Controller
 
     public function ProjectMemberSearch(Request $request, Project $project)
     {
-        //$projects = Project::with("users")->find($project->id);
-        ///dd($project->users);
-        
-        
+       
         $projectUsers = User::where('name', 'like', '%' . $request->search_data.'%')->whereRelation('projects', 'project_id', $project->id)->get();        
-        //$project->users = $users;
-        
         $roles = Role::all();
         $users = User::all();
         return view("admin.projects.members.index", compact("project", "roles", "projectUsers", "users"));
@@ -176,10 +174,6 @@ class ProjectController extends Controller
 
     public function memberProjectSearch(Request $request)
     {
-        
-        $users = Project::has("users")->get();
-        $projects = Project::with("users")->get();
-        
         return view('admin.projects.index', compact('projects', "users" ));
     }
    

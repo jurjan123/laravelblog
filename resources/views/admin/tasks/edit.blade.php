@@ -9,7 +9,7 @@
                 </div>
                
         <div class="card p-3 ">
-           
+            
             <form action="/admin/tasks/{{$id}}" method="post" >
                 @method("PUT")
                 @csrf
@@ -20,7 +20,7 @@
                         <label for="exampleFormControlTextarea1" name="name"  class="form-label">Naam</label><br><br>
                         <input type="text" name="name" value="{{$name}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("name") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
-                      @error("title")
+                      @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
@@ -30,6 +30,26 @@
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any" value="{{$created_at}}">
                     </div>
+                    @error("created_at")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+
+                    <div class="mb-3 mt-3 d-column">
+                        <label for="formFile"  class="form-label">Kies status </label>
+                        <select class="form-select  @error("is_open") is-invalid @enderror"   aria-label="Default select example" name="is_open">
+                           
+                            <option selected>{{$active}}</option>
+                            @if($active != "Open")
+                            <option value="1" >  Open  </option>
+                            @elseif($active != "Gesloten")
+                            <option value="0" >Gesloten  </option>
+                            @endif
+                        </select>
+                        @error("is_open")
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+                    </div>
+
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                     <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{$description}}</textarea>

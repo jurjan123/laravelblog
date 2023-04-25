@@ -16,10 +16,10 @@
                 <div class="mb-3 ">
 
                     <div class="input-group mb-3  py-2 ">
-                        <label for="exampleFormControlTextarea1" name="name"  class="form-label">Naam</label><br><br>
-                        <input type="text" name="name" value="" class="form-control ml-5 mt-4 w-100 position-absolute @error("title") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="exampleFormControlTextarea1" name="name"  class="form-label ">Naam</label><br><br>
+                        <input type="text" name="name" value="" class="form-control ml-5 mt-4 w-100 position-absolute @error("name") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
-                      @error("title")
+                      @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
@@ -29,15 +29,20 @@
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any" value="">
                     </div>
+                    @error("created_at")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
 
                     <div class="mb-3 mt-3 d-column">
                     <label for="formFile"  class="form-label">Kies status </label>
-                    <select class="form-select "   aria-label="Default select example" name="is_open">
+                    <select class="form-select  @error("is_open") is-invalid @enderror"   aria-label="Default select example" name="is_open">
                         <option selected>kies status</option>
                         <option value="1" > Open  </option>
                         <option value="0" > Gesloten </option>
-                        
                     </select>
+                    @error("is_open")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
                 </div>
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>

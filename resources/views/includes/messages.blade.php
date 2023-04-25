@@ -67,19 +67,20 @@
 
         @elseif(Route::is("admin.tasks.create"))
         <div class="alert alert-danger fade show ">
-            <strong>Post niet kunnen bewerken</strong>
-            @foreach($errors->all() as $error)
-            <li>{{$error}}</li>
-            @endforeach
+            <strong>Taak niet kunnen maken</strong>
+            <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+
+        @elseif(Route::is("admin.tasks.edit"))
+        <div class="alert alert-danger fade show ">
+            <strong>Taak niet kunnen bewerken</strong>
+           
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         
         @elseif(Route::is("admin.project.members.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Post niet kunnen bewerken</strong>
-            @foreach($errors->all() as $error)
-            <li>{{$error}}</li>
-            @endforeach
+            <strong>Taak niet kunnen bewerken</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         

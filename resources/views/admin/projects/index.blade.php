@@ -51,6 +51,7 @@
             <div class=" card">
                 <table class="table ">
                     <thead>
+                       
                     <tr>
                         <th class="py-2 px-3 border-b">Titel</th>
         
@@ -60,7 +61,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @if(Route::is("admin.projects.index"))
+                        
                         @foreach($projects as $project)
                         <tr>
                             <td class="py-2 px-3 border-b">{{$project->title}} </td>
@@ -78,17 +79,12 @@
 
                         </tr>
                        @endforeach
-
-
-                       @elseif(Route::is("admin.project.members.search"))
-
-                       {{$users}}
-                    @endif
                     </tbody>
                     
                    
                 </table>
                 {{$projects->links()}}
+                
             
             </div>
         </div>

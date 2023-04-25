@@ -21,23 +21,20 @@
                             <label for="exampleFormControlTextarea1"  class="form-label">Titel</label><br><br>
                             <input type="text" value="{{$name}}"   name="name" class=" error form-control ml-5 mt-4 w-100 position-absolute @error('title') is-invalid  @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                           </div>
-                          @error("title") <p class="text-red-500 text-xs mt-1">{{$message}}</p>@enderror
+                          @error("name") <p class="text-red-500 text-xs mt-1">{{$message}}</p>@enderror
                        
                           <x-input-label for="image" :value="__('Foto veranderen')" />
                           <x-text-input id="image" name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
-                          <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                          <x-input-error class="mt-2" : messages="" />
                           @error("image")
                           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                           @enderror
                          
-                          <div class="row mt-3 d-flex">
-                            <div class="col-9"></div>
-                            <div class="col-3">
-                                <input type="submit" value="Opslaan" name="submit" class="btn btn-primary">
-                                <a href="{{route("admin.categories.index")}}" class="nav-link">Annuleren</a>
-                            </div>
-                            
-                            
+                          <div class="col-12 d-flex flex-row-reverse mt-3 fs-5">
+                        
+                            <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                            <a href="{{route("admin.categories.index")}}" class="nav-link  ">Annuleren</a>
+                        </div>
                           </div>
                         </div>
                         

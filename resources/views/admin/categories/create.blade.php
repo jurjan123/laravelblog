@@ -22,7 +22,7 @@
                     @enderror
 
                     <div class="input-group mb-3  py-2 ">
-                        <label for="exampleFormControlTextarea1" name="tag"  class="form-label">Naam label (optioneel)</label><br><br>
+                        <label for="exampleFormControlTextarea1" name="tag"  class="form-label">Korte beschrijving (optioneel)</label><br><br>
                         <input type="text" name="tag" class="form-control ml-5 mt-4 w-100 position-absolute @error('tag') is-invalid @enderror"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old("name")}}" >
                     </div>
                     @error("tag")
@@ -35,19 +35,11 @@
                     @error("image")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
-                    
-                    <div class=" row  mt-3">
-                        <div class="col-8">
 
-                        </div>
-                        <div class="col-4 d-flex justify-content-end ">
-                            <a href="{{route("admin.categories.index")}}" class="nav-link  fs-5">Annuleren</a>
-                            <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
-                        </div>
-                       
-                       
-                       
+                    <div class="col-12 d-flex flex-row-reverse mt-3 fs-5">
                         
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
                     </div>
                     
             </form>

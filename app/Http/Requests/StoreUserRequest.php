@@ -30,29 +30,29 @@ class StoreUserRequest extends FormRequest
         return [
             "name" => ["required", "string", "max:20"],
             "email" => ["required", "max:100", "email"],
-            'user_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'user_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             "role" => "required",
             "is_admin" => "required",
             "password" => ["required", "confirmed"],
-            "password_confirmation" => 'required_with:password|same:password' 
+            "password_confirmation" => 'required|required_with:password|same:password' 
         ];
     }
 
     public function messages(){
         return [
-            "name.required" => "naam is verplicht",
-            "name.string" => "naam moeten letters zijn",
-            "name.max" => "naam mag niet langer dan 20 karakters zijn",
-            "email.required" => "email is verplicht",
-            "email.string" => "email moeten letters zijn",
-            "email.unique" => "email is al in gebruik",
-            "email.max" => "email mag niet langer dan 100 karakters zijn",
-            "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
+            "name.required" => "Naam is verplicht",
+            "name.string" => "Naam moeten letters zijn",
+            "name.max" => "Naam mag niet langer dan 20 karakters zijn",
+            "email.required" => "Email is verplicht",
+            "email.string" => "Email moeten letters zijn",
+            "email.unique" => "Email is al in gebruik",
+            "email.max" => "Email mag niet langer dan 100 karakters zijn",
+            "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
             "user_image.max" => "De afbeelding mag niet groter zijn dan 2mb",
-            "role.required" => "rol is verplicht",
-            "password.required" => "vul nieuwe wachtwoord in",
-            "password_confirmation.with:password" => "herhaal nieuwe wachtwoord",
-            
+            "role.required" => "Rol is verplicht",
+            "password.required" => "Vul nieuwe wachtwoord in",
+            "password_confirmation.required" => "Herhaal nieuwe wachtwoord",
+           
             "password.confirmed" => "het herhaalde wachtoord komt niet overeen met het nieuwe wachtwoord",
         ];
     }

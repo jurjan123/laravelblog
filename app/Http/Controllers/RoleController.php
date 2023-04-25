@@ -65,6 +65,6 @@ class RoleController extends Controller
 
     public function search(Request $request){
         $roles = Role::where("name", "Like", "%".$request->search_data."%")->paginate(7);
-        return view("admin.categories.index", compact("roles"));
+        return view("admin.roles.index", compact("roles"));
     }
 }

@@ -32,6 +32,7 @@ class PostController extends Controller
     public function category_search(Request $request)
     {
        $posts = Post::where('category_id', $request->id)->latest()->paginate(6);
+    
         $categories = Category::all();
         return view('admin.posts.index', compact("posts", "categories"));
     }
@@ -57,13 +58,14 @@ class PostController extends Controller
     //store the post
     public function store(PostRequest $request)
     {
-        
+       
         $post = new Post;
         $post->title = $request->title;
         $post->description = strip_tags($request->description);
         $post->intro = $request->intro;
         $post->created_at = $request->created_at;
         $post->category_id = $request->category_id;
+        
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();

@@ -34,7 +34,7 @@ class ProjectRequest extends FormRequest
             'title' => 'required|min:3',
             'description' => 'required',
             "intro" => "required",
-            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
+            "image" => "nullable|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required",
         ];
     }
@@ -46,7 +46,7 @@ class ProjectRequest extends FormRequest
             "title.min" => "Titel is korter dan 3 karakters",
             "description.required" => "Beschrijving is verplicht",
             "intro.required" => "Intro is verplicht",
-            "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
+            "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
             "image.max" => "De afbeelding mag niet groter zijn dan 3mb",
             'size' => 'The :attribute must be exactly :size.',
             'between' => 'The :attribute value :input is not between :min - :max.',

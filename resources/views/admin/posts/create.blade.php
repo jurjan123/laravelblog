@@ -43,13 +43,16 @@
                     <input type="datetime-local" class="form-control "
                         name="created_at" step="any" value="{{old("created_at")}}">
                     </div>
+                    @error("created_at")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
 
                     <div class="mb-3 mt-3 d-column">
                         <label for="formFile"  class="form-label">Kies categorie </label>
                         <div class="mt-1">
 
                         <select class="js-example-basic-single " name="category_id">
-                            <option selected>kies category</option>
+                            <option value="">kies category</option>
                             @foreach($categories as $categorie)
                             <option value="{{$categorie->id}}">{{$categorie->name}}</option>
                             @endforeach

@@ -97,13 +97,15 @@
                 <tbody>
                     
                     @foreach($projectUsers as $user)
+                   
                     <tr>
                         <td class="py-2 px-3 border-b">{{$user->name}} </td>
+                        
                         @foreach($user->projects as $projectUser)
-                       
                         <td class="py-2 px-3 border-b">{{$projectUser->pivot->role->name}}</td>
-                       
                         @endforeach
+                       
+                       
 
                         <td class=" d-flex px-3 border-b py-3 gy-5 ">
                     
@@ -126,6 +128,7 @@
                                   
                             </td>
                             @endforeach
+                           
                         
                             
                     </tbody>

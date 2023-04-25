@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             "name" => ["required", "min:3"],
-            "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048",
+            "image" => "nullable|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "tag" => "nullable|min:5|max:30" 
         ];
     }
@@ -34,11 +34,11 @@ class CategoryRequest extends FormRequest
     {
         return [
             "name.required" => "Categorynaam is verplicht",
-            "name.min" => "naam moet meer dan 3 karakters bevatten",
-            "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif,svg zijn",
-            "image.max" => "image mag niet groter zijn dan 3mb",
-            "tag.min" => "tag moet ten minste 5 karakters bevatten",
-            "tag.max" => "tag mag niet langer dan 30 karakters zijn"
+            "name.min" => "Naam moet meer dan 3 karakters bevatten",
+            "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
+            "image.max" => "Image mag niet groter zijn dan 3mb",
+            "tag.min" => "Korte beschrijving moet ten minste 5 karakters bevatten",
+            "tag.max" => "Korte beschrijving mag niet langer dan 30 karakters zijn"
         ];
     }
 }

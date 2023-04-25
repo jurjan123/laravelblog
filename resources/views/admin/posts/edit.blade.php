@@ -79,14 +79,15 @@
                         @enderror
                     </div>
                    
-                    <div class="col-12 d-flex flex-row-reverse fs-5">
-                        
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
-                        <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
-                    </div>
-                    
-                    
+                   
             </form>
+            <div class="col-12 d-flex flex-row-reverse mt-3 fs-5">
+                        
+                <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
+                <a href="{{route("admin.posts.index")}}" class="nav-link  ">Annuleren</a>
+            </div>
+            
+            
             @include("includes.ckeditor")
         </div>    
     </div>
