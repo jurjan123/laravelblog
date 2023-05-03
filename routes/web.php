@@ -3,13 +3,14 @@
 use App\Models\Project;
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\GuestViewController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
+use App\http\Controllers\GuestViewController;
 
 
 
@@ -31,12 +32,14 @@ Route::get('/', function () {
 Route::get("/posts", [GuestViewController::class, "PostIndex"])->name("posts.index");
 Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("projects.index");
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
-
+Route::get("/users/projects", [GuestViewController::class, "UserProjectPage"])->name("users.projects.page");
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
 Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
 Route::get("/categories/show/{id}", [CategoryController::class, "show"])->name("categories.show");
 
+
 Route::middleware("auth")->group(function(){
+    
     Route::group(["prefix" => "admin"], function(){
     
         Route::get("/", [PostController::class, "adminIndex"])->name("admin.index");
@@ -130,6 +133,21 @@ Route::middleware("auth")->group(function(){
                 Route::put("/", [TaskController::class, "update"]);
                 Route::delete("/delete", [TaskController::class, "delete"])->name("admin.tasks.delete");
             });
+        });
+
+        Route::group(["prefix" => "statuses"], function(){
+            Route::get("/", [StatusController::class, "index"])->name("admin.statuses.index");
+            Route::get("/create", [StatusController::class, "create"])->name("admin.statuses.create");
+            Route::post("/store", [StatusController::class, "store"])->name("admin.statuses.store");
+
+
+
+            Route::group(["prefix" => "{status}"], function(){
+                Route::delete("/delete", [StatusController::class, "delete"])->name("admin.statuses.delete");
+                Route::match(["post", "get"], "edit", [StatusController::class, "edit"])->name("admin.statuses.edit");
+                Route::put("/", [StatusController::class, "update"])->name("admin.statuses.update");
+            });
+            
         });
     });
 });

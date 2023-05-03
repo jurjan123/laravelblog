@@ -8,6 +8,7 @@
     <li class="list-group-item"><a class="nav-link" href="{{route("admin.projects.index")}}">Projecten</a></li>
     <li class="list-group-item"><a class="nav-link" aria-current="page" href="{{route("admin.roles.index")}}">Rollen</a></li>
     <li class="list-group-item"><a class="nav-link" aria-current="page" href="{{route("admin.tasks.index")}}">Taken</a></li>
+    <li class="list-group-item"><a class="nav-link" aria-current="page" href="{{route("admin.statuses.index")}}">Status</a></li>
   </ul>
 </div>
 

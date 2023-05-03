@@ -117,9 +117,10 @@ class ProjectController extends Controller
 
     public function membersIndex(Request $request, Project $project)
     {
-    
+        $project = Project::with("users")->find($project->id);
+        //dd($project);
         $roles = Role::all();
-        
+       
         return view("admin.projects.members.index", [
             "project" => $project,
             "projectUsers" => $project->users,
@@ -165,8 +166,16 @@ class ProjectController extends Controller
 
     public function ProjectMemberSearch(Request $request, Project $project)
     {
+        $project = Project::with("users")->find($project->id);
+        
+        $searchData = $request->search_data;
        
-        $projectUsers = User::where('name', 'like', '%' . $request->search_data.'%')->whereRelation('projects', 'project_id', $project->id)->get();        
+        $projectUsers = User::with('projects')
+        ->where('name', 'LIKE', '%' . $searchData . '%')->get("*");
+        //dd($projectUsers);
+        $relation = ProjectUser::whereRelation("project", "project_id", $project->id)->get();
+
+        
         $roles = Role::all();
         $users = User::all();
         return view("admin.projects.members.index", compact("project", "roles", "projectUsers", "users"));

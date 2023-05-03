@@ -67,6 +67,13 @@
                             @endguest
                             
                             @auth
+
+                            <x-dropdown-link :href="route('users.projects.page')">
+                                        
+                                {{ __('Mijn profiel') }}
+                            </x-dropdown-link>
+                           
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 
@@ -76,6 +83,8 @@
                                     {{ __('Uitloggen') }}
                                 </x-dropdown-link>
                             </form>
+
+                            
                             @endauth
                             
                 </x-slot>

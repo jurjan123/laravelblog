@@ -34,17 +34,33 @@
                     @enderror
 
                     <div class="mb-3 mt-3 d-column">
-                    <label for="formFile"  class="form-label">Kies status </label>
-                    <select class="form-select  @error("is_open") is-invalid @enderror"   aria-label="Default select example" name="is_open">
-                        <option selected>kies status</option>
-                        <option value="1" > Open  </option>
-                        <option value="0" > Gesloten </option>
-                    </select>
-                    @error("is_open")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
+                            <label for="formFile"  class="form-label">Actief </label>
+                            <select class="form-select  @error("is_open") is-invalid @enderror"   aria-label="Default select example" name="is_open">
+                               
+                                <option value="" selected>Kies Optie</option>
+                                <option value="0" >Nee  </option>
+                                <option value="1" >  Ja  </option>
+                            </select>
+                            @error("is_open")
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                    </div>
+
+                    <div class="mb-3 mt-3 d-column">
+                        <label for="formFile"  class="form-label">Kies status </label>
+                        <select class="form-select  @error("status_id") is-invalid @enderror"   aria-label="Default select example" name="status_id">
+                           
+                            <option value="" selected>Kies Status</option>
+                            @foreach($statuses as $status)
+                            <option value="{{$status->id}}" >{{$status->name}}  </option>
+                            @endforeach
+                        </select>
+                        @error("status_id")
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
                 </div>
                     
+
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                     <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{old("description")}}</textarea>
                     @error("description")

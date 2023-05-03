@@ -35,17 +35,30 @@
                     @enderror
 
                     <div class="mb-3 mt-3 d-column">
-                        <label for="formFile"  class="form-label">Kies status </label>
+                        <label for="formFile"  class="form-label">Actief </label>
                         <select class="form-select  @error("is_open") is-invalid @enderror"   aria-label="Default select example" name="is_open">
                            
-                            <option selected>{{$active}}</option>
-                            @if($active != "Open")
-                            <option value="1" >  Open  </option>
-                            @elseif($active != "Gesloten")
-                            <option value="0" >Gesloten  </option>
+                            <option value="{{$active}}" selected>{{$activeName}}</option>
+                            @if($activeName != "Ja")
+                            <option value="1" >  Ja  </option>
+                            @elseif($activeName != "Nee")
+                            <option value="0" >Nee  </option>
                             @endif
                         </select>
                         @error("is_open")
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3 mt-3 d-column">
+                        <label for="formFile"  class="form-label">Kies status </label>
+                        <select class="form-select  @error("status_id") is-invalid @enderror"   aria-label="Default select example" name="status_id">
+                            <option value="{{$task_status->id}}" selected>{{$task_status->name}}</option>
+                            @foreach($statuses as $status)
+                            <option value="{{$status->id}}">{{$status->name}}</option>
+                            @endforeach
+                        </select>
+                        @error("status_id")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                     </div>

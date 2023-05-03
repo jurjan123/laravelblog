@@ -41,11 +41,13 @@
                         <th class="py-2 px-3 border-b">Naam</th>
                         <th class="py-2 px-3 border-b">Beschrijving</th>
                         <th class="py-2 px-3 border-b">Datum</th>
+                        <th class="py-2 px-3 border-b">Actief</th>
                         <th class="py-2 px-3 border-b">Status</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
                     </thead>
                     <tbody>
+                        
                         @foreach($tasks as $task)
                         <tr class="mx-auto " >
                            
@@ -53,6 +55,7 @@
                             <td class="py-2 px-3 border-b">{{$task->description}}</th>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($task->created_at))}}</td>
                             <td class="py-2 px-3 border-b">{{$task->active}}</td>
+                            <td class="py-2 px-3 border-b">{{$task->statuses->name}}</td>
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                    
                                       <div class="col-6 d-flex">

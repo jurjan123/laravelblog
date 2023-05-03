@@ -88,50 +88,45 @@
             <table class="table  ">
                 <thead>
                 <tr>
-                        
                     <th class="py-2 px-3 border-b">Gebruikersnaam</th>
                     <th class="py-2 px-3 border-b">Rol</th>
                     <th class="py-2 px-3 border-b">opties</th>
                 </tr>
                 </thead>
                 <tbody>
-                    
+                    @if(url()->current() == route("admin.projects.members.index", $project))
                     @foreach($projectUsers as $user)
-                   
                     <tr>
                         <td class="py-2 px-3 border-b">{{$user->name}} </td>
-                        
-                        @foreach($user->projects as $projectUser)
-                        <td class="py-2 px-3 border-b">{{$projectUser->pivot->role->name}}</td>
-                        @endforeach
-                       
-                       
-
-                        <td class=" d-flex px-3 border-b py-3 gy-5 ">
+                        <td class="py-2 px-3 border-b">{{$user->pivot->role->name}}</td>
+                       <td class=" d-flex px-3 border-b py-3 gy-5 ">
                     
-                                    <div class="col-6 d-flex">
-                                    <form action="{{route("admin.projects.members.delete", [$project, $user])}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
-    
-                                        
-                                        
-                                       
-                                    <a class="nav-link offset-1" href="{{route("admin.projects.members.edit", [$project, $user])}}" method="get">@csrf<button type="submit" role="button"><i class="fa fa-pencil"></i></button></a>
-                    
-                                    </div>
-                                  
-    
-                        
-                        
-                                  
+                        <div class="col-6 d-flex">
+                            <form action="{{route("admin.projects.members.delete", [$project, $user])}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
+                            <a class="nav-link offset-1" href="{{route("admin.projects.members.edit", [$project, $user])}}" method="get">@csrf<button type="submit" role="button"><i class="fa fa-pencil"></i></button></a>
+                        </div>
                 
-                                  </div>
-                                  
-                            </td>
-                            @endforeach
-                           
+                        </td>
+                       
+                    </tr>
+                    @endforeach 
+                    @else
+                    @foreach($projectUsers as $user)
+                    @foreach($user->projects as $projectUser)
+                        <td class="py-2 px-3 border-b">{{$user->name}}</td>
+                        <td class="py-2 px-3 border-b">{{$projectUser->pivot->role->name}}</td>
+                        <td class=" d-flex px-3 border-b py-3 gy-5 ">
+                            <div class="col-6 d-flex">
+                                <form action="{{route("admin.projects.members.delete", [$project, $user])}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
+                                <a class="nav-link offset-1" href="{{route("admin.projects.members.edit", [$project, $user])}}" method="get">@csrf<button type="submit" role="button"><i class="fa fa-pencil"></i></button></a>
+                            </div>
+                        </td>
                         
-                            
-                    </tbody>
+                    </tr>
+                    @endforeach  
+                    @endforeach
+                    @endif
+                </tbody>
                    
                 </table>
                 
