@@ -26,11 +26,12 @@ class ProjectController extends Controller
     {
         
         $projects = Project::with("users")->latest()->paginate(15);
-       
+        
         //$projects = Project::latest()->paginate(15);
        
         return view("admin.projects.index", [
-            "projects" => $projects
+            "projects" => $projects,
+            "users" => User::all()
         ]);
     }
 
@@ -111,14 +112,14 @@ class ProjectController extends Controller
     {
         
         $projects = Project::where("title", "LIKE", "%".$request->search_data."%")->paginate(5);
-       
-        return view("admin.projects.index", compact("projects"));
+        $users = User::all();
+        return view("admin.projects.index", compact("projects", "users"));
     }
 
     public function membersIndex(Request $request, Project $project)
     {
         $project = Project::with("users")->find($project->id);
-        //dd($project);
+        
         $roles = Role::all();
        
         return view("admin.projects.members.index", [
@@ -183,7 +184,13 @@ class ProjectController extends Controller
 
     public function memberProjectSearch(Request $request)
     {
-        return view('admin.projects.index', compact('projects', "users" ));
+        
+        $projects = Project::with("users")->latest()->paginate(15);
+        $projectUsers = User::with('projects')
+        ->where('id', 'LIKE', '%' . $request->id . '%')->get("*");
+        $users = User::all();
+        //dd($projectUsers);
+        return view('admin.projects.index', compact('projects', "projectUsers", "users" ));
     }
    
 }

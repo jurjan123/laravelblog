@@ -30,7 +30,7 @@
                         
             
                 
-                        <div class="row vertical-align-bottom">
+                        <div class="row vertical-align-bottom ">
                             <div class="col-2 mt-5 vertical-align-bottom">@include('includes.sidebar')</div>
                             <div class="col-10">{{ $slot }}</div>
                         </div>

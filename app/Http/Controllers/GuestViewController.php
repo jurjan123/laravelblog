@@ -49,10 +49,17 @@ public function post_search(Request $request){
     }
 
     public function UserProjectPage(){
-        $user = User::with("projects")->find(Auth::user()->id);
-        return view("users.project",[
-            "user" => $user
+        $userProjects = User::with("projects")->find(Auth::user()->id)->get();
+        return view("users.project", [
+            "userProjects" => $userProjects
         ]);
+    }
+
+    public function UserProjectDelete(User $user, Project $project)
+    {
+        $user->projects()->detach($project->id);
+        
+        return redirect()->route("users.projects.page")->with("message", "project is verwijderd");
     }
     
 }

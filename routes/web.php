@@ -32,7 +32,10 @@ Route::get('/', function () {
 Route::get("/posts", [GuestViewController::class, "PostIndex"])->name("posts.index");
 Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("projects.index");
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
+
 Route::get("/users/projects", [GuestViewController::class, "UserProjectPage"])->name("users.projects.page");
+Route::delete("/users/{user}/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
+
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
 Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
 Route::get("/categories/show/{id}", [CategoryController::class, "show"])->name("categories.show");

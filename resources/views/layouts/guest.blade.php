@@ -25,13 +25,21 @@
             <!-- Page Content -->
             <main>
                
-                <div class="container mt-4  ">
-                    <div class="row">
-                        
+                <div class="container">
+                    <div class="row mt-5">
+                        @if(Route::is("users.projects.page"))
+                        <div class="row vertical-align-bottom ">
+                            <div class="col-2 mt-5 vertical-align-bottom">@include('includes.sidebar')</div>
+                            <div class="col-10">{{ $slot }}</div>
+                        </div>
+
+                        @else
                 
                         <div class="col-md-12 sm-3">
                             {{ $slot }}
                         </div>
+
+                        @endif
 
                     </div>
             </main>
