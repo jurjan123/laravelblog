@@ -1,15 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Role;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Catch_;
-use App\Http\Requests\RoleRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
@@ -21,7 +16,6 @@ class CategoryController extends Controller
         
         return view("admin.categories.index", [
             "categories" => $categories,
-            
         ]);
     }
 
@@ -30,7 +24,6 @@ class CategoryController extends Controller
         return view("admin.categories.create");
     }
 
-  
     public function store(CategoryRequest $request)
     {
         $category = new Category;
@@ -60,30 +53,18 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function showPost(string $id):View
-    {
-       
-        $posts = Category::findOrFail($id)->posts;
-        return view("categories.showPost", [
-            "post" => Post::findOrFail($id),
-            "posts" => $posts
-        ]);
-    
-    }
-
     public function edit(Category $value)
     {
         return view("admin.categories.edit", [
             "id" => $value->id,
             "name" => $value->name,
-           
         ]);
     }
 
     public function update(CategoryRequest $request, Category $value)
     {
         $value->name = $request->name;
-        
+        $value->tag = $request->tag;
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path("images/"), $image_name);
@@ -110,7 +91,4 @@ class CategoryController extends Controller
         $categories = Category::where("name", "Like", "%".$request->search_data."%")->paginate(7);
         return view("admin.categories.index", compact("categories"));
     }
-
-    
-    
 }

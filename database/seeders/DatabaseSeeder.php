@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             Roleseeder::class,
             UserSeeder::class,
             PostSeeder::class,
-            PivotTableSeeder::class,
-            
+            StatusSeeder::class,
+            TaskSeeder::class
         ]);
     }
 }

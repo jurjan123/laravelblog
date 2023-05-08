@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class GuestViewController extends Controller
@@ -36,7 +36,6 @@ public function post_search(Request $request){
         return view("projects.index", [
         "projects" => $projects,
         "message" => $message
-       
     ]);
     }
 
@@ -49,17 +48,51 @@ public function post_search(Request $request){
     }
 
     public function UserProjectPage(){
-        $userProjects = User::with("projects")->find(Auth::user()->id)->get();
+        $user = Auth::user()->id;
+        $userProjects = User::with("projects")->where("id", $user)
+        ->latest()->paginate(15);
+
+        $projects = Project::all();
         return view("users.project", [
-            "userProjects" => $userProjects
+            "userProjects" => $userProjects,
+            "projects" => $projects
         ]);
+    }
+
+    public function projectsView()
+    {
+        $user = Auth::user()->id;
+        $userProjects = User::with("projects")->where("id", $user)
+        ->latest()->paginate(15);
+
+    
+        return view("users.projectview", [
+            "userProjects" => $userProjects,
+        ]);
+    }
+
+    public function AddUserProject(Request $request){
+        $user = Auth::user();
+        $userProject = User::with("projects")->where("id", $user->id)->get();
+
+        foreach($userProject as $project){
+            $user->is_admin ? $project->projects()->attach($request->project_id, ["role_id" => 1]) : $project->projects()->attach($request->project_id, ["role_id" => 2]);
+        }
+        $message = "Succes! project ".$project->title." toegevoegd";
+        return redirect()->route("users.projects.page")->with("message", $message);
+    }
+
+    public function updateUserProject(Request $request, Project $project, User $user )
+    {
+        
+        return redirect()->route("users.projects.page")->with("message", "project is bewerkt");
     }
 
     public function UserProjectDelete(User $user, Project $project)
     {
         $user->projects()->detach($project->id);
-        
-        return redirect()->route("users.projects.page")->with("message", "project is verwijderd");
+        $message = "Succes! project: ". $project->title ." is verwijderd";
+        return redirect()->route("users.projects.page")->with("message", $message);
     }
     
 }

@@ -17,17 +17,17 @@
     
     <body class="font-sans antialiased min-screen bg-gray-100">
         <div class="">
-                
+           
                     @include('layouts.guestNavigation')
                 
                 
 
             <!-- Page Content -->
             <main>
-               
+                @include("includes.messages")
                 <div class="container">
                     <div class="row mt-5">
-                        @if(Route::is("users.projects.page"))
+                        @if(Route::is("users.projects.page") || Route::is("users.projects.view"))
                         <div class="row vertical-align-bottom ">
                             <div class="col-2 mt-5 vertical-align-bottom">@include('includes.sidebar')</div>
                             <div class="col-10">{{ $slot }}</div>

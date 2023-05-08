@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Database\Factories\CategoryFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CategorySeeder extends Seeder
+class TaskSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,41 +16,46 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $ldate = date('Y-m-d H:i:s');
-        DB::table("categories")->insert([
+        DB::table("tasks")->insert([
             [
-                "name" => "wintersport",
-                "tag" => "gaat over wintersport",
-                "image" =>  "Monkey-Puppet.png",
+                "name" => "Open",
+                "description" => "hij is Open",
+                "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
+                "status_id" => 1
             ],
             [
-                "name" => "herfst",
-                "tag" => "gaat over herfst",
-                "image" =>  "Monkey-Puppet.png",
+                "name" => "Gesloten",
+                "description" => "hij is gesloten",
+                "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
+                "status_id" => 1
             ],
             [
-                "name" => "winter",
-                "tag" => "gaat over winter",
-                "image" =>  "Monkey-Puppet.png",
+                "name" => "Afgerond",
+                "description" => "hij is afgerond",
+                "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
+                "status_id" => 1
             ],
             [
-                "name" => "zomer",
-                "tag" => "gaat over zomer",
-                "image" =>  "Monkey-Puppet.png",
+                "name" => "Weinig gedaan",
+                "description" => "er is weinig gedaan",
+                "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
+                "status_id" => 1
             ],
             [
-                "name" => "groningen",
-                "tag" => "gaat over groningen",
-                "image" =>  "Monkey-Puppet.png",
+                "name" => "Bijna klaar",
+                "description" => "hij is bijna klaar",
+                "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
+                "status_id" => 1
             ],
             ]);
     }

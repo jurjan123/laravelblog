@@ -34,6 +34,9 @@ Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("pro
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
 
 Route::get("/users/projects", [GuestViewController::class, "UserProjectPage"])->name("users.projects.page");
+Route::get("/users/projects/view", [GuestViewController::class, "projectsView"])->name("users.projects.view");
+Route::post("/users/store", [GuestViewController::class, "AddUserProject"])->name("users.projects.store");
+Route::post("/users/{project}/{user}", [GuestViewController::class, "updateUserProject"])->name("users.projects.update");
 Route::delete("/users/{user}/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
 
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");

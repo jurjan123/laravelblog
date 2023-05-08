@@ -39,7 +39,7 @@
                     <thead>
                     <tr>
                         <th class="py-2 px-3 border-b">Naam</th>
-                        <th class="py-2 px-3 border-b">Label</th>
+                        <th class="py-2 px-3 border-b">Korte beschrijving</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
                     </thead>

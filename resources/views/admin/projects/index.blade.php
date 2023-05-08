@@ -86,7 +86,7 @@
                     <thead>
                        <tr>
                         <th class="py-2 px-3 border-b">Titel</th>
-                        <th class="py-2 px-3 border-b">Auteur</th>
+                        <th class="py-2 px-3 border-b">Lid</th>
                         <th class="py-2 px-3 border-b">Rol</th>
                         <th class="py-2 px-3 border-b">Datum</th>
                         <th class="py-2 px-3 border-b">Opties</th>
