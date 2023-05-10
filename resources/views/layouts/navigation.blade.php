@@ -68,9 +68,14 @@
                             
                             @auth
 
-                            <x-dropdown-link :href="route('users.projects.page')">
-                                        
+                            <x-dropdown-link :href="route('users.profile.index')">
                                 {{ __('Mijn profiel') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.projects.index')">
+                                {{ __('Mijn projecten') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.posts.index')">
+                                {{ __('Mijn posts') }}
                             </x-dropdown-link>
                            
 

@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->unsignedBigInteger("category_id")->nullable();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->foreign("category_id")->after("id")->references("id")->on("categories")->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign("user_id")->after("id")->references("id")->on("users")->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

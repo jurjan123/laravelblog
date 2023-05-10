@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('post-navbar', PostNavbar::class);
         PaginationPaginator::useBootstrap();
-    }
+
+          }
 }

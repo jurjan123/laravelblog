@@ -29,7 +29,7 @@
                         
                      
                             <div class="col-5 text-right">
-                            <h3 class="cursor-pointer  "><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
+                           
                             </div>
                             <div class="col-1">
 
@@ -68,10 +68,16 @@
                             
                             @auth
 
-                            
-                                <x-dropdown-link :href="route('users.projects.page')">
-                                    {{ __('Mijn profiel') }}
-                                </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.profile.index')">
+                                {{ __('Mijn profiel') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.projects.index')">
+                                {{ __('Mijn projecten') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.posts.index')">
+                                {{ __('Mijn posts') }}
+                            </x-dropdown-link>
+                           
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

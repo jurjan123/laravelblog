@@ -20,9 +20,6 @@ class UserController extends Controller
     public function users(){
        $users = User::with("role")->latest()->paginate(15);
         
-       
-       //$roles = User::with("projects")->latest();
-      // $roleName = Role::find($userRoles->roles_id);
        foreach($users as $user){
         if($user->is_admin == 0){
             $user->is_admin = "nee";
@@ -53,7 +50,6 @@ class UserController extends Controller
             $image_name = time() . '.' . $request->user_image->extension();
             $request->user_image->move(public_path("images/"), $image_name);
             $user->user_image = $image_name;
-            //dd($user->user_image);
         }
         
         $message = "Succes! De gebruiker: ". $user->name. " is verwijderd";
@@ -63,7 +59,7 @@ class UserController extends Controller
 
     }
     
-    public function edit(Request $request, User $user){
+    public function edit(User $user){
 
         $roles = Role::all();
         if($user->role_id != null){

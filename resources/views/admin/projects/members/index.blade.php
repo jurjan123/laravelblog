@@ -89,6 +89,7 @@
                 <thead>
                 <tr>
                     <th class="py-2 px-3 border-b">Gebruikersnaam</th>
+                    
                     <th class="py-2 px-3 border-b">Rol</th>
                     <th class="py-2 px-3 border-b">Opties</th>
                 </tr>
@@ -98,6 +99,7 @@
                     @foreach($projectUsers as $user)
                     <tr>
                         <td class="py-2 px-3 border-b">{{$user->name}} </td>
+
                         <td class="py-2 px-3 border-b">{{$user->pivot->role->name}}</td>
                        <td class=" d-flex px-3 border-b py-3 gy-5 ">
                     
@@ -114,6 +116,7 @@
                     @else
                     @foreach($projectUsers as $user)
                     @foreach($user->projects as $projectUser)
+                        <td class="py-2 px-3 border-b">{{$user->name}}</td>
                         <td class="py-2 px-3 border-b">{{$projectUser->title}}</td>
                         <td class="py-2 px-3 border-b">{{$projectUser->pivot->role->name}}</td>
                         <td class=" d-flex px-3 border-b py-3 gy-5 ">

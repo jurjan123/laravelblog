@@ -26,12 +26,18 @@ class Post extends Model
         "intro",
         "created_at",
         "image",
-        "category_id"
+        "category_id",
+        "user_id"
     ];
 
     public function categories(): Belongsto
     {
         return $this->belongsTo(Category::class, "category_id");
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
    

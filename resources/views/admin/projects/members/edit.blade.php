@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                 </div>
         <div class="card">
-            <form action="{{route("admin.projects.members.update", [$project, $user])}}" method="post" >
+            <form action="{{route("admin.projects.members.update", [$user, $project])}}" method="post" >
               
                 @csrf
 

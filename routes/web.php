@@ -33,23 +33,32 @@ Route::get("/posts", [GuestViewController::class, "PostIndex"])->name("posts.ind
 Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("projects.index");
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
 
-Route::get("/users/projects", [GuestViewController::class, "UserProjectPage"])->name("users.projects.page");
-Route::get("/users/projects/view", [GuestViewController::class, "projectsView"])->name("users.projects.view");
-Route::post("/users/store", [GuestViewController::class, "AddUserProject"])->name("users.projects.store");
-Route::post("/users/{project}/{user}", [GuestViewController::class, "updateUserProject"])->name("users.projects.update");
-Route::delete("/users/{user}/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
-
+    Route::group(["prefix" => "user", "middleware" => "auth"], function(){
+        Route::get("/profile", [GuestViewController::class, "UserIndex"])->name("users.profile.index");
+        Route::put("/{user}", [GuestViewController::class, "updateUser"])->name("users.update");
+    
+        Route::get("/projects", [GuestViewController::class, "UserProjectIndex"])->name("users.projects.index");
+        Route::get("/projects/search", [GuestViewController::class, "ProjectSearch"])->name("users.projects.search");
+        Route::post("/projects/{project}/edit", [GuestViewController::class, "ProjectEditIndex"])->name("users.projects.edit");
+        Route::post("/projects/{project}", [GuestViewController::class, "updateUserProject"])->name("users.projects.update");
+        Route::delete("/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
+        
+        Route::get("/posts", [GuestViewController::class, "UserPostIndex"])->name("users.posts.index");
+        Route::get("/posts/create", [GuestViewController::class, "PostStoreIndex"])->name("users.posts.create");
+        Route::post("/posts/store", [GuestViewController::class, "PostStore"])->name("users.posts.store");
+        Route::post("/posts/{edit}/edit", [GuestViewController::class, "PostEditIndex"])->name("users.posts.edit");
+        Route::delete("/{post}/delete", [GuestViewController::class, "UserPostDelete"])->name("users.posts.delete");
+});
+   
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
 Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
 Route::get("/categories/show/{id}", [CategoryController::class, "show"])->name("categories.show");
 
 
-Route::middleware("auth")->group(function(){
+Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
     
-    Route::group(["prefix" => "admin"], function(){
-    
-        Route::get("/", [PostController::class, "adminIndex"])->name("admin.index");
-    
+    Route::get("/", [PostController::class, "adminIndex"])->name("admin.index");
+
         Route::group(["prefix" => "categories"], function(){
             Route::get("/", [CategoryController::class, "index"])->name("admin.categories.index");
             Route::get("/search", [CategoryController::class, "search"])->name("admin.categories.search");
@@ -156,7 +165,7 @@ Route::middleware("auth")->group(function(){
             
         });
     });
-});
+
 
     
 Route::get("/practice", function(){

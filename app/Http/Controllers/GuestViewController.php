@@ -1,14 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Requests\PostRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreProfileRequest;
+use App\Http\Requests\UpdateProjectRequest;
 
 class GuestViewController extends Controller
 {
@@ -21,14 +26,6 @@ class GuestViewController extends Controller
     ]);
 }
 
-public function post_search(Request $request){
-    $categoryName = Category::find($request->id)->first()->value("name");
-
-    session()->regenerate(); 
-    
-    $categories = Category::all();
-    return view('admin.posts.index', compact('posts', 'categories', "categoryName"));
-}
 
     public function ProjectIndex(){
         $projects = Project::with("users")->latest()->paginate(15);
@@ -47,52 +44,142 @@ public function post_search(Request $request){
     ]);
     }
 
-    public function UserProjectPage(){
+    public function UserIndex()
+    {
+        $user = User::find(Auth::user()->id);
+        
+        return view("users.profiles.index",[
+        "id" => $user->id,
+        "email" => $user->email,
+        "name" => $user->name,
+    ]);
+    }
+
+    public function updateUser(StoreProfileRequest $request, User $user){
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        
+        if($request->hasFile("user_image")){
+            $image_name = time().'.'.$request->user_image->extension();  
+            $request->user_image->move(public_path('images/'), $image_name);
+            $image_name = time().'.'.$request->user_image->getClientOriginalExtension(); #Pakt de naam van de image
+            $user->user_image= $image_name;
+            
+        }
+        
+        if(password_verify($user->password, Auth::user()->password) && $request->new_password != $request->password){
+           $user->password = Hash::make($request->new_password);
+           $message = "Succes! De gebruiker: ". $user->name. " is bewerkt";
+           $user->update();
+           return redirect()->route("users.profile.index")->with("message", $message);
+        } 
+    }
+    
+
+    public function UserProjectIndex(){
         $user = Auth::user()->id;
         $userProjects = User::with("projects")->where("id", $user)
         ->latest()->paginate(15);
 
         $projects = Project::all();
-        return view("users.project", [
+        return view("users.projects.index", [
             "userProjects" => $userProjects,
             "projects" => $projects
         ]);
     }
 
-    public function projectsView()
+    public function ProjectSearch(Request $request)
     {
         $user = Auth::user()->id;
-        $userProjects = User::with("projects")->where("id", $user)
+        $userProjects = User::with("projects")
         ->latest()->paginate(15);
+        
+        foreach($userProjects->pivot->id as $id){
+            echo $id;
+        }
 
-    
-        return view("users.projectview", [
-            "userProjects" => $userProjects,
+        return view("users.projects.index", compact("projects", "userProjects"));
+    }
+
+    public function ProjectEditIndex(Project $project,)
+    {
+        $this->authorize('update', $project);
+        return view("users.projects.edit",[
+           "projects" => Project::all(),
+           "project" => $project
+            
         ]);
     }
 
-    public function AddUserProject(Request $request){
-        $user = Auth::user();
-        $userProject = User::with("projects")->where("id", $user->id)->get();
-
-        foreach($userProject as $project){
-            $user->is_admin ? $project->projects()->attach($request->project_id, ["role_id" => 1]) : $project->projects()->attach($request->project_id, ["role_id" => 2]);
-        }
-        $message = "Succes! project ".$project->title." toegevoegd";
-        return redirect()->route("users.projects.page")->with("message", $message);
-    }
-
-    public function updateUserProject(Request $request, Project $project, User $user )
+    public function updateUserProject(UpdateProjectRequest $request, Project $project, )
     {
-        
-        return redirect()->route("users.projects.page")->with("message", "project is bewerkt");
+        $project->title = $request->title;
+        $project->update();
+    
+        return redirect()->route("users.projects.index")->with("message", "project is bewerkt");
     }
 
     public function UserProjectDelete(User $user, Project $project)
     {
         $user->projects()->detach($project->id);
         $message = "Succes! project: ". $project->title ." is verwijderd";
-        return redirect()->route("users.projects.page")->with("message", $message);
+        return redirect()->route("users.projects.index")->with("message", $message);
     }
+
+    public function UserPostIndex(){
+       $posts = User::find(Auth::user()->id)->posts;
+        return view("users.posts.index", [
+            "posts" => $posts
+        ]);
+    }
+
+    public function PostStoreIndex()
+    {
+        return view("users.posts.create", [
+            "categories" => Category::all()
+        ]);
+    }
+
+    public function PostStore(PostRequest $request)
+    {
+        $post = new Post;
+        $post->title = $request->title;
+        $post->description = strip_tags($request->description);
+        $post->intro = $request->intro;
+        $post->created_at = $request->created_at;
+        $post->category_id = $request->category_id;
+        $post->user_id = Auth::user()->id;
+        
+        if($request->hasFile("image")){
+            $image_name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path("images/"), $image_name);
+            $post->image = $image_name;
+        }
+        $succesmessage = "Succes! Post: ". $request->title. " is gemaakt";
+         
+        $post->save();
+        
+        return redirect()->route("users.posts.index")->with("message", $succesmessage);
+    }
+
+    public function PostEditIndex(Request $request, Post $value)
+    {
+        $categories = Category::latest()->get();
+        $value->category_id != null ? $categoryname = $value->categories->name : $categoryname = "";  
+        return view("admin.posts.edit", [
+            "post" => $value,
+            "categories" => $categories,
+            "categoriename" => $categoryname
+        ]);
+    }
+
+    public function UserPostDelete(Post $post)
+    {
+        $message = "Succes! Post: ".$post->title."is verwijderd!";
+        $post->delete();
+        return redirect()->route("users.posts.index")->with("message", $message);
+    }
+
     
 }

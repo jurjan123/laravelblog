@@ -20,7 +20,7 @@ class PostController extends Controller
       
         $category = Category::all();
 
-        $posts = Post::with("categories")->latest()->paginate(15);
+        $posts = Post::with(["categories", "users"])->latest()->paginate(15);
     
         return view("admin.posts.index", [
             "posts" => $posts,
@@ -65,7 +65,7 @@ class PostController extends Controller
         $post->intro = $request->intro;
         $post->created_at = $request->created_at;
         $post->category_id = $request->category_id;
-        
+        $post->user_id = Auth::user()->id;
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
@@ -103,7 +103,6 @@ class PostController extends Controller
         $value->created_at = $request->created_at;
         
         $value->category_id = (int)$request->category_id;
-        
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/'.Auth::user()->id), $image_name);

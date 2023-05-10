@@ -101,8 +101,8 @@
                         <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($projectUser->created_at))}}</td>
                         <td class=" d-flex px-3 border-b py-3 gy-5 ">
                             <div class="col-6 d-flex">
-                                <form action="" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $user->name }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
-                                <a class="nav-link offset-1" href="" method="get">@csrf<button type="submit" role="button"><i class="fa fa-pencil"></i></button></a>
+                                <form action="{{route("admin.projects.delete", $projectUser)}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $projectUser->title }} wilt verwijderen?')" ><i class="fa fa-trash"></i></button></form>
+                                <a class="nav-link offset-1" href="{{route("admin.projects.edit", $projectUser)}}" method="get">@csrf<button type="submit" role="button"><i class="fa fa-pencil"></i></button></a>
                             </div>
                         </td>
                         

@@ -48,9 +48,6 @@ class ProjectRequest extends FormRequest
             "intro.required" => "Intro is verplicht",
             "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
             "image.max" => "De afbeelding mag niet groter zijn dan 3mb",
-            'size' => 'The :attribute must be exactly :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in' => 'The :attribute must be one of the following types: :values',
         ];
     }
 }

@@ -26,9 +26,7 @@ class ProjectController extends Controller
     {
         
         $projects = Project::with("users")->latest()->paginate(15);
-        
-        //$projects = Project::latest()->paginate(15);
-       
+    
         return view("admin.projects.index", [
             "projects" => $projects,
             "users" => User::all()
@@ -103,8 +101,11 @@ class ProjectController extends Controller
 
     public function show(string $id):View
     {
+        $project = Project::findOrFail($id);
+        
+        $this->authorize("view", $project);
         return view("projects.show", [
-            "project" => Project::findOrFail($id)
+            "project" => $project
         ]);
     }
 

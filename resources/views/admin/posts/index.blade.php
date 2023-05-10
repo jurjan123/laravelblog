@@ -45,7 +45,7 @@
             <a href="{{route("admin.posts.create")}}" class="btn btn-primary text-light  text-center" role="button">Post toevoegen</a>
         </div>
     </div>
-    <div class="row" class="fetchval">
+    <div class="row">
         <div class="col-12">
            
             <div class="card ">
