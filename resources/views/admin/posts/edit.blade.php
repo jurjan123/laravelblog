@@ -18,7 +18,7 @@
 
                         <div class="input-group mb-3  py-2 ">
                             <label for="exampleFormControlTextarea1" name="title"  class="form-label">Titel</label><br><br>
-                            <input type="text" @if($errors->any())value="{{old("title")}}" @else value="{{$post->title}}" @endif name="title" class="form-control ml-5 mt-4 w-100 position-absolute @error('title') is-invalid  @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input type="text" value="{{old("title", $post->title)}}" name="title" class="form-control ml-5 mt-4 w-100 position-absolute @error('title') is-invalid  @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                           </div>
                           @error("title")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -51,20 +51,19 @@
                             <label for="formFile"  class="form-label">Kies categorie </label>
                             <div class="mt-1">
                                 <select class="js-example-basic-single mt-5 " name="category_id">
-                                    <option value="{{$post->category_id}}" selected>@if($post->category_id != null) {{$post->categories->name}}  @else @endif</option>
-                                    @if(empty($categoriename))
-                                    
-                                    <option selected></option>
+                                   
+                                    <option value="{{$post->category_id}}">{{$categoriename}}</option>
                                     @foreach($categories as $categorie)
-                                    <option value="{{$categorie->id}}">{{$categorie->name}}</option>
-                                    @endforeach
+                                    @if($categorie->name == $categoriename)
 
                                     @else
-                                    <option selected>{{$categoriename}}</option>
-                                    @foreach($categories as $categorie)
                                     <option value="{{$categorie->id}}">{{$categorie->name}}</option>
-                                    @endforeach
                                     @endif
+                                    @endforeach
+
+
+                                   
+                                
                                 </select>
                                
                                

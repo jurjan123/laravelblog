@@ -97,12 +97,14 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $value)
     {   
+        
         $value->title = $request->title;
         $value->description = strip_tags($request->description);
         $value->intro = $request->intro;
         $value->created_at = $request->created_at;
-        
-        $value->category_id = (int)$request->category_id;
+        $value->user_id = Auth::user()->id;
+        $value->category_id = $request->category_id;
+       
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
@@ -126,6 +128,7 @@ class PostController extends Controller
 
     public function show(string $id):View
     {
+        
         return view("posts.show", [
             "post" => Post::findOrFail($id)
         ]);

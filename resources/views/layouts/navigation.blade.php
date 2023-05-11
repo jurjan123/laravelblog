@@ -1,5 +1,5 @@
 <head><link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></head>
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 ">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 pt-3 pb-3 ">
     <!-- Primary Navigation Menu -->
                 <!-- Logo -->
                 
@@ -9,7 +9,7 @@
                 
 
                     
-            <div class="row vertical-align-middle items-center g-0  pt-2 ">
+            <div class="row vertical-align-middle items-center g-0  ">
                 
                         <div class="col-3 offset-1 d-flex justify-content-between px-3 ">
 
@@ -40,9 +40,10 @@
            
             <div class="col-2">
                 <x-dropdown align="right" width="48">
+                    <img src="{{url("images/".Auth::user()->user_image)}}" width="80"  height="80" alt="">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>@if(Auth::check()){{ Auth::user()->name }}</div><img src="{{url("images/".Auth::user()->user_image)}}" width="50" style="margin-left:5px; border-radius:50%" height="50" alt="">@else @endif
+                            <div>@if(Auth::check()){{ Auth::user()->name }}</div>@else @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

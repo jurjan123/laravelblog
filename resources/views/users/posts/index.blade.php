@@ -1,10 +1,10 @@
 <x-user-layout>
    
-    <div class="row  ">
     
-        <div class="col">
+    
+        
             <div class="row">
-                    <div class="col-md-6 d-flex justify-content-between">
+                    <div class="col-md-12 d-flex justify-content-between g-0">
                         <h1 >Je posts</h1>
                         <form action="{{ route('admin.projects.search') }}" method="GET" role="search">
             
@@ -23,17 +23,18 @@
                                 </span>
                             </div>
                         </form>
+
+                        <div class="g-0">
+                            <a href="{{route("users.posts.create")}}" class="btn btn-primary text-light  text-center" role="button">Post toevoegen</a>
+                        </div>
+                        
                        
-                    </div>
-                    <div class="col-4"></div>
-                    <div class="col-2">
-                        <a href="{{route("users.posts.create")}}" class="btn btn-primary text-light  text-center" role="button">Post toevoegen</a>
                     </div>
                     
                    
                        
                     
-            </div>
+            
             <div class=" card">
                 <table class="table ">
                     <thead>
@@ -74,5 +75,5 @@
                 
             </div>
         </div>
-    </div>   
+     
 </x-user-layout>

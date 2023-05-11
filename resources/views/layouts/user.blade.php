@@ -18,26 +18,24 @@
     </head>
     
     <body class=" font-sans antialiased min-screen bg-gray-100" >
-        <div class="">
-            @include('layouts.guestNavigation')
-
-            <!-- Page Content -->
-            <main>
-                @include("includes.messages")
-
-                <div class="container   ">
-                    <div class="row mt-5">
-                        
+        
             
+            @include('layouts.guestNavigation')
+            @include("includes.messages")
+            <!-- Page Content -->
+            <div class="container">
+                <div class="row mt-5 ">
+                    <div class="col-2 mt-5 ">@include('includes.guestSidebar')</div>
+                    <div class="col-10">{{ $slot }}</div>
+                </div>
+            </div>
                 
-                        <div class="row vertical-align-bottom ">
-                            <div class="col-2 mt-5 vertical-align-bottom">@include('includes.guestSidebar')</div>
-                            <div class="col-10">{{ $slot }}</div>
-                        </div>
 
-                    </div>
-            </main>
-        </div>
+                
+
+                
+            
+        
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     </body>

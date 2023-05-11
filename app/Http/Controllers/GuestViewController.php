@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
@@ -11,7 +10,6 @@ use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
@@ -163,15 +161,39 @@ class GuestViewController extends Controller
         return redirect()->route("users.posts.index")->with("message", $succesmessage);
     }
 
-    public function PostEditIndex(Request $request, Post $value)
+    public function PostEditIndex(Request $request, Post $post)
     {
+        $this->authorize("update", $post);
         $categories = Category::latest()->get();
-        $value->category_id != null ? $categoryname = $value->categories->name : $categoryname = "";  
-        return view("admin.posts.edit", [
-            "post" => $value,
+        $post->category_id != null ? $categoryname = $post->categories->name : $categoryname = "";  
+        return view("users.posts.edit", [
+            "post" => $post,
             "categories" => $categories,
             "categoriename" => $categoryname
         ]);
+    }
+
+    public function UpdateUserPost(PostRequest $request, Post $post)
+    {
+        
+        $post->title = $request->title;
+        $post->description = strip_tags($request->description);
+        $post->intro = $request->intro;
+        $post->created_at = $request->created_at;
+        $post->category_id = (int)$request->category_id;
+        
+        if($request->hasFile("image")){
+            $image_name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+            $post->image = $image_name;
+        }
+
+        $succesmessage = "Succes! Post: ". $post->title. " is bewerkt";
+            
+        $post->update();
+            
+        return redirect()->route("users.posts.index")->with("message", $succesmessage);
+        
     }
 
     public function UserPostDelete(Post $post)
