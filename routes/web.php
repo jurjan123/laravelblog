@@ -2,17 +2,19 @@
 
 use App\Models\Project;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\http\Controllers\GuestViewController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -32,29 +34,35 @@ Route::get('/', function () {
 Route::get("/posts", [GuestViewController::class, "PostIndex"])->name("posts.index");
 Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("projects.index");
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
+Route::get("/products", [GuestViewController::class, "ProductIndex"])->name("products.index");
 
-    Route::group(["prefix" => "user", "middleware" => "auth"], function(){
-        Route::get("/profile", [GuestViewController::class, "UserIndex"])->name("users.profile.index");
-        Route::put("/{user}", [GuestViewController::class, "updateUser"])->name("users.update");
+Route::match(["post", "get"], "/cart", [CartController::class, "index"])->name("cart");
+Route::match(["post", "get"], "/cart/add", [CartController::class, "addToCart"])->name("cart.add");
+
+Route::group(["prefix" => "user", "middleware" => "auth"], function(){
+    Route::get("/profile", [GuestViewController::class, "UserIndex"])->name("users.profile.index");
+    Route::put("/{user}", [GuestViewController::class, "updateUser"])->name("users.update");
     
-        Route::get("/projects", [GuestViewController::class, "UserProjectIndex"])->name("users.projects.index");
-        Route::get("/projects/search", [GuestViewController::class, "ProjectSearch"])->name("users.projects.search");
-        Route::post( "/projects/{project}/edit", [GuestViewController::class, "ProjectEditIndex"])->name("users.projects.edit");
-        Route::post("/projects/{project}", [GuestViewController::class, "updateUserProject"])->name("users.projects.update");
-        Route::delete("/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
+    Route::get("/projects", [GuestViewController::class, "UserProjectIndex"])->name("users.projects.index");
+    Route::get("/projects/search", [GuestViewController::class, "ProjectSearch"])->name("users.projects.search");
+    Route::match(["post", "get"], "/projects/{project}/edit", [GuestViewController::class, "ProjectEditIndex"])->name("users.projects.edit");
+    Route::post("/projects/{project}", [GuestViewController::class, "updateUserProject"])->name("users.projects.update");
+    Route::delete("/projects/{project}/delete", [GuestViewController::class, "UserProjectDelete"])->name("users.projects.delete");
         
-        Route::get("/posts", [GuestViewController::class, "UserPostIndex"])->name("users.posts.index");
-        Route::get("/posts/create", [GuestViewController::class, "PostStoreIndex"])->name("users.posts.create");
-        Route::post("/posts/store", [GuestViewController::class, "PostStore"])->name("users.posts.store");
-        Route::match(["post", "get"], "/posts/{post}/edit", [GuestViewController::class, "PostEditIndex"])->name("users.posts.edit");
-        Route::post("/posts/{post}", [GuestViewController::class, "UpdateUserPost"])->name("users.posts.update");
-        Route::delete("/{post}/delete", [GuestViewController::class, "UserPostDelete"])->name("users.posts.delete");
+    Route::get("/posts", [GuestViewController::class, "UserPostIndex"])->name("users.posts.index");
+    Route::get("/posts/create", [GuestViewController::class, "PostStoreIndex"])->name("users.posts.create");
+    Route::post("/posts/store", [GuestViewController::class, "PostStore"])->name("users.posts.store");
+    Route::match(["post", "get"], "/posts/{post}/edit", [GuestViewController::class, "PostEditIndex"])->name("users.posts.edit");
+    Route::post("/posts/{post}", [GuestViewController::class, "UpdateUserPost"])->name("users.posts.update");
+    Route::delete("/{post}/delete", [GuestViewController::class, "UserPostDelete"])->name("users.posts.delete");
+
+    Route::get("tasks", [GuestViewController::class, "TaskIndex"])->name("users.tasks.index");
 });
    
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");
 Route::get("/projects/show/{id}", [ProjectController::class, "show"])->name("projects.show");
 Route::get("/categories/show/{id}", [CategoryController::class, "show"])->name("categories.show");
-
+Route::get("/products/show/{id}", [ProductController::class, "show"])->name("products.show");
 
 Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
     
@@ -155,7 +163,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
             Route::get("/", [StatusController::class, "index"])->name("admin.statuses.index");
             Route::get("/create", [StatusController::class, "create"])->name("admin.statuses.create");
             Route::post("/store", [StatusController::class, "store"])->name("admin.statuses.store");
-            
+    
             Route::group(["prefix" => "{status}"], function(){
                     Route::delete("/delete", [StatusController::class, "delete"])->name("admin.statuses.delete");
                     Route::match(["post", "get"], "edit", [StatusController::class, "edit"])->name("admin.statuses.edit");
@@ -163,14 +171,29 @@ Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
                 });
                 
             });
+    
+        Route::group(["prefix" => "products"], function(){
+            Route::get("/", [ProductController::class, "index"])->name("admin.products.index");
+            Route::get("/create", [ProductController::class, "create"])->name("admin.products.create");
+            Route::post("/store", [ProductController::class, "store"])->name("admin.products.store");
+            Route::get("/search", [ProductController::class, "search"])->name("admin.products.search");
+            Route::get('category/{id}', [ProductController::class, 'category_search'])->name('admin.products.category');
+            Route::group(["prefix" => "{product}"], function(){
+                Route::delete("/delete", [ProductController::class, "delete"])->name("admin.products.delete");
+                Route::match(["post", "get"], "/edit", [ProductController::class, "edit"])->name("admin.products.edit");
+                Route::put("/", [ProductController::class, "update"])->name("admin.products.update");
+            });
+            
         });
+    });
+
+    Route::get("practice", function(Request $request){
+        return $request->session()->get("cart");
+    });
      
 
 
 
-Route::get("/practice", function(){
-    return  Project::with("users")->get();
-    
-});
+
 
 require __DIR__.'/auth.php';

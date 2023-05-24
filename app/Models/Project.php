@@ -34,7 +34,7 @@ class Project extends Model
     public function roles()
     {
         return $this->belongsToMany(Role::class)
-        ->withTimestamps();
+        ->withTimestamps()->using(ProjectUser::class);
 
     }
 };

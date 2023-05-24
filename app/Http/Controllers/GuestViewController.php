@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Product;
 
 class GuestViewController extends Controller
 {
@@ -39,6 +41,14 @@ class GuestViewController extends Controller
     
         return view("categories.index", [
         "categories" => $categories
+    ]);
+    }
+
+    public function ProductIndex(){
+        $products = Product::latest()->paginate(15);
+    
+        return view("products.index", [
+        "products" => $products
     ]);
     }
 
@@ -113,6 +123,11 @@ class GuestViewController extends Controller
     public function updateUserProject(UpdateProjectRequest $request, Project $project, )
     {
         $project->title = $request->title;
+        if($request->hasFile("image")){
+            $image_name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/'), $image_name);
+            $project->image = $image_name;
+            }
         $project->update();
     
         return redirect()->route("users.projects.index")->with("message", "project is bewerkt");
@@ -184,7 +199,7 @@ class GuestViewController extends Controller
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+            $request->image->move(public_path('images/'), $image_name);
             $post->image = $image_name;
         }
 
@@ -201,6 +216,15 @@ class GuestViewController extends Controller
         $message = "Succes! Post: ".$post->title."is verwijderd!";
         $post->delete();
         return redirect()->route("users.posts.index")->with("message", $message);
+    }
+
+    public function TaskIndex()
+    {
+        $tasks = Task::where("user_id", Auth::user()->id)->get();
+        //dd($tasks);
+        return view("users.tasks.index", [
+            "tasks" => $tasks
+        ]);
     }
 
     

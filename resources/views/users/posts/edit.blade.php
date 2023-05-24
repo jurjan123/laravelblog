@@ -31,15 +31,18 @@
                           @error("intro")
                           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                           @enderror
-    
-                        <x-input-label for="image" :value="__('Foto veranderen')" />
-                        <x-text-input id="image"   name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
-                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                        @error("image")
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
-    
-                           
+                          
+                        <div class="mb-3">
+                            <x-input-label for="image" :value="__('Foto veranderen')" />
+                            <x-text-input id="image"   name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
+                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            @error("image")
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+        
+                               <img class="mt-1" src="{{url("images/".$post->image)}}" alt="" width="300" height="300">
+                        </div>
+                       
                     <div class="mt-3">
                         <x-input-label for="image" :value="__('Datum veranderen')" />
                     <input type="datetime-local" on class="form-control "

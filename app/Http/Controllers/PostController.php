@@ -17,6 +17,7 @@ class PostController extends Controller
     //show index with posts
     public function index()
     {
+        
       
         $category = Category::all();
 
@@ -107,7 +108,7 @@ class PostController extends Controller
        
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/'.Auth::user()->id), $image_name);
+            $request->image->move(public_path('images/'), $image_name);
             $value->image = $image_name;
         }
 
@@ -136,6 +137,7 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
+        
         $posts = Post::where("title", "Like", "%".$request->search_data."%")->paginate(7);
         $categories = Category::all();
         return view("admin.posts.index", compact("posts", "categories"));

@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
+            StatusSeeder::class,
             ProjectSeeder::class,
             Roleseeder::class,
             UserSeeder::class,
+            TaskSeeder::class,
             PostSeeder::class,
-            StatusSeeder::class,
-            TaskSeeder::class
+            ProductSeeder::class
         ]);
     }
 }

@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="mb-3 mt-3 d-column">
-                        <label for="formFile"  class="form-label">Kies status </label>
-                        <select class="form-select  @error("status_id") is-invalid @enderror"   aria-label="Default select example" name="status_id">
+                        <label for="formFile" id="status"  class="form-label">Kies status </label>
+                        <select class="form-select  @error("status_id") is-invalid @enderror" id="status"   aria-label="Default select example" name="status_id">
                            
                             <option value="" selected>Kies Status</option>
                             @foreach($statuses as $status)
@@ -59,6 +59,20 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                 </div>
+
+                <div class="mb-3 mt-3 d-column">
+                    <label for="formFile" id="user"  class="form-label">Taak geven aan gebruiker </label>
+                    <select class="form-select  @error("status_id") is-invalid @enderror" id="user"   aria-label="Default select example" name="user_id">
+                       
+                        <option value="" selected>Kies gebruiker</option>
+                        @foreach($users as $user)
+                        <option value="{{$user->id}}" >{{$user->name}}  </option>
+                        @endforeach
+                    </select>
+                    @error("user_id")
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+            </div>
                     
 
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>

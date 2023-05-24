@@ -17,8 +17,8 @@
                     <div class="mb-3 ">
 
                         <div class="input-group mb-3  py-2 ">
-                            <label for="exampleFormControlTextarea1" name="title"  class="form-label">Titel</label><br><br>
-                            <input type="text" value="{{old("title", $post->title)}}" name="title" class="form-control ml-5 mt-4 w-100 position-absolute @error('title') is-invalid  @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <label for="title" name="title"  class="form-label">Titel</label><br><br>
+                            <input type="text" id="title" value="{{old("title", $post->title)}}" name="title" class="form-control ml-5 mt-4 w-100 position-absolute @error('title') is-invalid  @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                           </div>
                           @error("title")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -38,6 +38,7 @@
                         @error("image")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
+                        <img class="mt-1" src="{{url("images/".$post->image)}}" alt="" width="300" height="300">
     
                            
                     <div class="mt-3">

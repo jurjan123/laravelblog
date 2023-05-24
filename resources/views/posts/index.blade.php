@@ -14,7 +14,7 @@
       <option value="/post/sortbydate=descending" selected> Datum aflopend </option>
   </select>
   </div>
-    
+      
         @foreach($posts as $post)
         <div class="col-4">
             <div class="card h-100">

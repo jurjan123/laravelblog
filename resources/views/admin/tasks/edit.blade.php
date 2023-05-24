@@ -10,7 +10,7 @@
                
         <div class="card p-3 ">
             
-            <form action="/admin/tasks/{{$id}}" method="post" >
+            <form action="/admin/tasks/{{$task->id}}" method="post" >
                 @method("PUT")
                 @csrf
                 
@@ -18,7 +18,7 @@
 
                     <div class="input-group mb-3  py-2 ">
                         <label for="exampleFormControlTextarea1" name="name"  class="form-label">Naam</label><br><br>
-                        <input type="text" name="name" value="{{$name}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("name") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="name" value="{{$task->name}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("name") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
                       @error("name")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -28,7 +28,7 @@
                     
                         <x-input-label for="image" :value="__('datum veranderen')" />
                     <input type="datetime-local" class="form-control "
-                        name="created_at" step="any" value="{{$created_at}}">
+                        name="created_at" step="any" value="{{$task->created_at}}">
                     </div>
                     @error("created_at")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -63,9 +63,23 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3 mt-3 d-column">
+                        <label for="formFile" id="user"  class="form-label">Taak geven aan gebruiker </label>
+                        <select class="form-select  @error("status_id") is-invalid @enderror" id="user"   aria-label="Default select example" name="user_id">
+                           
+                            <option value="" selected>Kies gebruiker</option>
+                            @foreach($users as $user)
+                            <option value="{{$user->id}}" >{{$user->name}}  </option>
+                            @endforeach
+                        </select>
+                        @error("user_id")
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+                </div>
+
                     
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
-                    <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{$description}}</textarea>
+                    <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{$task->description}}</textarea>
                     @error("description")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror

@@ -20,12 +20,26 @@
                     
                     <div class="mb-3 mt-3">
                         <label for="formFile" class="form-label">Kies gebruikersrol</label>
-                       
+                        
                         <select class="form-select" aria-label="Default select example" name="role_id">
-                        <option selected><td></td></option>
-                        @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
-                        @endforeach
+                            @foreach($project->users as $projectmember)
+                            
+                            @if($projectmember->id != $user->id)
+
+                            @else
+                            <option value="{{$projectmember->pivot->role->id}}"selected>{{$projectmember->pivot->role->name}}</option>
+                            
+                            @endif
+
+                            @endforeach
+
+                            @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        
+                       
+                        
+                        
                         </select>
                         @error("role_id")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>

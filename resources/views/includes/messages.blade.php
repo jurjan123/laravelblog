@@ -15,20 +15,20 @@
         @if($errors->any())
         @if(Route::is("admin.posts.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Post niet kunnen bewerken</strong>
+            <strong>Post kon niet bewerkt worden</strong>
             
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         
         @elseif(Route::is("admin.projects.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Project niet kunnen bewerken</strong>
+            <strong>Project kon niet bewerkt worden</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.posts.create"))
         <div class="alert alert-danger fade show ">
-            <strong>Post niet kunnen maken</strong>
+            <strong>Post kon niet gemaakt worden</strong>
             @foreach($errors->all() as $error)
             <li>{{$error}}</li>
             @endforeach
@@ -37,19 +37,19 @@
 
         @elseif(Route::is("admin.projects.create"))
         <div class="alert alert-danger fade show ">
-            <strong>Project niet kunnen maken</strong>
+            <strong>Project kon niet gemaakt worden</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.users.create"))
         <div class="alert alert-danger fade show ">
-            <strong>Gebruiker niet kunnen maken</strong>
+            <strong>Gebruiker kon niet gemaakt worden</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.users.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Gebruiker niet kunnen bewerken</strong>
+            <strong>Gebruiker kon niet bewerkt worden</strong>
             @foreach($errors->all() as $error)
             <li>{{$error}}</li>
             @endforeach
@@ -58,7 +58,7 @@
 
         @elseif(Route::is("admin.roles.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>rol niet kunnen bewerken</strong>
+            <strong>rol kon niet bewerkt worden</strong>
             @foreach($errors->all() as $error)
             <li>{{$error}}</li>
             @endforeach
@@ -67,21 +67,33 @@
 
         @elseif(Route::is("admin.tasks.create"))
         <div class="alert alert-danger fade show ">
-            <strong>Taak niet kunnen maken</strong>
+            <strong>Taak kon niet gemaakt worden</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
 
         @elseif(Route::is("admin.tasks.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Taak niet kunnen bewerken</strong>
+            <strong>Taak kon niet bewerkt worden</strong>
            
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         
         @elseif(Route::is("admin.project.members.edit"))
         <div class="alert alert-danger fade show ">
-            <strong>Taak niet kunnen bewerken</strong>
+            <strong>Taak kon niet bewerkt worden</strong>
             <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+
+        @elseif(Route::is("admin.products.edit"))
+        <div class="alert alert-danger fade show ">
+            <strong>Product kon niet bewerkt worden</strong>
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+
+        @elseif(Route::is("admin.products.create"))
+        <div class="alert alert-danger fade show ">
+            <strong>Product kon niet aangemaakt worden</strong>
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
         
        

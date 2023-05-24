@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger("status_id")->nullable();
-            $table->foreign("status_id")->after("id")->references("id")->on("statuses")->cascadeOnUpdate()->cascadeOnDelete()->nullable();
+            $table->foreignid("user_id")->after("id")->references("id")->on("users")->cascadeOnUpdate()->cascadeOnDelete()->nullable();
+            $table->foreignid("status_id")->after("id")->references("id")->on("statuses")->cascadeOnUpdate()->cascadeOnDelete()->nullable();
         });
     }
 

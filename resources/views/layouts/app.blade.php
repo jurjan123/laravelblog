@@ -25,17 +25,15 @@
             <main>
                 @include("includes.messages")
 
-                <div class="container   ">
-                    <div class="row mt-5">
-                        
-            
+                <div class="container">
+                    
                 
-                        <div class="row vertical-align-bottom ">
-                            <div class="col-2 mt-5 vertical-align-bottom">@include('includes.admin.sidebar')</div>
+                        <div class="row mt-5 ">
+                            <div class="col-2 mt-5 ">@include('includes.admin.sidebar')</div>
                             <div class="col-10">{{ $slot }}</div>
                         </div>
 
-                    </div>
+                   
             </main>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

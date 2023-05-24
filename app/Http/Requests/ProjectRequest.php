@@ -32,7 +32,7 @@ class ProjectRequest extends FormRequest
         
         return [
             'title' => 'required|min:3',
-            'description' => 'required',
+            'description' => 'required|min:3|max:5000',
             "intro" => "required",
             "image" => "nullable|mimes:jpeg,png,jpg,gif,svg|max:3048",
             "created_at" => "required",
@@ -45,6 +45,8 @@ class ProjectRequest extends FormRequest
             'title.required' => 'Titel is verplicht',
             "title.min" => "Titel is korter dan 3 karakters",
             "description.required" => "Beschrijving is verplicht",
+            "description.min" => "Beschrijving moet minimaal 3 karakters bevatten",
+            "description.max" => "Beschrijving mag niet meer dan 5000 karakters bevatten",
             "intro.required" => "Intro is verplicht",
             "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
             "image.max" => "De afbeelding mag niet groter zijn dan 3mb",

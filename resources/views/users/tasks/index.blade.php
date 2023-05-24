@@ -5,7 +5,7 @@
         <div class="col">
             <div class="row">
                     <div class="col-md-6 d-flex justify-content-between">
-                        <h1 >Je projecten</h1>
+                        <h1 >Je taken</h1>
                         <form action="{{ route('users.projects.search') }}" method="GET" role="search">
             
                             <div class="input-group  ">
@@ -30,24 +30,23 @@
                     <thead>
                     <tr>
                         <th class="py-2 px-3 border-b">Naam</th>
-                        <th class="py-2 px-3 border-b">Rol</th>
+                        <!--<th class="py-2 px-3 border-b">Rol</th>-->
                         <th class="py-2 px-3 border-b">Datum</th>
-                        <th class="py-2 px-3 border-b">Opties</th>
+                       
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($userProjects as $user)
-                        @foreach($user->projects as $project)
+                       
                         <tr>
-                           
-                            <td class="py-2 px-3 border-b">{{$project->title}}</td>
-                            <td class="py-2 px-3 border-b">{{$project->pivot->role->name}}</td>
-                            <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($project->created_at))}}</td>
-                                <td class=" d-flex px-3 border-b py-3 gy-5 ">
 
+                            @foreach($tasks as $task)
+                            <td class="py-2 px-3 border-b">{{$task->name}}</td>
+                            <td class="py-2 px-3 border-b">{{$task->created_at}}</td>
+                            <!--<td class="py-2 px-3 border-b"></td>-->
+                                
                                 
                                   
-                                        <form action="{{route("users.projects.edit", $project)}}" method="post">@csrf<button role="button"><i class="fa fa-pencil" ></i></button></form>
+                                       
                                     
                                       
                             </td>
@@ -56,10 +55,7 @@
         </div>
     </div>
                                     
-                       
-                        @endforeach
-                        @endforeach
-                  
+                  @endforeach
                     
                     </tbody>
                     

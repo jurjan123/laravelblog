@@ -46,9 +46,10 @@ class CategoryController extends Controller
     public function show($id)
     {
         $posts = Category::findOrFail($id)->posts;
-        
+        $products = Category::findOrFail($id)->products;
+    
         return view("categories.show", [
-            "category" => Category::findOrFail($id),
+            "products" => $products,
             "posts" => $posts
         ]);
     }
@@ -58,6 +59,7 @@ class CategoryController extends Controller
         return view("admin.categories.edit", [
             "id" => $value->id,
             "name" => $value->name,
+            "image" => $value->image
         ]);
     }
 

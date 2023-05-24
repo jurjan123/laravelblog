@@ -13,11 +13,7 @@
               <p class="card-text pr-4 pl-4 ">{{$post->description}}</p>
               <p class="card-text">datum: {{date("d/m/Y", strtotime($post->created_at))}} <br> Auteur: @if($post->user_id != null) {{$post->users->name}} @else @endif<br> @if(!empty($post->category_id)) Categorie: {{$post->categories->name}}</p> @else @endif <br>
               
-              @if(!url()->previous() == "/categories/show/{{$post->category_id}}")
-              <a  href="/categories/show/{{$post->category_id}}" class="btn btn-primary">Ga terug</a>
-              @else
-              <a  href="{{route("posts.index")}}" class="btn btn-primary">Ga terug</a>
-              @endif
+              <a  href="{{url()->previous()}}" class="btn btn-primary">Ga terug</a>
             </div>
           </div>
     </div>

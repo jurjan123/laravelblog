@@ -1,5 +1,10 @@
+<div class="container-fluid text-center vertical-align-middle d-flex justify-content-around bg-black text-white pt-2 pb-2">
+    <p>bezorging gratis vanaf 20 euro</p>
+    <p>Gratis verzending vanaf 20,-</p>
+    <p>Gratis retourneren</p>
+  </div>
 <head><link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></head>
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky-top ">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 pt-3 pb-3 fs-5 ">
     <!-- Primary Navigation Menu -->
                 <!-- Logo -->
                 
@@ -9,36 +14,30 @@
                 
 
                     
-            <div class="row vertical-align-middle items-center p-3 g-0  ">
+            <div class="container g-0 d-flex justify-content-between items-center">
                 
-                        <div class="col-3 offset-1 d-flex justify-content-between px-3 ">
+                        <div class="col-4 d-flex justify-content-between">
 
                             <a href="/">
                                 <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                             </a>
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/posts">Posts</a>
-                           
-                           
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/projects">Projecten</a>
-                           
-                           
                             <a style="text-decoration:none; color:black; font-size:20px"  href="/categories">Categorieen</a>
+                            <a style="text-decoration:none; color:black; font-size:20px"  href="/products">Producten</a>
                         </div>
-                            
-                          
+
+                        @if(Auth::check() && Auth::user()->is_admin == 1)
+                        <div class="col-5 text-right">
+                            <h3 class="cursor-pointer  "><a href="{{route("admin.index")}}" style="text-decoration:none; color:black; font-size:24px">Admin</a></h3>
+                        </div> 
+                        <a href="{{route("cart")}}" class="fa-lg" style="color:black;"><i class="bi bi-cart3 fa-lg"></i></a>
+                        @endif           
                         
                      
-                            <div class="col-5 text-right">
-                           
-                            </div>
-                            <div class="col-1">
-
-                            </div>
-                       
-
             <!-- Settings Dropdown -->
            
-            <div class="col-2 ">
+            <div class="col-1 g-0">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex  items-center px-3 mb-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -77,6 +76,10 @@
                             <x-dropdown-link :href="route('users.posts.index')">
                                 {{ __('Mijn posts') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.tasks.index')">
+                                {{ __('Mijn taken') }}
+                            </x-dropdown-link>
+                           
                            
 
                             <form method="POST" action="{{ route('logout') }}">

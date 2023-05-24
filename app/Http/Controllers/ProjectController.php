@@ -151,10 +151,14 @@ class ProjectController extends Controller
     public function editMemberFromGroup(Request $request, Project $project, User $user){
         $users = User::all();
         $roles = Role::all();
+        $project = Project::with("users")->find($project->id);
+
         return view("admin.projects.members.edit", [
             "project" => $project,
             "roles" => $roles,
             "user" => $user,
+            //"projectUsers" => $projectUsers
+            
             
         ]);
     }

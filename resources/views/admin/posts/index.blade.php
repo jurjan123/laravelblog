@@ -55,7 +55,7 @@
                         <th class="py-2 px-3 border-b">Titel</th>
                         <th class="py-2 px-3 border-b">Datum</th>
                         <th class="py-2 px-3 border-b">Categorie</th>
-                        
+                        <th class="py-2 px-3 border-b">Auteur</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                         
                     </tr>
@@ -68,7 +68,7 @@
                             <td class="py-2 px-3 border-b">{{$post->title}} </td>
                             <td class="py-2 px-3 border-b">{{date("d/m/Y", strtotime($post->created_at))}}</th>
                             <td class="py-2 px-3 border-b">@if(!empty($post->category_id)) {{$post->categories->name}} @else @endif </td>
-
+                            <td class="py-2 px-3 border-b">{{$post->users->name}} </td>
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                       <div class="col-6 d-flex">
                                         <form action="{{route("admin.posts.delete", $post)}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $post->title }} wilt verwijderen?')" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button></form>

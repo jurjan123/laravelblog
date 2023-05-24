@@ -27,10 +27,11 @@ class TaskRequest extends FormRequest
     {
         return [
             "name" => ["required", "min:3"],
-            "description" => "required",
+            "description" => "required|min:3|max:2000",
             "created_at" => "required",
             "is_open" => ["required", "boolean"],
-            "status_id" => "required"
+            "status_id" => "required",
+            "user_id" => "required"
         ];
     }
 
@@ -43,7 +44,10 @@ class TaskRequest extends FormRequest
             "is_open.required" => "Actief is verplicht",
             "is_open.boolean" => "Kies een status",
             "description.required" => "Beschrijving is verplicht",
-            "status_id.required" => "Status is verplicht"
+            "description.min" => "Beschrijving moet minimaal 3 karakters bevatten",
+            "description.max" => "Beschrijving mag niet meer dan 2000 karakters bevatten",
+            "status_id.required" => "Status is verplicht",
+            "user_id.required" => "Gebruiker is verplicht"
         ];
     }
         

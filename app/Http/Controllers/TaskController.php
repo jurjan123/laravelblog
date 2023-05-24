@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
-use App\Models\Status;
 
 class TaskController extends Controller
 {
@@ -32,20 +33,21 @@ class TaskController extends Controller
     public function create()
     {
         return view("admin.tasks.create", [
-            "statuses" => Status::all()
+            "statuses" => Status::all(),
+            "users" => User::all()
         ]);
     }
 
     
     public function store(TaskRequest $request)
     {
-        //dd($request);
         $task = new Task;
         $task->name = $request->name;
         $task->description = strip_tags($request->description);
         $task->created_at = $request->created_at;
         $task->active = $request->is_open;
         $task->status_id = $request->status_id;
+        //$task->user_id = $request->user_id;
         $task->save();
         
         $succesmessage = "Succes! Taak: ". $request->name. " is gemaakt";
@@ -68,19 +70,16 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        
         $task->active == 0 ? $activeName = "Nee" : $activeName = "Ja";
         $task_status_name = Status::find($task->status_id);
-        //return $task_status_name;
+        
         return view("admin.tasks.edit",[
-            "id" => $task->id,
-            "name" => $task->name,
-            "description" => $task->description,
-            "created_at" => $task->created_at,
+            "task" => $task,
             "active" => $task->active,
             "activeName" => $activeName,
             "statuses" => Status::all(),
-            "task_status" => $task_status_name
+            "task_status" => $task_status_name,
+            "users" => User::all()
         ]);
     }
 
@@ -92,7 +91,10 @@ class TaskController extends Controller
         $task->created_at = $request->created_at;
         $task->active = $request->is_open;
         $task->status_id = $request->status_id;
+        $task->user_id = $request->user_id;
         $task->update();
+
+       
         $succesmessage = "Succes! Taak: ". $request->name. " is bewerkt";
 
         return redirect()->route("admin.tasks.index")->with("message", $succesmessage);

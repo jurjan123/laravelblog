@@ -68,7 +68,11 @@
                     
                    
                 </table>
+                <div class="p-2">
+                    {{$categories->links()}}
                 
+                </div>
+               
             </div>
         </div>
     </div>   

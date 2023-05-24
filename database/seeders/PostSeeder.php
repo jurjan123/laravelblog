@@ -25,7 +25,8 @@ class PostSeeder extends Seeder
                
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "category_id" => 1
+                "category_id" => 1,
+                "user_id" => 1
             ],
             [
                 "title" => "herfst",
@@ -34,7 +35,8 @@ class PostSeeder extends Seeder
                 "description" => "omdat het regent",
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "category_id" => 1
+                "category_id" => 1,
+                "user_id" => 1
             ],
             [
                 "title" => "Zomer",
@@ -43,7 +45,8 @@ class PostSeeder extends Seeder
                 "description" => "Vanwege zomervakantie",
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "category_id" => 1
+                "category_id" => 1,
+                "user_id" => 1
             ],
             [
                 "title" => "Winter",
@@ -52,7 +55,8 @@ class PostSeeder extends Seeder
                 "description" => "erg koud",
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "category_id" => 1
+                "category_id" => 1,
+                "user_id" => 1,
             ],
             [
                 "title" => "Groningen",
@@ -61,7 +65,8 @@ class PostSeeder extends Seeder
                 "description" => "Provincie",
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "category_id" => 1
+                "category_id" => 1,
+                "user_id" => 1,
             ],
             ]);
     }

@@ -25,6 +25,7 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:55|',
+            "image" => "nullable|mimes:jpeg,png,jpg,gif,svg|max:3048", 
         ];
     }
 
@@ -35,6 +36,8 @@ class UpdateProjectRequest extends FormRequest
             'title.required' => 'De naam is verplicht',
             'title.min' => 'De naam moet minimaal :min letters bevatten',
             'title.max' => 'De naam mag niet meer dan :max karakters bevatten',
+            "image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
+            "image.max" => "De afbeelding mag niet groter zijn dan 3mb",
             
         ];
     }

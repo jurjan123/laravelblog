@@ -44,6 +44,7 @@
                         @error("image")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
+                        <img class="mt-1" src="{{url("images/".$project->image)}}" alt="" width="300" height="300">
                         
                         
                     <div class="mt-3">

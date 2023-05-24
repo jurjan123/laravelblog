@@ -27,7 +27,9 @@ class UserSeeder extends Seeder
                 "is_admin" => "1",
                 "user_image" => "preset.png",
                 "created_at" => $ldate,
-                "updated_at" => $ldate
+                "updated_at" => $ldate,
+                "role_id" => 1,
+                
             ],
             [
                 "name" => "user",
@@ -36,7 +38,9 @@ class UserSeeder extends Seeder
                 "is_admin" => "0",
                 "user_image" => "preset.png",
                 "created_at" => $ldate,
-                "updated_at" => $ldate
+                "updated_at" => $ldate,
+                "role_id" => 2,
+                
             ]
             ]);
        }

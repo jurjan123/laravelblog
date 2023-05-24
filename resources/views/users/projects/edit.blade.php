@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                 </div>
         <div class="card col-12">
-            <form action={{route("users.projects.update", $project->id)}} method="post" >
+            <form action={{route("users.projects.update", $project->id)}} method="post" enctype="multipart/form-data">
                 
                 @csrf
 
@@ -25,6 +25,17 @@
                           </div>
                           @error("title") <p class="text-red-500 text-xs mt-1">{{$message}}</p>@enderror
                        
+                    </div>
+
+                    <div class="mb-3">
+                        <x-input-label for="image" :value="__('Foto veranderen')" />
+                        <x-text-input id="image"   name="image" placeholder="change image" type="file" class="mt-1 block w-full"   autofocus autocomplete="name" />
+                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                        @error("image")
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+    
+                           <img class="mt-1" src="{{url("images/".$project->image)}}" alt="" width="300" height="300">
                     </div>
                     
                             

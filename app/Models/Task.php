@@ -15,4 +15,11 @@ class Task extends Model
     {
         return $this->belongsTo(Status::class, "status_id");
     }
+
+
+
+    public function users()
+    {
+        return $this->belongsto(User::class, "user_id");
+    }
 }

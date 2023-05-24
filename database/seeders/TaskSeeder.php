@@ -23,7 +23,8 @@ class TaskSeeder extends Seeder
                 "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "status_id" => 1
+                "status_id" => 1,
+                "user_id" => 1
             ],
             [
                 "name" => "Gesloten",
@@ -31,7 +32,8 @@ class TaskSeeder extends Seeder
                 "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "status_id" => 1
+                "status_id" => 1,
+                "user_id" => 1
             ],
             [
                 "name" => "Afgerond",
@@ -39,7 +41,8 @@ class TaskSeeder extends Seeder
                 "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "status_id" => 1
+                "status_id" => 1,
+                "user_id" => 1
             ],
             [
                 "name" => "Weinig gedaan",
@@ -47,7 +50,8 @@ class TaskSeeder extends Seeder
                 "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "status_id" => 1
+                "status_id" => 1,
+                "user_id" => 1
             ],
             [
                 "name" => "Bijna klaar",
@@ -55,7 +59,8 @@ class TaskSeeder extends Seeder
                 "active" => 0,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
-                "status_id" => 1
+                "status_id" => 1,
+                "user_id" => 1
             ],
             ]);
     }
