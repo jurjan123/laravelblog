@@ -53,9 +53,9 @@
                         @endforeach
                         
                         @else
-                        <option selected>{{$rolename->name}}</option>
+                        <option selected>{{$rolename}}</option>
                         @foreach($roles as $role)
-                        @if($rolename->name == $role->name)
+                        @if($rolename == $role->name)
                         @else
                         <option value="{{$role->id}}" @if(old("role") == $role->id) {{old("role") == $role->name}} selected @endif>{{$role->name}}</option>
                         @endif

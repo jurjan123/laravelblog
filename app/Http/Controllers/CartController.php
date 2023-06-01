@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,10 +13,10 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cart = session()->get('cart');
-        return view('cart', ['cart' => $cart]);
+        $products = session()->get('cart');
+        return view('cart', compact("products"));
     }
 
     /**
@@ -23,18 +24,45 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addToCart(Request $request)
+    public function addToCart(Request $request, $id)
     {
-        $product = $request->input("product");
+        $product = Product::find($id);
         
         if(!$request->session()->has("cart")){
             $request->session()->put("cart", []);
         }
-        $cart = $request->session()->get('cart');
-        $cart[] = $product;
-        $request->session()->put('cart', $cart);
 
+
+        $cart = $request->session()->get('cart');
+        //dd($cart[$id]);
+        
+        if(!isset($cart[$id])){
+            $cart[$id] = [
+                "name" => $product->name,
+                "price" => $product->price,
+                "quantity" => $product->quantity,
+                "description" => $product->description,
+                "vat" => $product->vat,
+                "discount" => $product->discount,
+                "stock" => $product->stock,
+                "image" => $product->image
+            ];
+        } 
+        else{
+            $cart[$id]["quantity"]++;
+        }
+       
+        $request->session()->put('cart', $cart);
+        
         return back()->with("message", "product toegevoegd");
+       
+        /*if(in_array($product->id, $cart)){
+            $product->quantity += 1;
+        } else{
+            $cart[] = $product->id;
+        }*/
+        
+       
     }
 
     /**

@@ -37,7 +37,12 @@ Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("
 Route::get("/products", [GuestViewController::class, "ProductIndex"])->name("products.index");
 
 Route::match(["post", "get"], "/cart", [CartController::class, "index"])->name("cart");
-Route::match(["post", "get"], "/cart/add", [CartController::class, "addToCart"])->name("cart.add");
+Route::match(["post", "get"], "/cart/add/{id}", [CartController::class, "addToCart"])->name("cart.add");
+
+Route::get("/cart/address", function(){
+    return view("products.practice");
+});
+
 
 Route::group(["prefix" => "user", "middleware" => "auth"], function(){
     Route::get("/profile", [GuestViewController::class, "UserIndex"])->name("users.profile.index");
@@ -190,10 +195,6 @@ Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
     Route::get("practice", function(Request $request){
         return $request->session()->get("cart");
     });
-     
 
-
-
-
-
+    
 require __DIR__.'/auth.php';

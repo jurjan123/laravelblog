@@ -18,16 +18,15 @@
                 @if($product->image != "Monkey-Puppet.png")
                 <img src="{{url("images/". $product->image)}}" class="card-img-top" width="300" height="300" alt="...">
                 @else
-                <img src="{{url("images/".$product->image)}}" class="card-img-top " width="300" height="300" alt="...">
+                <img src="{{url("images/".$product->image)}}" class="card-img-top" width="300" height="300" alt="...">
                 @endif
-  
                   <div class="card-body">
                     <h5 class="card-title">{{$product->name}}</h5>
                     <p class="card-text"><i class="bi bi-currency-euro"></i>{{$product->price}} </p>
                    
                     <div class="d-flex justify-content-between">
                       <a href="{{route("products.show", $product->id)}}" class="btn btn-primary">Bekijk product</a>
-                    <form action="{{route("cart.add")}}" method="post">@csrf
+                    <form action="{{route("cart.add", $product->id)}}" method="post">@csrf
                       <input type="hidden" name="product" value="{{$product}}">
                       <button type="submit" class="btn btn-warning"><i class="bi bi-plus-lg"></i> <i class="bi bi-cart3 fa-lg"></i></button>
                     </form>
@@ -40,4 +39,6 @@
          @endforeach
       </div>
       {{$products->links()}}
+
+      @yield("cards")
   </x-guest-layout>

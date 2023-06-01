@@ -27,12 +27,12 @@ class ProductRequest extends FormRequest
     {
 
         return [
-            'name' => 'required|min:3|max:100',
+            'name' => 'required|min:3|max:70',
             'description' => 'required|min:3|max:5000',
             "image" => "nullable|mimes:jpeg,png,jpg,gif,svg,webp|max:3048",
             "categories" => "nullable",
             "price" => 'required|numeric',
-            "stock" => "required|integer|digits_between:0,7", 
+            "stock" => "nullable|integer|digits_between:0,6", 
             "vat" => "required|integer",
             "discount" => "nullable|numeric|lt:price"
         ];
@@ -44,7 +44,7 @@ class ProductRequest extends FormRequest
         return [
             'name.required' => 'Titel is verplicht',
             "name.min" => "Titel is korter dan 3 karakters",
-            "name.max" => "Titel is langer dan 100 karakters",
+            "name.max" => "Titel is langer dan 70 karakters",
             "description.required" => "Beschrijving is verplicht",
             "description.min" => "Beschrijving moet minimaal 3 karakters bevatten",
             "description.max" => "Beschrijving mag niet meer dan 5000 karakters bevatten",
@@ -52,7 +52,8 @@ class ProductRequest extends FormRequest
             "image.max" => "De afbeelding mag niet groter zijn dan 3mb",
             "price.required" => "Prijs is verplicht",
             "price.numeric" => "Prijs mag geen letters bevatten",
-            "quantity.required" => "Kwantiteit is verplicht",
+            "stock.required" => "Kwantiteit is verplicht",
+            "stock.digits_between" => "Voorraad moet tussen 1 en 1 miljoen zijn",
             "vat.required" => "BTW is verplicht",
             "vat.integer" => "BTW moet een getal zijn",
             "vat.min" => "BTW moet minimaal 1 procent zijn",

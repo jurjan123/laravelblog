@@ -74,10 +74,10 @@
                         <label for="formFile" id="user"  class="form-label">Kies BTW</label>
                         <select class="form-select  @error("vat") is-invalid @enderror" id="user" value="" aria-label="Default select example" name="vat">
                            
-                            <option selected value="{{$product->vat}}">{{$product->vat}}%</option>
+                            <option selected value="{{$product->vat}}">{{old("vat",$product->vat)}}%</option>
                             <option value="21">21%</option>
                             <option value="9">9%</option>
-                            <option value="1">0%</option>
+                            <option value="0">0%</option>
                         </select>
                         @error("vat")
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -85,7 +85,7 @@
                 </div>
                       <div class="input-group mb-3  py-1 ">
                         <label for="exampleFormControlTextarea1" name="discount"  class="form-label">Kortingsprijs in euro's (optioneel)</label><br><br>
-                        <input type="number"  name="discount" value="{{old("discount", $product->discount)}}" class="form-control ml-5 mt-4 w-100 position-absolute  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text"  name="discount" value="{{old("discount", $product->discount)}}" class="form-control ml-5 mt-4 w-100 position-absolute  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                       @error("discount")
                       <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -95,7 +95,7 @@
                         <label for="exampleFormControlTextarea1" name="quantity"  class="form-label">Voorraad</label><br><br>
                         <input type="number" name="stock" value="{{old("stock", $product->stock)}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("stock") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-                      @error("quantity")
+                      @error("stock")
                       <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                       @enderror
                     
@@ -105,13 +105,12 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
 
-                    <div class="row  fs-5">
-                        <div class="col d-flex align-items-end ">
-                            <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
-                            <a href="{{route("admin.products.index")}}" class="nav-link  ">Annuleren</a>
-                        </div>
-                        
-                    </div>
+                    <div class="d-flex mt-3 flex-row-reverse">
+                    
+                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary "><br>
+                        <a href="{{route("admin.products.index")}}" class="nav-link fs-5 mx-3 "> Annuleren</a><br>
+                      </div>
+    
                     
                 
                 </div>

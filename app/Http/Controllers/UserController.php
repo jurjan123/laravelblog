@@ -63,7 +63,7 @@ class UserController extends Controller
 
         $roles = Role::all();
         if($user->role_id != null){
-            $rolename = Role::find($user->role_id);
+            $rolename = Role::find($user->role_id)->name;
             $editDataArray = [
                 "id" => $user->id,
                 "email" => $user->email,

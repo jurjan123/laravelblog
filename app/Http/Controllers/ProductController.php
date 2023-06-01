@@ -141,7 +141,6 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->vat = $request->vat;
         
-        $product->discount =  $request->discount;
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/'), $image_name);

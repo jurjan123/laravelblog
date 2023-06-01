@@ -19,7 +19,7 @@ return new class extends Migration
             $table->mediumText("description");
             $table->decimal("price");
             $table->integer("vat");
-            $table->decimal("discount");
+            $table->decimal("discount")->nullable();
             $table->integer("quantity");
             $table->integer("stock");
             $table->string("image")->default("Monkey-Puppet.png");

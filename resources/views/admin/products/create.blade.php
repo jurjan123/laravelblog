@@ -51,9 +51,9 @@
 
                     <div class="mb-3 mt-4 d-column">
                         <label for="formFile" id="user"  class="form-label">Kies BTW</label>
-                        <select class="form-select  @error("vat") is-invalid @enderror" id="user" value="" aria-label="Default select example" name="vat">
+                        <select class="form-select  @error("vat") is-invalid @enderror" id="user"  aria-label="Default select example" name="vat">
                            
-                            <option selected value="" >Kies BTW</option>
+                            <option value="{{old("vat")}}">{{old("vat", "Kies BTW" )}}</option>
                             <option value="21">21%</option>
                             <option value="9">9%</option>
                             <option value="1">0%</option>
@@ -86,18 +86,19 @@
                     <label for="exampleFormControlTextarea1" name="description"  class="form-label mt-2">Beschrijving</label>
                     <textarea class="form-control @error("description") is-invalid @enderror" id="editor" name="description" id="exampleFormControlTextarea1" id="container" rows="20">{{old("description")}}</textarea>
                     @error("description")
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    <div class="col-3">
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    </div>
+                   
                     @enderror
                 </div>
 
-                
-                <div class="col-12  d-flex flex-end fs-5">
-                        
-                        <input type="submit" value="Opslaan" name="submit" class="btn btn-primary  ">
-                        <a href="{{route("admin.products.index")}}" class="nav-link  ">Annuleren</a>
-                </div>
-            
+                <div class="d-flex flex-row-reverse">
                     
+                    <input type="submit" value="Opslaan" name="submit" class="btn btn-primary "><br>
+                    <a href="{{route("admin.products.index")}}" class="nav-link fs-5 mx-3 "> Annuleren</a><br>
+                  </div>
+
                 
             </form>
             @include("includes.ckeditor")

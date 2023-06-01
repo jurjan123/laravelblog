@@ -1,8 +1,3 @@
-<div class="container-fluid text-center vertical-align-middle d-flex justify-content-around bg-black text-white pt-2 pb-2">
-    <p>bezorging gratis vanaf 20 euro</p>
-    <p>Gratis verzending vanaf 20,-</p>
-    <p>Gratis retourneren</p>
-  </div>
 <head><link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></head>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 pt-3 pb-3 fs-5 ">
     <!-- Primary Navigation Menu -->

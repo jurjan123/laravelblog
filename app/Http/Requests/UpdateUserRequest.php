@@ -51,6 +51,7 @@ class UpdateUserRequest extends FormRequest
             "email.max" => "email mag niet langer dan 100 karakters zijn",
             "user_image.mimes" => "De afbeelding moet een jpeg,png,jpg,gif of svg zijn",
             "user_image.max" => "De afbeelding mag niet groter zijn dan 3mb",
+            "is_admin.required" => "Kies een rol",
             "password.required" => "vul oude wachtwoord in",
             "new_password.required" => "vul nieuwe wachtwoord in",
             "password_confirmation.required" => "herhaal nieuwe wachtwoord",
