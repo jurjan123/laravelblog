@@ -5,7 +5,7 @@
     <div class="col-6">
         @if($product->image != "Monkey-Puppet.png")
           <li class="list-group-item"><a class="nav-link active d-flex " @if(Route::is("products.show")) href="{{route("products.index")}}" @else href="{{url()->previous()}}" @endif><i class="bi bi-arrow-left"></i><p style="margin-left: 5px">Ga terug</p> </a></li>
-          <img src="{{url("images/". $product->image)}}" class="float-start" alt="...">
+          <img src="{{url("images/". $product->image)}}" class="h-75" width="600" height="100"  alt="...">
           <br>{!!$product->description!!}
        
           @else

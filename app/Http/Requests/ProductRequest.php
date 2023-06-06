@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
     {
 
         return [
-            'name' => 'required|min:3|max:70',
+            'name' => 'required|min:3|max:100',
             'description' => 'required|min:3|max:5000',
             "image" => "nullable|mimes:jpeg,png,jpg,gif,svg,webp|max:3048",
             "categories" => "nullable",
@@ -44,7 +44,7 @@ class ProductRequest extends FormRequest
         return [
             'name.required' => 'Titel is verplicht',
             "name.min" => "Titel is korter dan 3 karakters",
-            "name.max" => "Titel is langer dan 70 karakters",
+            "name.max" => "Titel is langer dan 100 karakters",
             "description.required" => "Beschrijving is verplicht",
             "description.min" => "Beschrijving moet minimaal 3 karakters bevatten",
             "description.max" => "Beschrijving mag niet meer dan 5000 karakters bevatten",

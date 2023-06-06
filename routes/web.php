@@ -38,10 +38,38 @@ Route::get("/products", [GuestViewController::class, "ProductIndex"])->name("pro
 
 Route::match(["post", "get"], "/cart", [CartController::class, "index"])->name("cart");
 Route::match(["post", "get"], "/cart/add/{id}", [CartController::class, "addToCart"])->name("cart.add");
+Route::delete("/cart/delete/{id}", [CartController::class, "deleteFromCart"])->name("cart.delete");
 
-Route::get("/cart/address", function(){
-    return view("products.practice");
-});
+Route::get("/cart/address",[CartController::class, "addressIndex"])->name("cart.address");
+Route::post("/cart/address/store", [CartController::class, "StoreCustomer"])->name( "cart.address.store");
+
+Route::get("/cart/summary", function(){
+    $products = session()->get('cart');
+    $subtotal = session()->get('subtotal');
+    $btw = session()->get('btw');
+    $articles = session()->get('articles');
+    $customer  = session()->get("customer", []);
+    //$address = $customer[0];
+    $address = [
+        "full_name" => $customer[0]["first_name"]. " ". $customer[0]["last_name"],
+        "full_address" => $customer[0]["street"]. " ". $customer[0]["house_number"],
+        "postalcode_city" => $customer[0]["postal_code"]. " ". $customer[0]["city"],
+        "phone_number" => $customer[0]["phone_number"],
+        "email" => $customer[0]["email"],
+    ];
+
+    $billingaddress = [
+        "full_name" => $customer[1]["first_name"]. " ". $customer[1]["last_name"],
+        "full_address" => $customer[1]["street"]. " ". $customer[1]["house_number"],
+        "postalcode_city" => $customer[1]["postal_code"]. " ". $customer[1]["city"],
+        "phone_number" => $customer[1]["phone_number"],
+        "email" => $customer[1]["email"],
+    ];
+
+    
+    return view("products.summary", compact("products", "subtotal", "articles", "btw", "address", "billingaddress"));
+})->name("cart.summary");
+
 
 
 Route::group(["prefix" => "user", "middleware" => "auth"], function(){
@@ -192,8 +220,18 @@ Route::group(["prefix" => "admin", "middleware" => "auth"],function(){
         });
     });
 
-    Route::get("practice", function(Request $request){
-        return $request->session()->get("cart");
+    Route::get("session", function(Request $request){
+        echo "<pre>";
+        print_r($request->session()->get("cart")) ;
+        echo "</pre>";
+        echo "<br><br>";
+        echo "<pre>";
+        print_r($request->session()->get("customer"));
+        echo "</pre>";
+
+        echo "<pre>";
+        print_r($request->session());
+        echo "</pre>";
     });
 
     

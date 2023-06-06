@@ -14,11 +14,11 @@
         
         @foreach($products as $product)
           <div class="col-4">
-              <div class="card h-100">
+              <div class="card h-100 ">
                 @if($product->image != "Monkey-Puppet.png")
-                <img src="{{url("images/". $product->image)}}" class="card-img-top" width="300" height="300" alt="...">
+                <img src="{{url("images/". $product->image)}}" class="card-img-top h-50%"  alt="...">
                 @else
-                <img src="{{url("images/".$product->image)}}" class="card-img-top" width="300" height="300" alt="...">
+                <img src="{{url("images/".$product->image)}}" class="card-img-top  "  alt="...">
                 @endif
                   <div class="card-body">
                     <h5 class="card-title">{{$product->name}}</h5>
