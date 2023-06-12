@@ -1,10 +1,29 @@
-const navLinkEls = document.querySelectorAll("nav-link");
-const windowPathname = window.location.pathname;
 
-navLinkEls.forEach(navLinkEl => {
-    const navLinkPathname = new URL(navLinkEL.href).pathname;
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
 
-    if(windowPathname === navLinkPathname){
-        navLinkEl.add("active")
-    }
-})
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+function updateQuantity(productId, selectElement) {
+    fetch('/cart/update/' + productId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add this to make sure Laravel handles the request as AJAX
+            'X-Requested-With': 'XMLHttpRequest', 
+            // Add the CSRF token, Laravel needs this for POST requests
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            quantity: selectElement.value
+        })
+    })
+    .then(response => location.reload())
+    .catch(error => console.error('Error:', error));
+}
+
+    
+

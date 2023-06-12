@@ -37,16 +37,16 @@
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Subtotal</span>
-              <strong><i class="bi bi-currency-euro"></i>{{$subtotal}}</strong>
+              <strong><i class="bi bi-currency-euro"></i>{{number_format($subtotal, 2)}}</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>BTW</span>
-              <strong><i class="bi bi-currency-euro"></i>{{$btw}}</strong>
+              <strong><i class="bi bi-currency-euro"></i>{{number_format($btw, 2)}}</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Totaal</span>
-              {{dd($subtotal_inc)}}
-              <strong><i class="bi bi-currency-euro"></i>{{$subtotal_inc}}</strong>
+              
+              <strong><i class="bi bi-currency-euro"></i>{{number_format($subtotal_incl, 2)}}</strong>
             </li>
             </ul>
           <button class="btn btn-primary btn-md p-2" type="submit"><a class="nav-link active" href="{{route("cart.address")}}">Volgende stap</a></button>
@@ -80,18 +80,11 @@
                         <td class="py-2 px-3 border-b "><img src="{{url("images/".$details["image"])}}" width="200" height="100" alt=""></td>
                         <td class="py-2 px-3 border-b " width="250">{{$details["name"]}}</th>
                           <td ><form action="{{route("cart.delete", $id)}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{ $details["name"]}} wilt verwijderen?')" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button></form></th>
-                        <td class="py-2 px-5 border-b"> <select class="form-select" id="amount" id="user" value=""  aria-label="Default select example" name="quantity">
-                          <option value="{{$details["quantity"]}}">{{$details["quantity"]}}</option>
-                          <option value="1" >1</option>
-                          <option value="2" >2</option>
-                          <option  value="3" >3</option>
-                          <option  value="4" >4</option>
-                          <option  value="5" >5</option>
-                          <option  value="6" >6</option>
-                          <option  value="7" >7</option>
-                          <option  value="8" >8</option>
-                          <option value="9" >9</option>
-                          <option id="more">meer</option>
+                            
+                        <td class="py-2 px-5 border-b"> <select onchange="updateQuantity({{ $id }}, this)" class="form-select" id="productQuantity"  aria-label="Default select example" name="quantity">
+                          @for ($i = 1; $i <= 10; $i++)
+                          <option value="{{ $i }}" {{ $details['quantity'] == $i ? 'selected' : '' }}>{{ $i }}</option>
+                          @endfor
                       </select></th>
                         <td class=""><i class="bi bi-currency-euro"></i>{{$details["price"]}}</td>
                         <td class="py-2 px-3 border-b"><i class="bi bi-currency-euro"></i>{{$details["quantity"] * $details["price"].".00"}}</td>
@@ -121,6 +114,6 @@
         </div>
     
     </div>
-
+   
     
   </x-guest-layout>

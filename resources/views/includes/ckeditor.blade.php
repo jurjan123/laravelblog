@@ -20,15 +20,6 @@
 </script>
 
 <!-- DIT IS SELECT2 -->
-<script>
-    $(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
-
-$(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
-</script>
 
 <!-- DIT IS VOOR EEN ANDER FACTUURADRES -->
 

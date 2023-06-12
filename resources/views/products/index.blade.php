@@ -22,8 +22,12 @@
                 @endif
                   <div class="card-body">
                     <h5 class="card-title">{{$product->name}}</h5>
+                    @if(!empty($product->discount))
+                    <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>Meestal <s>{{$product->price}}</s>  </p>
                     <p class="card-text"><i class="bi bi-currency-euro"></i>{{$product->price}} </p>
-                   
+                    @else
+                    <p class="card-text"><i class="bi bi-currency-euro"></i>{{$product->price}} </p>
+                    @endif
                     <div class="d-flex justify-content-between">
                       <a href="{{route("products.show", $product->id)}}" class="btn btn-primary">Bekijk product</a>
                     <form action="{{route("cart.add", $product->id)}}" method="post">@csrf

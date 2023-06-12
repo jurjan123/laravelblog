@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal("price");
             $table->integer("vat");
             $table->decimal("discount")->nullable();
-            $table->integer("quantity");
+            $table->integer("discount_percent")->nullable();
             $table->integer("stock");
             $table->string("image")->default("Monkey-Puppet.png");
             $table->timestamps();

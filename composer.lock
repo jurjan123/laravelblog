@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7a8634654481b2963d3ebfb9045e649",
+    "content-hash": "934d8208c58faec4624692479f1fb5c9",
     "packages": [
         {
             "name": "brick/math",
@@ -5243,6 +5243,57 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "timwassenburg/laravel-dutch-phone-number-validator",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timwassenburg/laravel-dutch-phone-number-validator.git",
+                "reference": "772b5916e38d51a0db7fb3996541086c06bf582f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timwassenburg/laravel-dutch-phone-number-validator/zipball/772b5916e38d51a0db7fb3996541086c06bf582f",
+                "reference": "772b5916e38d51a0db7fb3996541086c06bf582f",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TimWassenburg\\DutchPhoneNumberValidator\\PhoneValidatorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TimWassenburg\\DutchPhoneNumberValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wassenburg"
+                }
+            ],
+            "description": "Validate if the given input is a valid Dutch phone number",
+            "homepage": "https://github.com/timwassenburg/laravel-dutch-phone-number-validator",
+            "keywords": [
+                "Dutch",
+                "laravel",
+                "phone number",
+                "php",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/timwassenburg/laravel-dutch-phone-number-validator/issues",
+                "source": "https://github.com/timwassenburg/laravel-dutch-phone-number-validator/tree/v1.0.0"
+            },
+            "time": "2021-11-12T20:23:30+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -140,6 +140,8 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->stock = $request->stock;
         $product->vat = $request->vat;
+        $product->discount = $request->discount;
+       // $product->discount_percent = $request->price / 100 * $request->discount;
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();

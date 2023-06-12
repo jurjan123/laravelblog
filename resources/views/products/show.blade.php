@@ -20,14 +20,18 @@
           
           <div class="card-body lh-md">
               <h2 class="card-title">{{$product->name}}</h2>
+              @if(!empty($product->discount))
+              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>Meestal <s>{{$product->price}}</s> <span class="badge  text-bg-danger">%{{$product->discount_percent}}</span> </p>
+              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{$product->price - $product->discount}}</p>
+              @else
               <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{$product->price}}</p>
-              
+              @endif
               <form class="" action="{{route("cart.add", $product->id)}}" method="post">@csrf
                 <label for="formFile" id="user"  class="form-label">Kies Hoeveelheid</label>
               <div class="col-2 mb-3 d-column">
                 
               
-                <select class="form-select" id="amount" id="user" value="" aria-label="Default select example" name="quantity">
+                <select class="form-select" onchange="changeElement()"  id="amount" id="user" value="" aria-label="Default select example" name="quantity">
                     <option value="1" >1</option>
                     <option value="2" >2</option>
                     <option  value="3" >3</option>
@@ -37,7 +41,7 @@
                     <option  value="7" >7</option>
                     <option  value="8" >8</option>
                     <option value="9" >9</option>
-                    <option id="more">meer</option>
+                    <option id="more" >meer</option>
                 </select>
         </div>
             </div>
@@ -51,7 +55,15 @@
       
     </div>
 </div>
-    <script src="{{url("script.js")}}"></script>
+<script>
+  var more = document.getElementByid("more");
+    more.addEventListener("change", function(){
+      var select = document.getElementByid("user").innerHTML = '<input type="number" style="width:150px" value="1" min="1" max="50" id="typeNumber" class="form-control" />'
+    })
+    
+  
+</script>
+    
 </x-guest-layout>
 
 <!--<div class="form-outline mb-5" >
