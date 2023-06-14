@@ -49,6 +49,7 @@ class CartController extends Controller
         $articles = session()->get('articles');
         $customer  = session()->get("customer", []);
         
+        //dd($customer);
         $address = [
             "full_name" => $customer[0]["first_name"]. " ". $customer[0]["last_name"],
             "full_address" => $customer[0]["street"]. " ". $customer[0]["house_number"],
@@ -220,7 +221,7 @@ class CartController extends Controller
       
     }
 
-    //$request->session()->flush();
+    
 
     return redirect()->route("cart.summary")->withInput();
     

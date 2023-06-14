@@ -1,6 +1,6 @@
 <x-guest-layout>
  
-  <form class="needs-validation" action="{{route("cart.address.store")}}" method="POST">
+  <form id="myform" action="{{route("cart.address.store")}}" method="POST">
     @csrf
     <div class="row ">
       <h2>Bezorggegevens</h2>
@@ -170,7 +170,9 @@
     
     var checkbox = document.querySelector("input[name=billingcheckbox]");
 
-checkbox.addEventListener('click', function() {
+    
+
+checkbox.addEventListener('change', function() {
   if (this.checked) {
     document.getElementById("billingInput").value = true;
     var billingcheckbox = document.getElementById("billingfield")
@@ -180,6 +182,8 @@ checkbox.addEventListener('click', function() {
     var billingcheckbox = document.getElementById("billingfield")
     billingcheckbox.style.visibility = "hidden"    
   }
+
+  
 });
 
 </script>
