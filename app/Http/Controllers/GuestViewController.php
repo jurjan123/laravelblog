@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Product;
 use App\Models\Project;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Models\Product;
 
 class GuestViewController extends Controller
 {
@@ -45,7 +46,10 @@ class GuestViewController extends Controller
     }
 
     public function ProductIndex(){
-        $products = Product::latest()->paginate(15);
+        $products = DB::table("products")
+        ->whereNot("stock", "0")
+        ->latest()
+        ->paginate(15);
     
         return view("products.index", [
         "products" => $products
@@ -61,6 +65,11 @@ class GuestViewController extends Controller
         "email" => $user->email,
         "name" => $user->name,
     ]);
+    }
+
+    public function OrdersOverwiewIndex()
+    {
+       return view("admin.users.ordersoverview");
     }
 
     public function updateUser(StoreProfileRequest $request, User $user){

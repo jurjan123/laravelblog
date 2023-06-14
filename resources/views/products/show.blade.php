@@ -20,12 +20,9 @@
           
           <div class="card-body lh-md">
               <h2 class="card-title">{{$product->name}}</h2>
-              @if(!empty($product->discount))
-              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>Meestal <s>{{$product->price}}</s> <span class="badge  text-bg-danger">%{{$product->discount_percent}}</span> </p>
-              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{$product->price - $product->discount}}</p>
-              @else
-              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{$product->price}}</p>
-              @endif
+              
+              <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{str_replace(".", ",", $product->price)}}</p>
+              
               <form class="" action="{{route("cart.add", $product->id)}}" method="post">@csrf
                 <label for="formFile" id="user"  class="form-label">Kies Hoeveelheid</label>
               <div class="col-2 mb-3 d-column">

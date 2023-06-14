@@ -54,6 +54,7 @@
                     <tr >
                         <th class="py-2 px-3 border-b">Titel</th>
                         <th class="py-2 px-3 border-b">Aanbiedingsprijs</th>
+                        <th class="py-2 px-3 border-b">BTW</th>
                         <th class="py-2 px-3 border-b">Voorraad</th>
                         <th class="py-2 px-3 border-b">Opties</th>
                     </tr>
@@ -63,10 +64,9 @@
                         <tr class="mx-auto " >
                            
                             <td class="py-2 px-3 border-b">{{$product->name}}</td>
-                            <td class="py-2 px-3 border-b"><i class="bi bi-currency-euro"></i> {{$product->price}}</td>
+                            <td class="py-2 px-3 border-b"><i class="bi bi-currency-euro"></i>{{str_replace(".",",",$product->price)}}</td>
+                            <td class="py-2 px-3 border-b">{{$product->vat}}%</td>
                             <td class="py-2 px-3 border-b">{{$product->stock}}</td>
-                           
-                            
                                 <td class=" d-flex px-3 border-b py-3 gy-5 ">
                                       <div class="col-6 d-flex">
                                         <form action="{{route("admin.products.delete", $product)}}" method="post">@csrf @method("delete")<button type="submit" role="button" onclick="return confirm('Weet je zeker dat je {{$product->name}} wilt verwijderen?')" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="fa fa-trash"></i></button></form>

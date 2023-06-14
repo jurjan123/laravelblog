@@ -33,9 +33,11 @@ class CartController extends Controller
         $products = session()->get('cart');
         $subtotal = session()->get('subtotal');
         $btw = session()->get('btw');
+        $customer = session()->get("customer", []);
+        
         $subtotal_incl = session()->get("subtotal_incl");
         $articles = session()->get('articles');
-        return view("products.address", compact("products", "subtotal", "articles", "btw", "subtotal_incl"));
+        return view("products.address", compact("products", "subtotal", "articles", "btw", "subtotal_incl", "customer"));
     }
 
     public function summaryIndex()
@@ -130,9 +132,9 @@ class CartController extends Controller
     
     public function storeCustomer(CustomerRequest $request)
     {
-        
+        //dd($request->all());
        if($request->billingInput == "true"){
-        //dd($request);
+       
         $validator = $request->validateWithBag("billing",
         [
             'billing_first_name' => ['required', "string", "max:255"],
@@ -162,6 +164,33 @@ class CartController extends Controller
         ]
     );
 
+    session()->put("customer", [
+        $address = [
+            "type" => "bezorgadres",
+            'first_name' => $request->input("first_name"),
+            'last_name' => $request->input("last_name"),
+            "street" => $request->input("street"),
+            "house_number" => $request->input("house_number"),
+            "postal_code" => $request->input("postal_code"),
+            "city" => $request->input("city"),
+            'phone_number' => $request->input("phone_number"),
+            'email' => $request->input("email"),
+        ],
+        $billingadress = [
+            "type" => "factuuradres",
+            'first_name' => $request->input("billing_first_name"),
+            'last_name' => $request->input("billing_last_name"),
+            "street" => $request->input("billing_street"),
+            "house_number" => $request->input("billing_house_number"),
+            "postal_code" => $request->input("billing_postal_code"),
+            "city" => $request->input("billing_city"),
+            'phone_number' => $request->input("billing_phone_number"),
+            'email' => $request->input("billing_email"),
+        ]
+    ]);
+} 
+    
+    else{
         session()->put("customer", [
             $address = [
                 "type" => "bezorgadres",
@@ -174,53 +203,28 @@ class CartController extends Controller
                 'phone_number' => $request->input("phone_number"),
                 'email' => $request->input("email"),
             ],
-            $billingadress = [
+            
+            $billingaddress = [
                 "type" => "factuuradres",
-                'first_name' => $request->input("billing_first_name"),
-                'last_name' => $request->input("billing_last_name"),
-                "street" => $request->input("billing_street"),
-                "house_number" => $request->input("billing_house_number"),
-                "postal_code" => $request->input("billing_postal_code"),
-                "city" => $request->input("billing_city"),
-                'phone_number' => $request->input("billing_phone_number"),
-                'email' => $request->input("billing_email"),
+                'first_name' => $request->input("first_name"),
+                'last_name' => $request->input("last_name"),
+                "street" => $request->input("street"),
+                "house_number" => $request->input("house_number"),
+                "postal_code" => $request->input("postal_code"),
+                "city" => $request->input("city"),
+                'phone_number' => $request->input("phone_number"),
+                'email' => $request->input("email"),
+            
             ]
         ]);
-    } 
-        
-        else{
-            session()->put("customer", [
-                $address = [
-                    "type" => "bezorgadres",
-                    'first_name' => $request->input("first_name"),
-                    'last_name' => $request->input("last_name"),
-                    "street" => $request->input("street"),
-                    "house_number" => $request->input("house_number"),
-                    "postal_code" => $request->input("postal_code"),
-                    "city" => $request->input("city"),
-                    'phone_number' => $request->input("phone_number"),
-                    'email' => $request->input("email"),
-                ],
-                
-                $billingaddress = [
-                    "type" => "factuuradres",
-                    'first_name' => $request->input("first_name"),
-                    'last_name' => $request->input("last_name"),
-                    "street" => $request->input("street"),
-                    "house_number" => $request->input("house_number"),
-                    "postal_code" => $request->input("postal_code"),
-                    "city" => $request->input("city"),
-                    'phone_number' => $request->input("phone_number"),
-                    'email' => $request->input("email"),
-                
-                ]
-                ]);
-          
-        }
-        
-        return redirect()->route("cart.summary");
+      
     }
 
+    //$request->session()->flush();
+
+    return redirect()->route("cart.summary")->withInput();
+    
+    }
     
     public function deleteFromCart(Request $request, $id)
     {
@@ -337,7 +341,7 @@ public function updateFromCart(Request $request, $productId)
                 "email_adress" => $details["email"]
             ]);
         }
-
+       
         foreach($cart as $id => $details){
             DB::table("order_details")->insert([
                 "order_id" => $order->id,

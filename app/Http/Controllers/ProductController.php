@@ -20,7 +20,6 @@ class ProductController extends Controller
     protected $array = [];
     public function index()
     {
-        
         $products = Product::with("categories")->latest()->paginate(15);
         $categories = Category::all();
         
@@ -158,7 +157,7 @@ class ProductController extends Controller
         }
         
         $message = "Succes! product: ".$product->name. " is bewerkt";
-
+        
         $product->update();
 
         return redirect()->route("admin.products.index")->with("message", $message);

@@ -17,27 +17,16 @@
     </head>
     
     <body class="font-sans antialiased min-screen bg-gray-100 ">
-        
-           
-                    @include('layouts.guestNavigation')
+        @include('layouts.guestNavigation')
+        @include("includes.messages")
                 
+        <div class="container mt-5">
+            {{ $slot }}
+        </div>
                 
-
-            <!-- Page Content -->
-           
-                @include("includes.messages")
-                <div class="container">
-                    <div class="row mt-5">
-                        
-                
-                        <div class="col-md-12 sm-3">
-                            {{ $slot }}
-                        </div>
-                    </div>
-                </div>
             
 
-        <script src="{{url("styles/script.js")}}"></script>
+        <script  src="{{url("styles/script.js")}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     </body>

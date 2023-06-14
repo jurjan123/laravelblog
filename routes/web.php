@@ -66,6 +66,8 @@ Route::group(["prefix" => "user", "middleware" => "auth"], function(){
     Route::delete("/{post}/delete", [GuestViewController::class, "UserPostDelete"])->name("users.posts.delete");
 
     Route::get("tasks", [GuestViewController::class, "TaskIndex"])->name("users.tasks.index");
+    
+    Route::get("/orders/overview", [GuestViewController::class, "OrdersOverwiewIndex"])->name("users.orders.overview");
 });
    
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");

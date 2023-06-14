@@ -2,11 +2,11 @@
   @if(Session::has("emptymessage"))
   <h1>{{(Session("emptymessage"))}}</h1>
   @else
-
-  <div class="row gy-4 w-100"> <div class="col-10">
+  <div class="row w-100">
+   <div class="col-10">
     <h1 class="mt-3">Categories</h1>
   </div>
-  <div class="col-2 mt-5">
+  <div class="col-2 mt-3">
     <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
       <option value="/admin/posts" selected> sorteer op </option>
       <option value="/admin/posts" selected> Naam A-Z </option>
@@ -14,6 +14,8 @@
       <option value="/admin/posts" selected> Datum aflopend </option>
   </select>
   </div>
+</div>
+  <div class="row gy-4 w-100">
          @foreach($categories as $category)
          <div class="col-4">
              <div class="card h-100">

@@ -12,7 +12,7 @@
         <div class="card p-3 ">
             
            
-            <form action="{{route("admin.products.update", $product->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route("admin.products.update", $product->id)}}" id="myForm" method="post" enctype="multipart/form-data">
                 @method("PUT")
                 @csrf
             
@@ -63,7 +63,7 @@
 
                     <div class="input-group mb-3">
                         <label for="exampleFormControlTextarea1" name="price"  class="form-label">Prijs</label><br><br>
-                        <input type="text" name="price" value="{{old("price", $product->price)}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("price") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="price" id="price" value="{{old("price", str_replace(".", ",", $product->price))}}" class="form-control ml-5 mt-4 w-100 position-absolute @error("price") is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
                       @error("price")
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -74,7 +74,7 @@
                         <label for="formFile" id="user"  class="form-label">Kies BTW</label>
                         <select class="form-select  @error("vat") is-invalid @enderror" id="user" value="" aria-label="Default select example" name="vat">
                            
-                            <option selected value="{{$product->vat}}">{{old("vat",$product->vat)}}%</option>
+                            <option selected value="{{$product->vat}}">{{old("vat", $product->vat)}}%</option>
                             <option value="21">21%</option>
                             <option value="9">9%</option>
                             <option value="0">0%</option>
@@ -85,7 +85,7 @@
                 </div>
                       <div class="input-group mb-3  py-1 ">
                         <label for="exampleFormControlTextarea1" name="discount"  class="form-label">Kortingsprijs in euro's (optioneel)</label><br><br>
-                        <input type="text"  name="discount" value="{{old("discount", $product->discount)}}" class="form-control ml-5 mt-4 w-100 position-absolute  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" id="discount"  name="discount" value="{{old("discount", str_replace(".", ",", $product->discount))}}" class="form-control ml-5 mt-4 w-100 position-absolute  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                       @error("discount")
                       <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -124,6 +124,26 @@
     </div>
     </div>
     
+        <script>
+              var form = document.getElementById('myForm');
+              var priceInput = document.getElementById('price');
+              var discountInput = document.getElementById("discount");
+
+
+    // Voeg een 'submit' event listener toe aan de vorm
+    form.addEventListener('submit', function(event) {
+
+        // Haal de waarde van het prijsinvoerveld op
+        var price = priceInput.value;
+        var discount = discountInput.value
         
+        price = price.replace(',', '.');
+        discount =  discount.replace(",", ".")
+        // Zet de nieuwe prijs terug in het invoerveld
+        priceInput.value = price;
+        discountInput.value = discount;
+        
+    })
+        </script>
 
 </x-app-layout>

@@ -1,12 +1,12 @@
 <x-guest-layout>
   @if(!empty($message))
   <h1>{{$message}}</h1>
-
   @else
-  <div class="row gy-4 w-100"> <div class="col-10">
+    <div class="row w-100">
+   <div class="col-10">
     <h1 class="mt-3">Posts</h1>
   </div>
-  <div class="col-2 mt-5">
+  <div class="col-2 mt-3">
     <select class="form-select " onchange="location = this.value"  aria-label="Default select example" name="category_id">
       <option  selected> sorteer op </option>
       <option value="/posts/sortbyname=ascending" selected> Naam A-Z </option>
@@ -14,7 +14,8 @@
       <option value="/post/sortbydate=descending" selected> Datum aflopend </option>
   </select>
   </div>
-      
+</div>
+  <div class="row gy-4 w-100">
         @foreach($posts as $post)
         <div class="col-4">
             <div class="card h-100">

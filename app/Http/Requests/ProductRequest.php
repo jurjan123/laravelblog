@@ -25,16 +25,17 @@ class ProductRequest extends FormRequest
 
     public function rules()
     {
+        //$price = array('regex:/^[0-9]{1,3}(,[0-9]{3})*\.[0-9]+$/');
 
         return [
             'name' => 'required|min:3|max:100',
             'description' => 'required|min:3|max:5000',
             "image" => "nullable|mimes:jpeg,png,jpg,gif,svg,webp|max:3048",
             "categories" => "nullable",
-            "price" => 'required|numeric',
+            "price" => ['required', "numeric", ],
             "stock" => "nullable|integer|digits_between:0,6", 
             "vat" => "required|integer",
-            "discount" => "nullable|numeric|lt:price"
+            "discount" => "nullable|lt:price|numeric"
         ];
 
     }

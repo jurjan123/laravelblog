@@ -74,6 +74,9 @@
                             <x-dropdown-link :href="route('users.tasks.index')">
                                 {{ __('Mijn taken') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.orders.overview')">
+                                {{ __('Bestellingen') }}
+                            </x-dropdown-link>
                            
                            
 

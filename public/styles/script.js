@@ -26,4 +26,14 @@ function updateQuantity(productId, selectElement) {
 }
 
     
+var productimage = document.getElementById("productimage")
+var defaultimage = document.getElementById("defaultimage")
+
+productimage.addEventListener("mouseover", function(){
+    console.log("clicked")
+})
+
+defaultimage.addEventListener("mouseover", function(){
+    console.log("clicked")
+})
 

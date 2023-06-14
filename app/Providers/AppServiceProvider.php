@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use App\View\Components\PostNavbar;
+use Illuminate\Support\Facades\Blade;
+use Livewire\Macros\DuskBrowserMacros;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Pagination\Paginator as PaginationPaginator;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-use Livewire\Macros\DuskBrowserMacros;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('post-navbar', PostNavbar::class);
         PaginationPaginator::useBootstrap();
 
-          }
+       
+
+    }
 }
