@@ -15,4 +15,8 @@ class Order extends Model
         "vat",
         "total_inc"
     ];
+
+    public function Customers(){
+        return $this->hasMany(Customer::class);
+    }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignid("product_id")->references("id")->on("products")->cascadeOnUpdate()->cascadeOnDelete()->nullable();
             $table->string("product_name");
             $table->decimal("product_price");
+            $table->string("product_image");
             $table->integer("quantity");
             $table->decimal("total_exc");
             $table->decimal("vat");

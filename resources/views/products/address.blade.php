@@ -74,7 +74,7 @@
         
         <div class="mt-3">
           
-          <input type="checkbox" value="" id="billingCheckbox" name="billingcheckbox" @if($errors->billing) checked @else  @endif>
+          <input type="checkbox" value="" id="billingCheckbox" name="billingcheckbox" @if($errors->hasbag("billing")) checked @else  @endif>
         <label for="horns">Ander Factuur adres</label>
         <input type="hidden" id="billingInput" name="billingInput">
         
@@ -160,11 +160,28 @@
             <span>Totaal</span>
             <strong><i class="bi bi-currency-euro"></i>{{str_replace(".", ",",number_format($subtotal_incl, 2))}}</strong>
           </li>
+          <li class="list-group-item d-flex float-right justify-content-between">
+            <a href="{{route("cart")}}" class="vertical-align-middle mt-2">Wijzig winkelmandje</a>
+            <button class="btn btn-primary float-right btn-md p-2" type="submit"><a class="nav-link active">Doorgaan naar betalen</a></button>
+          </li>
         </ul>
-        <button class="btn btn-primary p-2" type="submit">Verder naar bestellen</button>
+       
       </div>
       
     </div>
+
+    
+
+
+
+    @if($errors->hasbag("billing"))
+    <script>
+       document.getElementById("billingCheckbox").checked = true;
+   document.getElementById("billingInput").value = true;  
+   var billingcheckbox = document.getElementById("billingfield")
+    billingcheckbox.style.visibility = "visible"  
+    </script>
+    @endif
     
   <script>
     
@@ -200,8 +217,18 @@ checkbox.addEventListener('change', function() {
 <script>
   document.getElementById("billingInput").value = false;
     var billingcheckbox = document.getElementById("billingfield")
-    billingcheckbox.style.visibility = "hidden"    
+    billingcheckbox.style.visibility = "hidden"  
+    document.getElementById("billingCheckbox").checked = false;  
 </script>
+
+@if($errors->hasbag("billing"))
+<script>
+   document.getElementById("billingCheckbox").checked = true;
+   document.getElementById("billingInput").value = true;  
+   var billingcheckbox = document.getElementById("billingfield")
+    billingcheckbox.style.visibility = "visible"  
+</script>
+@endif
 
 
 @foreach($keys0 as $key => $value) 
@@ -216,7 +243,8 @@ checkbox.addEventListener('change', function() {
 <script type="text/javascript">
 
   document.getElementById("billingCheckbox").checked = true;
-
+  var billingcheckbox = document.getElementById("billingfield")
+    billingcheckbox.style.visibility = "visible"    
   var input = document.getElementById("{{$key}}").value = "{{$value}}"
   </script>
   @endforeach

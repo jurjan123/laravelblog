@@ -49,13 +49,13 @@ class CartController extends Controller
         $articles = session()->get('articles');
         $customer  = session()->get("customer", []);
         
-        //dd($customer);
+       
         $address = [
-            "full_name" => $customer[0]["first_name"]. " ". $customer[0]["last_name"],
-            "full_address" => $customer[0]["street"]. " ". $customer[0]["house_number"],
-            "postalcode_city" => $customer[0]["postal_code"]. " ". $customer[0]["city"],
-            "phone_number" => $customer[0]["phone_number"],
-            "email" => $customer[0]["email"],
+            "full_name" => $customer[1]["first_name"]. " ". $customer[1]["last_name"],
+            "full_address" => $customer[1]["street"]. " ". $customer[1]["house_number"],
+            "postalcode_city" => $customer[1]["postal_code"]. " ". $customer[1]["city"],
+            "phone_number" => $customer[1]["phone_number"],
+            "email" => $customer[1]["email"],
         ];
 
         $billingaddress = [
@@ -96,7 +96,7 @@ class CartController extends Controller
                 "vat" => $product->vat,
                 "total_exc" => $product->price * $quantity,
                 "product_btw" => $product->vat/100 * ($product->price * $quantity),
-                "total_inc" => ($product->price * $quantity) + $product->vat/100 * ($product->price * $quantity),
+                "total_inc" => $product->vat/100 * ($product->price * $quantity) + $product->price * $quantity,
                 "image" => $product->image
             ];
         } 
@@ -113,7 +113,7 @@ class CartController extends Controller
         
         foreach($cart as $item => $details){
             $product_total = $details["quantity"] * $details["price"]; 
-            $product_btw = $details["vat"]/100 * $product_total;
+            $product_btw = $details["product_btw"];        // $details["vat"]/100 * ($details["price"] * $details["quantity"]);
             $btw += $product_btw;
             $subtotal += $product_total;
             $subtotal_incl += $product_total + $product_btw;
@@ -133,35 +133,48 @@ class CartController extends Controller
     
     public function storeCustomer(CustomerRequest $request)
     {
+    
+
         //dd($request->all());
        if($request->billingInput == "true"){
        
         $validator = $request->validateWithBag("billing",
         [
-            'billing_first_name' => ['required', "string", "max:255"],
-            'billing_last_name' => ['required', "string", "max:255"],
-            "billing_street" => ["required", "max:50"],
+            'billing_first_name' => ['required', "string", "max:40", 'regex:/^[0-9a-zA-Z_\-]*$/'],
+            'billing_last_name' => ['required', "string", "max:50", 'regex:/^[0-9a-zA-Z_\-]*$/'],
+            "billing_street" => ["required", "max:50", 'regex:/^[0-9a-zA-Z_\-]*$/'],
             "billing_house_number" => ["required", "max_digits:5"],
-            "billing_postal_code" => ["required", "max:10"],
-            "billing_city" => ["required", "string", "max:100"],
+            "billing_postal_code" => ["required", 'regex:/^[0-9]{4}\s?[a-zA-Z]{2}$/',],
+            "billing_city" => ["required", "string", "max:10", 'regex:/^[0-9a-zA-Z_\-]*$/'],
             'billing_phone_number' => ['required', "dutch-phone-number"],
-            'billing_email' => ['required', 'email', ],
+            'billing_email' => ['required', 'email', ], //Rule::unique('order_adresses', "email_adress")
         ],
         [
             "billing_first_name.required" => "Voornaam is verplicht",
             "billing_first_name.string" => "Voornaam mag alleen karakters bevatten",
+            "billing_first_name.regex" => "Voer een geldige voornaam in",
+            "billing_first_name.max" => "Voornaam mag niet meer dan 40 karakters bevatten",
             "billing_last_name.required" => "Achternaam is verplicht",
             "billing_last_name.string" => "Achternaam mag alleen karakters bevatten",
+            "billing_last_name.regex" => "Voer een geldige achternaam in",
+            "billing_last_name.max" => "Achternaam mag niet meer dan 50 karakters bevatten",
             "billing_street.required" => "Straat is verplicht",
+            "billing_street.regex" => "Voer een geldige straat in",
             "billing_house_number.required" => "Huisnummer is verplicht",
+            "billing_house_number.max_digits" => "Huisnummer mag niet meer dan 5 cijfers bevatten",
             "billing_postal_code.required" => "Postcode is verplicht",
-            "billing_postal_code.max" => "Postcode mag niet meer dan 10 cijfers bevatten",
+            "billing_postal_code.max" => "Postcode mag niet meer dan 10 tekens bevatten",
+            "billing_postal_code.regex" => "Voer een geldige postcode in",
             "billing_city.required" => "Plaats is verplicht",
             "billing_city.string" => "Plaats mag alleen karakters bevatten",
+            "billing_city.max" => "Plaats mag niet meer dan 20 karakters bevatten",
+            "billing_city.regex" => "Voer een geldige plaats in",
             "billing_phone_number.required" => "Telefoonnummer is verplicht",
             "billing_phone_number.dutch-phone-number" => "Telefoonnummer moet een Nederlands telefoonnummer zijn",
             "billing_email.required" => "Email is verplicht",
-            "billing_email.unique" => "Email is al in gebruik"
+            "billing_email.unique" => "Email is al in gebruik",
+            "billing_email.email" => "Email moet een geldig email adres zijn",
+           // "billing_email.unique" => "Email is al in gebruik"
         ]
     );
 
@@ -188,8 +201,8 @@ class CartController extends Controller
             'phone_number' => $request->input("billing_phone_number"),
             'email' => $request->input("billing_email"),
         ]
-    ]);
-} 
+        ]);
+    } 
     
     else{
         session()->put("customer", [
@@ -220,10 +233,12 @@ class CartController extends Controller
         ]);
       
     }
+    $customer = session()->get("customer", []);
 
     
+    //$request->session()->flush();
 
-    return redirect()->route("cart.summary")->withInput();
+    return redirect()->route("cart.summary");
     
     }
     
@@ -242,7 +257,7 @@ class CartController extends Controller
                 
         foreach($cart as $id => $details){
             $product_total = $details["quantity"] * $details["price"]; 
-            $product_btw = $details["vat"]/100 * $product_total;
+            $product_btw = $details["product_btw"];
             $btw += $product_btw;
             $subtotal += $product_total;
             $subtotal_incl += $product_total + $product_btw;
@@ -263,10 +278,14 @@ class CartController extends Controller
 
 public function updateFromCart(Request $request, $productId)
     {
+        //dd($request);
         $cart = $request->session()->get('cart');
 
         if(isset($cart[$productId])) {
             $cart[$productId]['quantity'] = $request->quantity;
+            $cart[$productId]["total_exc"] = $cart[$productId]["quantity"] * $cart[$productId]["price"];
+            $cart[$productId]["product_btw"] = $cart[$productId]["vat"]/100 * ($cart[$productId]["price"] *  $cart[$productId]["quantity"]);
+            $cart[$productId]["total_inc"] =  $cart[$productId]["total_exc"] +  $cart[$productId]["product_btw"];
             $request->session()->put('cart', $cart);
             $btw = 0;
             $articles = 0;
@@ -349,6 +368,7 @@ public function updateFromCart(Request $request, $productId)
                 "product_id" => $id,
                 "product_name" => $details["name"],
                 "product_price" => $details["price"],
+                "product_image" => $details["image"],
                 "quantity" => $details["quantity"],
                 "total_exc" => $details["total_exc"],
                 "vat" => $details["product_btw"],

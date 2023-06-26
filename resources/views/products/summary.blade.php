@@ -15,7 +15,7 @@
           </div>
           
           <div class="col-6">
-            <div class="card p-3  ">
+            <div class="card p-3">
             <h2>Factuuradres</h2>
             <div class="mt-3">
             @foreach($billingaddress as $key => $value)
@@ -34,7 +34,7 @@
                   <th class="py-2 px-3 border-b">Product</th>
                   <th class="py-2 px-3 border-b"></th>
                   <th class="py-2 px-5 border-b">Aantal</th>
-                  <th class="px-4 border-b">Prijs</th>
+                  <th class="px-3 border-b">Prijs</th>
                   <th class="py-2 px-3 border-b">Subtotaal</th>
               </tr>
             </thead>
@@ -53,6 +53,7 @@
         </div>
       </div>
 
+      
 
       </div>
 

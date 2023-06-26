@@ -67,10 +67,7 @@ class GuestViewController extends Controller
     ]);
     }
 
-    public function OrdersOverwiewIndex()
-    {
-       return view("admin.users.ordersoverview");
-    }
+    
 
     public function updateUser(StoreProfileRequest $request, User $user){
         $user->name = $request->name;

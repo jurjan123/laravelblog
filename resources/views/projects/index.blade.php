@@ -15,10 +15,11 @@
     </select>
     </div>
   </div>
-    <div class="row gy-4 w-100">
+    <div class="row gy-3 w-100">
+      
       @foreach($projects as $project)
       
-        <div class="col-4  w-30">
+        <div class="col-4 ">
             <div class="card h-100">
               @if($project->image != "Monkey-Puppet.png")
               <img src="{{url("images/". $project->image)}}" class="card-img-top w-100" alt="...">

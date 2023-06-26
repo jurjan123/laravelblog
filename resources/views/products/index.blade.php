@@ -12,11 +12,10 @@
       </select>
       </div>
     </div>
-      <div class="row gy-4 w-100">
-        @foreach($products as $product)
-        
-          <div class="col-4">
-              <div class="card h-100 ">
+          <div class="row">
+            <div class="card col-3 "></div>
+          @foreach($products as $product)
+              <div class="card w-25 ">
                 @if($product->image != "Monkey-Puppet.png")
                 <a href="{{route("products.show", $product->id)}}"><img src="{{url("images/". $product->image)}}" style="cursor:pointer" class="card-img-top h-50%"  alt="..."></a>
                 @else
@@ -24,8 +23,12 @@
                 @endif
                   <div class="card-body">
                     <h5 class="card-title">{{$product->name}}</h5>
-                   
-                    <p class="card-text"><i class="bi bi-currency-euro"></i>{{str_replace(".", ",", $product->price)}}</p>
+                    @if(!empty($product->discount))
+                    <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>Meestal <s>{{str_replace(".", ",", number_format($product->price + $product->discount,2))}}</s> <span class="badge  text-bg-danger">%{{$product->discount_percent}}</span> </p>
+                    <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{str_replace(".", ",", number_format($product->price,2))}}</p>
+                    @else
+                    <p class="card-text mt-3"><i class="bi bi-currency-euro"></i>{{str_replace(".", ",", number_format($product->price,2))}}</p>
+                    @endif
                     
                     <div class="d-flex justify-content-between">
                       <a href="{{route("products.show", $product->id)}}" class="btn btn-primary">Bekijk product</a>
@@ -37,11 +40,10 @@
                     
                   </div>
                 </div>
-          </div>
-         
+          
          @endforeach
-      </div>
+        </div>
+       
+       
       {{$products->links()}}
-
-      @yield("cards")
   </x-guest-layout>

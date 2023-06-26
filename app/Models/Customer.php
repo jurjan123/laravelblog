@@ -22,4 +22,8 @@ class Customer extends Model
         "phone_number",
         "email_adress",
     ];
+
+    public function Orders(){
+        return $this->belongsTo(Order::class);
+    }
 }

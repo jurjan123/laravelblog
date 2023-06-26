@@ -20,16 +20,17 @@ class ProductSeeder extends Seeder
         DB::table("products")->insert([
             [
                 "name" => "voetbalschoenen",
-                
                 "price" => "60.00",
                 "description" => "voor voetbal",
-               
+                "stock" => 50,
+                "vat" => 21,
                 "created_at" => $ldate,
                 "updated_at" => $ldate,
             ],
             [
                 "name" => "voetbalshirt",
-               
+                "stock" => 50,
+                "vat" => 21,
                 "price" => "40.00",
                 "description" => "mooi blauw voetbalshirt",
                 "created_at" => $ldate,
@@ -39,7 +40,8 @@ class ProductSeeder extends Seeder
             ],
             [
                 "name" => "golfbal",
-                
+                "stock" => 50,
+                "vat" => 21,
                 "price" => "10.00",
                 "description" => "golfbal die erg hard is",
                 "created_at" => $ldate,
@@ -49,7 +51,8 @@ class ProductSeeder extends Seeder
             ],
             [
                 "name" => "honkbalknuppel",
-                
+                "stock" => 50,
+                "vat" => 21,
                 "price" => "70.00",
                 "description" => "lange honkbalknuppel",
                 "created_at" => $ldate,
@@ -57,7 +60,8 @@ class ProductSeeder extends Seeder
             ],
             [
                 "name" => "keepershandschoenen",
-                
+                "stock" => 50,
+                "vat" => 21,
                 "price" => "30.00",
                 "description" => "keeperhandschoenen met fingersafe",
                 "created_at" => $ldate,

@@ -11,7 +11,31 @@
     @endif
 
     <div class="container-fluid text-center">
+        @if(session("error"))
+        <div class="alert alert-danger fade show ">
+            
+            <strong>er is iets fout gegaan</strong>
+            
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+        @endif
     
+        @if($errors->any() && Route::is("cart.address"))
+        <div class="alert alert-danger fade show ">
+            
+            <strong>Er is iets fout gegaan</strong>
+            
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+        @elseif($errors->hasbag("billing"))
+        <div class="alert alert-danger fade show ">
+            
+            <strong>Er is iets fout gegaan</strong>
+            
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
+        </div>
+        
+        @endif
         @if($errors->any())
         @if(Route::is("admin.posts.edit"))
         <div class="alert alert-danger fade show ">
@@ -23,7 +47,8 @@
         @elseif(Route::is("admin.projects.edit"))
         <div class="alert alert-danger fade show ">
             <strong>Project kon niet bewerkt worden</strong>
-            <button  type="button" class="btn-close " data-bs-dismiss="alert"></button>
+            <button  type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
         </div>
 
         @elseif(Route::is("admin.posts.create"))
@@ -95,6 +120,9 @@
             <strong>Product kon niet aangemaakt worden</strong>
             <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
         </div>
+
+        @elseif($errors->any())
+       
         
        
         @endif

@@ -31,6 +31,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get("account/orders/overview", [OrderController::class, "index"])->name("users.orders.overview");
+Route::get("account/orders/overview/search", [OrderController::class, "show"])->name("users.orders.search");
+Route::get("account/orders/{order}/overview", [OrderController::class, "orderDetailsIndex"])->name("users.orders.orderdetailsoverview");
+
 Route::get("/posts", [GuestViewController::class, "PostIndex"])->name("posts.index");
 Route::get("/projects", [GuestViewController::class, "ProjectIndex"])->name("projects.index");
 Route::get("/categories", [GuestViewController::class, "CategoryIndex"])->name("categories.index");
@@ -41,8 +45,9 @@ Route::match(["post", "get"], "/cart/add/{id}", [CartController::class, "addToCa
 Route::delete("/cart/delete/{id}", [CartController::class, "deleteFromCart"])->name("cart.delete");
 Route::post('/cart/update/{productId}', [CartController::class, "updateFromCart"])->name("cart.update");
 
+
 Route::get("/cart/address",[CartController::class, "addressIndex"])->name("cart.address");
-Route::post("/cart/address/store", [CartController::class, "StoreCustomer"])->name( "cart.address.store");
+Route::post("/cart/address/store", [CartController::class, "storeCustomer"])->name("cart.address.store");
 
 Route::get("/cart/summary", [CartController::class, "summaryIndex"])->name("cart.summary");
 Route::get("/cart/order", [CartController::class, "storeOrderData"])->name("cart.order");
@@ -67,7 +72,6 @@ Route::group(["prefix" => "user", "middleware" => "auth"], function(){
 
     Route::get("tasks", [GuestViewController::class, "TaskIndex"])->name("users.tasks.index");
     
-    Route::get("/orders/overview", [GuestViewController::class, "OrdersOverwiewIndex"])->name("users.orders.overview");
 });
    
 Route::get("/posts/show/{id}", [PostController::class, "show"])->name("posts.show");

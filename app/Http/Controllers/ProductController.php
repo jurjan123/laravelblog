@@ -38,11 +38,13 @@ class ProductController extends Controller
 
     public function category_search(Request $request)
     {
-        $products = Category::find($request->id)->products()->orderByRaw('quantity DESC')->latest()->paginate(15);
+        $products = Category::find($request->id)->products()->latest()->paginate(15);
         
         $categories = Category::all();
         return view('admin.products.index', compact("products", "categories"));
     }
+
+   
 
     /**
      * Show the form for creating a new resource.
@@ -66,11 +68,13 @@ class ProductController extends Controller
         
         $product = new Product;
         $product->name = $request->name;
-        $product->price = $request->price;
+        $product->discount_percent = $request->price / 100 * $request->discount;
+        $product->price = $request->price - $request->discount;
         $product->description = $request->description;
         $product->stock = $request->stock;
         $product->vat = $request->vat;
         $product->discount =  $request->discount;
+      
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/'), $image_name);
@@ -135,12 +139,13 @@ class ProductController extends Controller
     {
         
         $product->name = $request->name;
-        $product->price = $request->price;
+        $product->discount_percent = 100 / $request->price * $request->discount;
+        $product->discount = $request->discount;
+        $product->price = $request->price - $request->discount;
         $product->description = $request->description;
         $product->stock = $request->stock;
         $product->vat = $request->vat;
-        $product->discount = $request->discount;
-       // $product->discount_percent = $request->price / 100 * $request->discount;
+        
         
         if($request->hasFile("image")){
             $image_name = time() . '.' . $request->image->extension();
